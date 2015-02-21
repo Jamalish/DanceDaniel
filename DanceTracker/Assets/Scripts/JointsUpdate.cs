@@ -10,7 +10,7 @@ using Xtr3D.Net.ExtremeMotion.Interop.Types;
 public class JointsUpdate : MonoBehaviour {
 	
 	private const float HEIGHT_MULTIPLIER = 2; // Value should be 2 when using ortographic camera in unity
-	private const int DEPTH_CONSTANT = 5; // Value should be 2 when using ortographic camera in unity
+	private const int DEPTH_CONSTANT = 2; // Value should be 2 when using ortographic camera in unity
 	
 	private float textureXPos;
 	private float textureYPos;
@@ -88,6 +88,12 @@ public class JointsUpdate : MonoBehaviour {
 				typesToJoints[JointType.ElbowRight] 	= skl.ElbowRight;
 				typesToJoints[JointType.HandRight]		= skl.HandRight;
 				typesToJoints[JointType.HandLeft] 		= skl.HandLeft;
+				/*typesToJoints[JointType.ShoulderLeft] 	= skl.ShoulderRight;
+				typesToJoints[JointType.ShoulderRight]	= skl.ShoulderLeft;
+				typesToJoints[JointType.ElbowLeft] 		= skl.ElbowRight;
+				typesToJoints[JointType.ElbowRight] 	= skl.ElbowLeft;
+				typesToJoints[JointType.HandRight]		= skl.HandLeft;
+				typesToJoints[JointType.HandLeft] 		= skl.HandRight;*/
 				typesToJoints[JointType.Head] 			= skl.Head;
 			}
 		}
@@ -109,12 +115,13 @@ public class JointsUpdate : MonoBehaviour {
 		{
 			if (typesToJoints [type].jointTrackingState == JointTrackingState.Tracked)
 			{
-				float x = textureXPos +     typesToJoints[type].skeletonPoint.ImgCoordNormHorizontal * textureDimensionX;
+				float x = textureXPos + typesToJoints[type].skeletonPoint.ImgCoordNormHorizontal * textureDimensionX;
 				float y = textureYPos + -1* typesToJoints[type].skeletonPoint.ImgCoordNormVertical * textureDimensionY;
-				float z = DEPTH_CONSTANT;
+				//float z = DEPTH_CONSTANT;
+				float z = DEPTH_CONSTANT + typesToJoints[type].skeletonPoint.Z;
 				
 				jointsGameObjects[type].SetActive(true);
-				jointsGameObjects[type].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x, y, z));
+				jointsGameObjects[type].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x , y, z));
 			}
 			else 
 			{
