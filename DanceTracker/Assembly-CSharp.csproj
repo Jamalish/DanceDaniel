@@ -46,9 +46,24 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\FrameRateCalc.cs" />
+     <Compile Include="Assets\Scripts\GesturesDetection.cs" />
+     <Compile Include="Assets\Scripts\JointsUpdate.cs" />
+     <Compile Include="Assets\Scripts\OrientationTextManager.cs" />
+     <Compile Include="Assets\Scripts\RgbTextureUpdate.cs" />
      <Compile Include="Assets\Scripts\SkeletonGen.cs" />
+     <Compile Include="Assets\Scripts\StartStopDrawingRGB.cs" />
+     <Compile Include="Assets\Scripts\TrackingStateUpdater.cs" />
+     <Compile Include="Assets\Scripts\WarningsUpdater.cs" />
+     <Compile Include="Assets\Scripts\Xtr3dGeneratorStateManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Xtr3D.Net">
+ <HintPath>C:/Users/Daniel/Documents/DanceDaniel/DanceTracker/Assets/Plugins/Xtr3D.Net.dll</HintPath>
+ </Reference>
+ <Reference Include="Xtr3D.Net.ExtremeMotion">
+ <HintPath>C:/Users/Daniel/Documents/DanceDaniel/DanceTracker/Assets/Plugins/Xtr3D.Net.ExtremeMotion.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
