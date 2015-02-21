@@ -24,12 +24,32 @@ public class JointsUpdate : MonoBehaviour {
 	private FrameRateCalc frameRateCalc;
 
 	public GameObject joint;
-	
+
+	// current target sphere locations
+	private GameObject handTarget, elbowTarget;
+	private SphereCollider handTargetCollider, elbowTargetCollider;
+	private int currentLocIndex = 1;
+	private float[, ,] targetLoc = new float[,,] {
+		{ { 1.0f, 1.5f, -6.0f }, { -2.0f, 1.5f, -6.0f } }, 
+		{ { -0.5f, 1.5f, -6.0f }, { -0.5f, 0.1f, -6.0f } },
+		{ { -1.5f, 1.0f, -4.5f }, { -1.5f, 1.0f, -4.5f } }
+	};
+
 	private Dictionary<JointType, GameObject> jointsGameObjects = new Dictionary<JointType, GameObject>();
 	private Dictionary<JointType, Xtr3D.Net.ExtremeMotion.Data.Joint> typesToJoints = new Dictionary<JointType, Xtr3D.Net.ExtremeMotion.Data.Joint>();
-	
-	private JointType[] jointTypesArray = new JointType[]{ JointType.Head ,JointType.ShoulderCenter,JointType.Spine,JointType.HipCenter,JointType.ShoulderLeft
-										 ,JointType.ShoulderRight, JointType.ElbowLeft, JointType.ElbowRight,JointType.HandRight,JointType.HandLeft };
+
+	private JointType[] jointTypesArray = new JointType[] { 
+		JointType.Head,
+		JointType.ShoulderCenter,
+		JointType.Spine,
+		JointType.HipCenter,
+		JointType.ShoulderLeft,
+		JointType.ShoulderRight,
+		JointType.ElbowLeft,
+		JointType.ElbowRight,
+		JointType.HandRight,
+		JointType.HandLeft 
+	};
 	
 	long lastFrameID = -1;
 	long currFrameID = -1;
@@ -41,6 +61,19 @@ public class JointsUpdate : MonoBehaviour {
         Xtr3dGeneratorStateManager.RegisterDataCallback(MyDataFrameReady);
 		// init frameRateCalc for calculating avarage running fps in the last given frames
 		frameRateCalc = new FrameRateCalc(50);
+		
+		// init targets
+		handTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		handTarget.transform.position = new Vector3((float)1.0, (float)(1.5), (float)(-6.0));
+		handTargetCollider = handTarget.gameObject.AddComponent<SphereCollider>();
+		handTargetCollider.center = Vector3.zero;
+		handTargetCollider.radius = 1.0f;
+
+		elbowTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		elbowTarget.transform.position = new Vector3((float)-2.0, (float)(1.5), (float)(-6.0));
+		elbowTargetCollider = elbowTarget.gameObject.AddComponent<SphereCollider>();
+		elbowTargetCollider.center = Vector3.zero;
+		elbowTargetCollider.radius = 1.0f;
 	}
 	
 	private void CalculateTextureParams()
@@ -50,8 +83,7 @@ public class JointsUpdate : MonoBehaviour {
 		textureDimensionY = Math.Abs(myCube.transform.localScale.y * (Screen.height/heightMeasure)); // calculating current cube size accroding to current screen resolution
 		Vector3 cubePos = Camera.main.WorldToScreenPoint(myCube.transform.position);
 		textureXPos = cubePos.x - textureDimensionX/2;
-		textureYPos = cubePos.y + textureDimensionY/2;
-		
+		textureYPos = cubePos.y + textureDimensionY/2;	
 	}
 	
 	private void CreateJoints()
@@ -99,36 +131,53 @@ public class JointsUpdate : MonoBehaviour {
 		}
 		
 	}
+
 	// Update is called once per frame
 	void OnGUI () {
-		//display in our text component the avg fps
+		// Display in our text component the avg fps
 		guiTextComponent.text = System.String.Format("{0:F2} Skeleton FPS",frameRateCalc.GetAvgFps());
 	}
 	
 	void Update()
 	{
-		//don`t do anything if no info was passed yet
+		// Don't do anything if no info was passed yet
 		if (!typesToJoints.ContainsKey(JointType.Head))
 			return;
 		
+		// Loop through each JointType
 		foreach (JointType type in jointTypesArray)
 		{
+			// Update positions if tracked
 			if (typesToJoints [type].jointTrackingState == JointTrackingState.Tracked)
 			{
 				float x = textureXPos + typesToJoints[type].skeletonPoint.ImgCoordNormHorizontal * textureDimensionX;
 				float y = textureYPos + -1* typesToJoints[type].skeletonPoint.ImgCoordNormVertical * textureDimensionY;
-				//float z = DEPTH_CONSTANT;
+				// TODO: determine proportional DEPTH_MODIFIER to more closely emulate real life
 				float z = DEPTH_CONSTANT + typesToJoints[type].skeletonPoint.Z;
 				
+				// (re-)activate joint and update position
 				jointsGameObjects[type].SetActive(true);
 				jointsGameObjects[type].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x , y, z));
+
+				// TODO:
+				//		check for joint collision
+				if (Input.GetKeyDown (KeyCode.N))
+				{
+					print ("N pressed");
+					handTarget.transform.position = new Vector3(targetLoc[currentLocIndex,0,0], targetLoc[currentLocIndex,0,1], targetLoc[currentLocIndex,0,2]);
+					elbowTarget.transform.position = new Vector3(targetLoc[currentLocIndex,1,0], targetLoc[currentLocIndex,1,1], targetLoc[currentLocIndex,1,2]);
+					currentLocIndex++;
+					if (currentLocIndex > 2)
+					{
+						currentLocIndex = 0;
+					}
+				}
 			}
+			// Deactivate otherwise
 			else 
 			{
 				jointsGameObjects[type].SetActive(false);
 			}
 		}
 	}
-	
-	
 }
