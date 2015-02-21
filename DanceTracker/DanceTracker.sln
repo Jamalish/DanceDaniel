@@ -5,6 +5,8 @@ Project("{AD520B49-EC1F-EF45-CDEA-25889918D2FC}") = "DanceTracker", "Assembly-CS
 EndProject
 Project("{AD520B49-EC1F-EF45-CDEA-25889918D2FC}") = "DanceTracker", "Assembly-CSharp.csproj", "{87CDAD3C-8ED6-4DAA-2F73-5F20B80C7974}"
 EndProject
+Project("{AD520B49-EC1F-EF45-CDEA-25889918D2FC}") = "DanceTracker", "Assembly-CSharp-Editor.csproj", "{DEACB8D6-406D-78BA-1CE6-921232019537}"
+EndProject
 Project("{AD520B49-EC1F-EF45-CDEA-25889918D2FC}") = "DanceTracker", "Assembly-UnityScript-firstpass.unityproj", "{1CB25C6F-18F7-0331-3951-50F6BCE3E8EE}"
 EndProject
 Global
@@ -21,6 +23,10 @@ Global
 		{87CDAD3C-8ED6-4DAA-2F73-5F20B80C7974}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87CDAD3C-8ED6-4DAA-2F73-5F20B80C7974}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87CDAD3C-8ED6-4DAA-2F73-5F20B80C7974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEACB8D6-406D-78BA-1CE6-921232019537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEACB8D6-406D-78BA-1CE6-921232019537}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEACB8D6-406D-78BA-1CE6-921232019537}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEACB8D6-406D-78BA-1CE6-921232019537}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1CB25C6F-18F7-0331-3951-50F6BCE3E8EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1CB25C6F-18F7-0331-3951-50F6BCE3E8EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CB25C6F-18F7-0331-3951-50F6BCE3E8EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,7 +35,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-								GlobalSection(MonoDevelopProperties) = preSolution
+																			GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
