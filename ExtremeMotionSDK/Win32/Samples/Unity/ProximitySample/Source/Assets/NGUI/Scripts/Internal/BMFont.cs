@@ -3,7 +3,7 @@
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
-using UnityEngine;
+   // using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
@@ -15,7 +15,7 @@ public class BMFont
 {
 	[HideInInspector][SerializeField] int mSize = 0;			// How much to move the cursor when moving to the next line
 	[HideInInspector][SerializeField] int mBase = 0;			// Offset from the top of the line to the base of each character
-	[HideInInspector][SerializeField] int mWidth = 0;			// Original width of the texture
+					[HideInInspector][SerializeField] int mWidth = 0;			// Original width of the texture
 	[HideInInspector][SerializeField] int mHeight = 0;			// Original height of the texture
 	[HideInInspector][SerializeField] string mSpriteName;
 
@@ -34,7 +34,6 @@ public class BMFont
 	/// <summary>
 	/// Size of this font (for example 32 means 32 pixels).
 	/// </summary>
-
 	public int charSize { get { return mSize; } set { mSize = value; } }
 
 	/// <summary>
@@ -53,9 +52,9 @@ public class BMFont
 	/// Original height of the texture.
 	/// </summary>
 
-	public int texHeight { get { return mHeight; } set { mHeight = value; } }
+    public int texHeight { get { return mHeight; } set { mHeight = value; } }
 
-	/// <summary>
+		/// <summary>
 	/// Number of valid glyphs.
 	/// </summary>
 
@@ -86,6 +85,7 @@ public class BMFont
 			}
 		}
 
+
 		// Saved check is here so that the function call is not needed if it's true
 		if (!mDict.TryGetValue(index, out glyph) && createIfMissing)
 		{
@@ -93,8 +93,8 @@ public class BMFont
 			glyph.index = index;
 			mSaved.Add(glyph);
 			mDict.Add(index, glyph);
-		}
-		return glyph;
+ //  		}
+return glyph;
 	}
 
 	/// <summary>
@@ -112,8 +112,7 @@ public class BMFont
 		mDict.Clear();
 		mSaved.Clear();
 	}
-
-	/// <summary>
+    	/// <summary>
 	/// Trim the glyphs, ensuring that they will never go past the specified bounds.
 	/// </summary>
 

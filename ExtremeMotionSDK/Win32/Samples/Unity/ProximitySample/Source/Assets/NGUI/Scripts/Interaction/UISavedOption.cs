@@ -1,11 +1,11 @@
 //----------------------------------------------
-//            NGUI: Next-Gen UI kit
+ ////            NGUI: Next-Gen UI kit
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
 
-/// <summary>
+            /// <summary>
 /// Attach this script to a popup list, the parent of a group of checkboxes, or to a checkbox itself to save its state.
 /// </summary>
 
@@ -32,10 +32,9 @@ public class UISavedOption : MonoBehaviour
 		mList = GetComponent<UIPopupList>();
 		mCheck = GetComponent<UICheckbox>();
 		if (mList != null) mList.onSelectionChange += SaveSelection;
-		if (mCheck != null) mCheck.onStateChange += SaveState;
+    //  		if (mCheck != null) mCheck.onStateChange += SaveState;
 	}
-
-	/// <summary>
+       	/// <summary>
 	/// Remove the callback.
 	/// </summary>
 
@@ -43,10 +42,10 @@ public class UISavedOption : MonoBehaviour
 	{
 		if (mCheck != null) mCheck.onStateChange -= SaveState;
 		if (mList != null) mList.onSelectionChange -= SaveSelection;
-	}
+}
 
 	/// <summary>
-	/// Load and set the state of the checkboxes.
+  /// Load and set the state of the checkboxes.
 	/// </summary>
 
 	void OnEnable ()
@@ -64,8 +63,8 @@ public class UISavedOption : MonoBehaviour
 		}
 		else
 		{
-			string s = PlayerPrefs.GetString(key);
-			UICheckbox[] checkboxes = GetComponentsInChildren<UICheckbox>(true);
+                string s = PlayerPrefs.GetString(key);
+				UICheckbox[] checkboxes = GetComponentsInChildren<UICheckbox>(true);
 
 			for (int i = 0, imax = checkboxes.Length; i < imax; ++i)
 			{
@@ -96,13 +95,13 @@ public class UISavedOption : MonoBehaviour
 				}
 			}
 		}
-	}
+					}
 
 	/// <summary>
 	/// Save the selection.
 	/// </summary>
 
-	void SaveSelection (string selection) { PlayerPrefs.SetString(key, selection); }
+               void SaveSelection (string selection) { PlayerPrefs.SetString(key, selection); }
 
 	/// <summary>
 	/// Save the state.

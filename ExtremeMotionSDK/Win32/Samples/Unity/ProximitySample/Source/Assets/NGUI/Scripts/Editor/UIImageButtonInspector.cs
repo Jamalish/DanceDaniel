@@ -2,6 +2,7 @@
 //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
+//----------------------------------------------
 
 using UnityEngine;
 using UnityEditor;
@@ -19,34 +20,32 @@ public class UIImageButtonInspector : Editor
 
 	/// <summary>
 	/// Atlas selection callback.
-	/// </summary>
-
-	void OnSelectAtlas (MonoBehaviour obj)
+     //   	/// </summary>
+					  void OnSelectAtlas (MonoBehaviour obj)
 	{
 		if (mButton.target != null)
-		{
+     // 		{
 			NGUIEditorTools.RegisterUndo("Atlas Selection", mButton.target);
 			mButton.target.atlas = obj as UIAtlas;
 			mButton.target.MakePixelPerfect();
 		}
-	}
+     //	}
 
-	public override void OnInspectorGUI ()
+					public override void OnInspectorGUI ()
 	{
-		EditorGUIUtility.LookLikeControls(80f);
+   EditorGUIUtility.LookLikeControls(80f);
 		mButton = target as UIImageButton;
 		mSprite = EditorGUILayout.ObjectField("Sprite", mButton.target, typeof(UISprite), true) as UISprite;
-
-		if (mButton.target != mSprite)
+     		if (mButton.target != mSprite)
 		{
 			NGUIEditorTools.RegisterUndo("Image Button Change", mButton);
 			mButton.target = mSprite;
 			if (mSprite != null) mSprite.spriteName = mButton.normalSprite;
-		}
+					}
 
 		if (mSprite != null)
 		{
-			ComponentSelector.Draw<UIAtlas>(mSprite.atlas, OnSelectAtlas);
+    ComponentSelector.Draw<UIAtlas>(mSprite.atlas, OnSelectAtlas);
 
 			if (mSprite.atlas != null)
 			{
@@ -72,11 +71,11 @@ public class UIImageButtonInspector : Editor
 		NGUIEditorTools.RegisterUndo("Image Button Change", mButton, mButton.gameObject, mSprite);
 		mButton.hoverSprite = spriteName;
 		Repaint();
-	}
-
+ }
+//
 	void OnPressed (string spriteName)
 	{
-		NGUIEditorTools.RegisterUndo("Image Button Change", mButton, mButton.gameObject, mSprite);
+                 NGUIEditorTools.RegisterUndo("Image Button Change", mButton, mButton.gameObject, mSprite);
 		mButton.pressedSprite = spriteName;
 		Repaint();
 	}

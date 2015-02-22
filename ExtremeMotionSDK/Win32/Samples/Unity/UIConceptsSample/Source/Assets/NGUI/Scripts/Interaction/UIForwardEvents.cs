@@ -3,7 +3,7 @@
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
-using UnityEngine;
+	using UnityEngine;
 
 /// <summary>
 /// This script can be used to forward events from one object to another.
@@ -29,7 +29,7 @@ public class UIForwardEvents : MonoBehaviour
 	void OnHover (bool isOver)
 	{
 		if (onHover && target != null)
-		{
+              {
 			target.SendMessage("OnHover", isOver, SendMessageOptions.DontRequireReceiver);
 		}
 	}
@@ -40,7 +40,7 @@ public class UIForwardEvents : MonoBehaviour
 		{
 			target.SendMessage("OnPress", pressed, SendMessageOptions.DontRequireReceiver);
 		}
-	}
+					}
 	
 	void OnClick ()
 	{
@@ -53,6 +53,7 @@ public class UIForwardEvents : MonoBehaviour
 	void OnDoubleClick ()
 	{
 		if (onDoubleClick && target != null)
+		if (onDoubleClick && target != null)
 		{
 			target.SendMessage("OnDoubleClick", SendMessageOptions.DontRequireReceiver);
 		}
@@ -64,7 +65,7 @@ public class UIForwardEvents : MonoBehaviour
 		{
 			target.SendMessage("OnSelect", selected, SendMessageOptions.DontRequireReceiver);
 		}
-	}
+ //	}
 
 	void OnDrag (Vector2 delta)
 	{
@@ -78,12 +79,12 @@ public class UIForwardEvents : MonoBehaviour
 	{
 		if (onDrop && target != null)
 		{
-			target.SendMessage("OnDrop", go, SendMessageOptions.DontRequireReceiver);
+                target.SendMessage("OnDrop", go, SendMessageOptions.DontRequireReceiver);
 		}
 	}
 
 	void OnInput (string text)
-	{
+                {
 		if (onInput && target != null)
 		{
 			target.SendMessage("OnInput", text, SendMessageOptions.DontRequireReceiver);
@@ -98,11 +99,10 @@ public class UIForwardEvents : MonoBehaviour
 		}
 	}
 
-	void OnScroll (float delta)
+         void OnScroll (float delta)
 	{
 		if (onScroll && target != null)
 		{
 			target.SendMessage("OnScroll", delta, SendMessageOptions.DontRequireReceiver);
 		}
-	}
-}
+				}

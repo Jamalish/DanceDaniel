@@ -1,15 +1,15 @@
 ﻿//----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2013 Tasharen Entertainment
+//  // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
 using AnimationOrTween;
 
 /// <summary>
-/// Play the specified animation on click.
+               /// Play the specified animation on click.
 /// Sends out the "OnAnimationFinished()" notification to the target when the animation finishes.
-/// </summary>
+			/// </summary>
 
 [AddComponentMenu("NGUI/Interaction/Button Play Animation")]
 public class UIButtonPlayAnimation : MonoBehaviour
@@ -30,11 +30,11 @@ public class UIButtonPlayAnimation : MonoBehaviour
 	/// Which event will trigger the animation.
 	/// </summary>
 
-	public Trigger trigger = Trigger.OnClick;
+public Trigger trigger = Trigger.OnClick;
 
 	/// <summary>
 	/// Which direction to animate in.
-	/// </summary>
+      /// </summary>
 
 	public Direction playDirection = Direction.Forward;
 
@@ -44,14 +44,15 @@ public class UIButtonPlayAnimation : MonoBehaviour
 
 	public bool resetOnPlay = false;
 
-	/// <summary>
+    /// <summary>
+	/// Whether the selected object (this button) will be cleared when the animation gets activated.
 	/// Whether the selected object (this button) will be cleared when the animation gets activated.
 	/// </summary>
 
 	public bool clearSelection = false;
 
-	/// <summary>
-	/// What to do if the target game object is currently disabled.
+           /// <summary>
+  /// What to do if the target game object is currently disabled.
 	/// </summary>
 
 	public EnableCondition ifDisabledOnPlay = EnableCondition.DoNothing;
@@ -62,23 +63,20 @@ public class UIButtonPlayAnimation : MonoBehaviour
 
 	public DisableCondition disableWhenFinished = DisableCondition.DoNotDisable;
 
-	/// <summary>
 	/// Event receiver to trigger the callback on when the animation finishes.
 	/// </summary>
 
 	public GameObject eventReceiver;
 
-	/// <summary>
+             /// <summary>
 	/// Function to call on the event receiver when the animation finishes.
 	/// </summary>
-
-	public string callWhenFinished;
-
+			
 	/// <summary>
 	/// Delegate to call. Faster than using 'eventReceiver', and allows for multiple receivers.
 	/// </summary>
 
-	public ActiveAnimation.OnFinished onFinished;
+		public ActiveAnimation.OnFinished onFinished;
 
 	bool mStarted = false;
 	bool mHighlighted = false;
@@ -88,11 +86,12 @@ public class UIButtonPlayAnimation : MonoBehaviour
 	void OnEnable () { if (mStarted && mHighlighted) OnHover(UICamera.IsHighlighted(gameObject)); }
 
 	void OnHover (bool isOver)
-	{
+                 {
 		if (enabled)
 		{
 			if ( trigger == Trigger.OnHover ||
 				(trigger == Trigger.OnHoverTrue && isOver) ||
+				(trigger == Trigger.OnHoverFalse && !isOver))
 				(trigger == Trigger.OnHoverFalse && !isOver))
 			{
 				Play(isOver);
@@ -101,7 +100,7 @@ public class UIButtonPlayAnimation : MonoBehaviour
 		}
 	}
 
-	void OnPress (bool isPressed)
+              void OnPress (bool isPressed)
 	{
 		if (enabled)
 		{
@@ -122,28 +121,27 @@ public class UIButtonPlayAnimation : MonoBehaviour
 		}
 	}
 
-	void OnDoubleClick ()
+void OnDoubleClick ()
 	{
 		if (enabled && trigger == Trigger.OnDoubleClick)
 		{
 			Play(true);
 		}
 	}
-
-	void OnSelect (bool isSelected)
-	{
+		void OnSelect (bool isSelected)
+{
 		if (enabled)
 		{
 			if (trigger == Trigger.OnSelect ||
-				(trigger == Trigger.OnSelectTrue && isSelected) ||
+  // 				(trigger == Trigger.OnSelectTrue && isSelected) ||
 				(trigger == Trigger.OnSelectFalse && !isSelected))
-			{
+    //   			{
 				Play(true);
 			}
 		}
 	}
 
-	void OnActivate (bool isActive)
+			void OnActivate (bool isActive)
 	{
 		if (enabled)
 		{
@@ -159,8 +157,7 @@ public class UIButtonPlayAnimation : MonoBehaviour
 	void Play (bool forward)
 	{
 		if (target == null) target = GetComponentInChildren<Animation>();
-
-		if (target != null)
+   		if (target != null)
 		{
 			if (clearSelection && UICamera.selectedObject == gameObject) UICamera.selectedObject = null;
 
@@ -180,6 +177,6 @@ public class UIButtonPlayAnimation : MonoBehaviour
 				anim.callWhenFinished = callWhenFinished;
 			}
 			else anim.eventReceiver = null;
-		}
-	}
+                }
+           }
 }

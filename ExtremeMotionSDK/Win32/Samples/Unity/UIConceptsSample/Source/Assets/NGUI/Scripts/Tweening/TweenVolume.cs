@@ -2,12 +2,12 @@
 //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
-
+ // 
 using UnityEngine;
 
 /// <summary>
 /// Tween the audio source's volume.
-/// </summary>
+				/// </summary>
 
 [AddComponentMenu("NGUI/Tween/Volume")]
 public class TweenVolume : UITweener
@@ -17,21 +17,21 @@ public class TweenVolume : UITweener
 
 	AudioSource mSource;
 
-	/// <summary>
+               /// <summary>
 	/// Cached version of 'audio', as it's always faster to cache.
 	/// </summary>
 
-	public AudioSource audioSource
+     //	public AudioSource audioSource
 	{
 		get
 		{
 			if (mSource == null)
-			{
+              {
 				mSource = audio;
 				
 				if (mSource == null)
 				{
-					mSource = GetComponentInChildren<AudioSource>();
+             mSource = GetComponentInChildren<AudioSource>();
 
 					if (mSource == null)
 					{
@@ -57,7 +57,7 @@ public class TweenVolume : UITweener
 	override protected void OnUpdate (float factor, bool isFinished)
 	{
 		volume = from * (1f - factor) + to * factor;
-		mSource.enabled = (mSource.volume > 0.01f);
+mSource.enabled = (mSource.volume > 0.01f);
 	}
 
 	/// <summary>
@@ -76,5 +76,5 @@ public class TweenVolume : UITweener
 			comp.enabled = false;
 		}
 		return comp;
-	}
+      }
 }

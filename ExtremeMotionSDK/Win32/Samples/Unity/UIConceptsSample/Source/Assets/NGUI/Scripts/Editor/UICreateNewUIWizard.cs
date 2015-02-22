@@ -26,17 +26,16 @@ public class UICreateNewUIWizard : EditorWindow
 	/// Refresh the window on selection.
 	/// </summary>
 
-	void OnSelectionChange () { Repaint(); }
-
-	/// <summary>
-	/// Draw the custom wizard.
+                 void OnSelectionChange () { Repaint(); }
+					/// <summary>
+    //   	/// Draw the custom wizard.
 	/// </summary>
 
-	void OnGUI ()
-	{
+          void OnGUI ()
+        {
 		EditorGUIUtility.LookLikeControls(80f);
 
-		GUILayout.Label("Create a new UI with the following parameters:");
+                GUILayout.Label("Create a new UI with the following parameters:");
 		NGUIEditorTools.DrawSeparator();
 
 		GUILayout.BeginHorizontal();
@@ -51,19 +50,18 @@ public class UICreateNewUIWizard : EditorWindow
 		GUILayout.Label("Should this UI have a camera?");
 		GUILayout.EndHorizontal();
 
-		NGUIEditorTools.DrawSeparator();
+           NGUIEditorTools.DrawSeparator();
 		GUILayout.BeginHorizontal();
 		EditorGUILayout.PrefixLabel("When ready,");
 		bool create = GUILayout.Button("Create Your UI", GUILayout.Width(120f));
 		GUILayout.EndHorizontal();
 
 		if (create) CreateNewUI();
-	}
+}
 
-	/// <summary>
+              /// <summary>
 	/// Create a brand-new UI hierarchy.
 	/// </summary>
-
 	static public GameObject CreateNewUI ()
 	{
 		NGUIEditorTools.RegisterUndo("Create New UI");
@@ -74,7 +72,7 @@ public class UICreateNewUIWizard : EditorWindow
 		if (camType == CameraType.Simple2D)
 		{
 			root = new GameObject("UI Root (2D)");
-			root.AddComponent<UIRoot>().scalingStyle = UIRoot.Scaling.PixelPerfect;
+   //  			root.AddComponent<UIRoot>().scalingStyle = UIRoot.Scaling.PixelPerfect;
 		}
 		else
 		{
@@ -83,11 +81,10 @@ public class UICreateNewUIWizard : EditorWindow
 			root.AddComponent<UIRoot>().scalingStyle = UIRoot.Scaling.FixedSize;
 		}
 
-		// Assign the layer to be used by everything
 		root.layer = NGUISettings.layer;
 
 		// Figure out the depth of the highest camera
-		if (camType == CameraType.None)
+				if (camType == CameraType.None)
 		{
 			// No camera requested -- simply add a panel
 			UIPanel panel = NGUITools.AddChild<UIPanel>(root.gameObject);
@@ -95,6 +92,7 @@ public class UICreateNewUIWizard : EditorWindow
 		}
 		else
 		{
+			int mask = 1 << NGUISettings.layer;
 			int mask = 1 << NGUISettings.layer;
 			float depth = -1f;
 			bool clearColor = true;
@@ -111,9 +109,9 @@ public class UICreateNewUIWizard : EditorWindow
 				if (NGUISettings.layer != 0 && c.cullingMask != mask) c.cullingMask = (c.cullingMask & (~mask));
 
 				// Only consider this object if it's active
-				if (c.enabled && NGUITools.GetActive(c.gameObject)) clearColor = false;
+      if (c.enabled && NGUITools.GetActive(c.gameObject)) clearColor = false;
 
-				// If this camera has an audio listener, we won't need to add one
+ // 				// If this camera has an audio listener, we won't need to add one
 				if (c.GetComponent<AudioListener>() != null) audioListener = false;
 			}
 
@@ -140,7 +138,7 @@ public class UICreateNewUIWizard : EditorWindow
 			// We don't want to clear color if this is not the first camera
 			if (cameras.Count > 0) cam.clearFlags = clearColor ? CameraClearFlags.Skybox : CameraClearFlags.Depth;
 
-			// Add an audio listener if we need one
+                // Add an audio listener if we need one
 			if (audioListener) cam.gameObject.AddComponent<AudioListener>();
 
 			// Add a UI Camera for event handling
@@ -156,7 +154,7 @@ public class UICreateNewUIWizard : EditorWindow
 				UIPanel panel = NGUITools.AddChild<UIPanel>(anchor.gameObject);
 				Selection.activeGameObject = panel.gameObject;
 			}
-			else
+ else
 			{
 				UIPanel panel = NGUITools.AddChild<UIPanel>(root);
 				Selection.activeGameObject = panel.gameObject;

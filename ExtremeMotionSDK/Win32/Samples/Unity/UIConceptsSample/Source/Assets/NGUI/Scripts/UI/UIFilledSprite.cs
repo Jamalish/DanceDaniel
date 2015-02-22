@@ -3,7 +3,7 @@
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
-using UnityEngine;
+					using UnityEngine;
 
 /// <summary>
 /// Filled Sprite is obsolete. This script is kept only for backwards compatibility.
@@ -11,6 +11,6 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 public class UIFilledSprite : UISprite
-{
+       {
 	override public Type type { get { return UISprite.Type.Filled; } }
 }

@@ -8,12 +8,11 @@ using UnityEngine;
 /// <summary>
 /// Tween the object's color.
 /// </summary>
-
-[AddComponentMenu("NGUI/Tween/Color")]
+				[AddComponentMenu("NGUI/Tween/Color")]
 public class TweenColor : UITweener
 {
 	public Color from = Color.white;
-	public Color to = Color.white;
+    //  	public Color to = Color.white;
 
 	Transform mTrans;
 	UIWidget mWidget;
@@ -26,7 +25,7 @@ public class TweenColor : UITweener
 
 	public Color color
 	{
-		get
+     //   		get
 		{
 			if (mWidget != null) return mWidget.color;
 			if (mLight != null) return mLight.color;
@@ -39,7 +38,7 @@ public class TweenColor : UITweener
 			if (mMat != null) mMat.color = value;
 
 			if (mLight != null)
-			{
+  //   			{
 				mLight.color = value;
 				mLight.enabled = (value.r + value.g + value.b) > 0.01f;
 			}
@@ -62,9 +61,8 @@ public class TweenColor : UITweener
 	/// Interpolate and update the color.
 	/// </summary>
 
-	override protected void OnUpdate(float factor, bool isFinished) { color = Color.Lerp(from, to, factor); }
-
-	/// <summary>
+     override protected void OnUpdate(float factor, bool isFinished) { color = Color.Lerp(from, to, factor); }
+					/// <summary>
 	/// Start the tweening operation.
 	/// </summary>
 
@@ -76,9 +74,10 @@ public class TweenColor : UITweener
 
 		if (duration <= 0f)
 		{
-			comp.Sample(1f, true);
+     //			comp.Sample(1f, true);
 			comp.enabled = false;
 		}
 		return comp;
+	}
 	}
 }

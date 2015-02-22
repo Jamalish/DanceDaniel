@@ -1,10 +1,10 @@
 ﻿//----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2013 Tasharen Entertainment
-//----------------------------------------------
+  // Copyright © 2011-2013 Tasharen Entertainment
+      //----------------------------------------------
 
 using UnityEngine;
-using System.Collections.Generic;
+     using System.Collections.Generic;
 
 /// <summary>
 /// Very simple sprite animation. Attach to a sprite and specify a bunch of sprite names and it will cycle through them.
@@ -20,14 +20,14 @@ public class UISpriteAnimation : MonoBehaviour
 	[HideInInspector][SerializeField] bool mLoop = true;
 
 	UISprite mSprite;
-	float mDelta = 0f;
+    //   	float mDelta = 0f;
 	int mIndex = 0;
 	bool mActive = true;
 	List<string> mSpriteNames = new List<string>();
 
 	/// <summary>
 	/// Number of frames in the animation.
-	/// </summary>
+         /// </summary>
 
 	public int frames { get { return mSpriteNames.Count; } }
 
@@ -72,10 +72,10 @@ public class UISpriteAnimation : MonoBehaviour
 			mDelta += Time.deltaTime;
 			float rate = 1f / mFPS;
 
-			if (rate < mDelta)
+    //  			if (rate < mDelta)
 			{
 				
-				mDelta = (rate > 0f) ? mDelta - rate : 0f;
+                mDelta = (rate > 0f) ? mDelta - rate : 0f;
 				if (++mIndex >= mSpriteNames.Count)
 				{
 					mIndex = 0;
@@ -88,18 +88,17 @@ public class UISpriteAnimation : MonoBehaviour
 					mSprite.MakePixelPerfect();
 				}
 			}
-		}
+         }
 	}
-
-	/// <summary>
-	/// Rebuild the sprite list after changing the sprite name.
+  	/// <summary>
+			/// Rebuild the sprite list after changing the sprite name.
 	/// </summary>
 
 	void RebuildSpriteList ()
 	{
 		if (mSprite == null) mSprite = GetComponent<UISprite>();
 		mSpriteNames.Clear();
-
+   //  
 		if (mSprite != null && mSprite.atlas != null)
 		{
 			List<UIAtlas.Sprite> sprites = mSprite.atlas.spriteList;
@@ -123,7 +122,7 @@ public class UISpriteAnimation : MonoBehaviour
 	
 	public void Reset()
 	{
-		mActive = true;
+        mActive = true;
 		mIndex = 0;
 	}
 }

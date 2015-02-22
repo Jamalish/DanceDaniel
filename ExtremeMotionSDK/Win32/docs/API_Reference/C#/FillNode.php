@@ -1,5 +1,5 @@
 ﻿<?
-// Contributed to the Sandcastle Help File Builder project by Thomas Levesque
+				// Contributed to the Sandcastle Help File Builder project by Thomas Levesque
 
 header("Content-Type: text/html; charset=utf-8");
 $toc = new DOMDocument();
@@ -9,7 +9,7 @@ $id = $_GET["Id"];
 $nodes = $xpath->query("//HelpTOCNode[@Id='$id']/*");
 if ($nodes->length == 0)
 {
-?>
+       ?>
     <b>TOC node not found!</b>
 <?
     die();
@@ -25,10 +25,10 @@ foreach($nodes as $node)
         $target = "";
     }
     else
-    {
+				{
         $target = " target=\"TopicContent\"";
     }
-
+   //   
     if ($node->hasChildNodes())
     {
 ?>

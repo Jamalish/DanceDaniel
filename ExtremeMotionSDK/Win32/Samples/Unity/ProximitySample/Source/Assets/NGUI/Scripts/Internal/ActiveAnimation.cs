@@ -1,7 +1,7 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2013 Tasharen Entertainment
-//----------------------------------------------
+    //----------------------------------------------
 
 using UnityEngine;
 using AnimationOrTween;
@@ -33,21 +33,22 @@ public class ActiveAnimation : IgnoreTimeScale
 	/// Function to call when the animation finishes playing.
 	/// </summary>
 
-	public string callWhenFinished;
+		public string callWhenFinished;
 
-	Animation mAnim;
+		Animation mAnim;
 	Direction mLastDirection = Direction.Toggle;
 	Direction mDisableDirection = Direction.Toggle;
 	bool mNotify = false;
 
 	/// <summary>
 	/// Whether the animation is currently playing.
-	/// </summary>
+                /// </summary>
 
 	public bool isPlaying
 	{
 		get
 		{
+			if (mAnim == null) return false;
 			if (mAnim == null) return false;
 
 			foreach (AnimationState state in mAnim)
@@ -58,18 +59,18 @@ public class ActiveAnimation : IgnoreTimeScale
 				{
 					if (state.time < state.length) return true;
 				}
-				else if (mLastDirection == Direction.Reverse)
+		else if (mLastDirection == Direction.Reverse)
 				{
 					if (state.time > 0f) return true;
 				}
 				else return true;
 			}
 			return false;
-		}
+}
 	}
 
 	/// <summary>
-	/// Manually reset the active animation to the beginning.
+    // 	/// Manually reset the active animation to the beginning.
 	/// </summary>
 
 	public void Reset ()
@@ -83,8 +84,7 @@ public class ActiveAnimation : IgnoreTimeScale
 			}
 		}
 	}
-
-	/// <summary>
+           	/// <summary>
 	/// Notify the target when the animation finishes playing.
 	/// </summary>
 
@@ -94,7 +94,7 @@ public class ActiveAnimation : IgnoreTimeScale
 		if (delta == 0f) return;
 
 		if (mAnim != null)
-		{
+            {
 			bool isPlaying = false;
 
 			foreach (AnimationState state in mAnim)
@@ -108,7 +108,7 @@ public class ActiveAnimation : IgnoreTimeScale
 					if (state.time > 0f) isPlaying = true;
 					else state.time = 0f;
 				}
-				else
+	else
 				{
 					if (state.time < state.length) isPlaying = true;
 					else state.time = state.length;
@@ -124,7 +124,7 @@ public class ActiveAnimation : IgnoreTimeScale
 				mNotify = false;
 
 				// Notify the delegate
-				if (onFinished != null) onFinished(this);
+//  				if (onFinished != null) onFinished(this);
 
 				// Notify the event listener
 				if (eventReceiver != null && !string.IsNullOrEmpty(callWhenFinished))
@@ -147,31 +147,29 @@ public class ActiveAnimation : IgnoreTimeScale
 
 	void Play (string clipName, Direction playDirection)
 	{
-		if (mAnim != null)
-		{
+     if (mAnim != null)
+       {
 			// We will sample the animation manually so that it works when the time is paused
 			enabled = true;
 			mAnim.enabled = false;
 
 			// Determine the play direction
 			if (playDirection == Direction.Toggle)
-			{
+{
 				playDirection = (mLastDirection != Direction.Forward) ? Direction.Forward : Direction.Reverse;
 			}
-
-			bool noName = string.IsNullOrEmpty(clipName);
+					bool noName = string.IsNullOrEmpty(clipName);
 
 			// Play the animation if it's not playing already
 			if (noName)
 			{
-				if (!mAnim.isPlaying) mAnim.Play();
+if (!mAnim.isPlaying) mAnim.Play();
 			}
 			else if (!mAnim.IsPlaying(clipName))
 			{
 				mAnim.Play(clipName);
 			}
-
-			// Update the animation speed based on direction -- forward or back
+               			// Update the animation speed based on direction -- forward or back
 			foreach (AnimationState state in mAnim)
 			{
 				if (string.IsNullOrEmpty(clipName) || state.name == clipName)
@@ -186,8 +184,9 @@ public class ActiveAnimation : IgnoreTimeScale
 			}
 
 			// Remember the direction for disable checks in Update()
+			// Remember the direction for disable checks in Update()
 			mLastDirection = playDirection;
-			mNotify = true;
+		mNotify = true;
 			mAnim.Sample();
 		}
 	}
@@ -216,8 +215,8 @@ public class ActiveAnimation : IgnoreTimeScale
 		if (aa == null) aa = anim.gameObject.AddComponent<ActiveAnimation>();
 		aa.mAnim = anim;
 		aa.mDisableDirection = (Direction)(int)disableCondition;
-		aa.eventReceiver = null;
-		aa.callWhenFinished = null;
+              aa.eventReceiver = null;
+     aa.callWhenFinished = null;
 		aa.onFinished = null;
 		aa.Play(clipName, playDirection);
 		return aa;
@@ -234,10 +233,11 @@ public class ActiveAnimation : IgnoreTimeScale
 
 	/// <summary>
 	/// Play the specified animation.
-	/// </summary>
+/// </summary>
 
 	static public ActiveAnimation Play (Animation anim, Direction playDirection)
 	{
+		return Play(anim, null, playDirection, EnableCondition.DoNothing, DisableCondition.DoNotDisable);
 		return Play(anim, null, playDirection, EnableCondition.DoNothing, DisableCondition.DoNotDisable);
 	}
 }

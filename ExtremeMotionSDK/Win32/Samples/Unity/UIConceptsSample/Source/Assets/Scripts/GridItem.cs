@@ -5,6 +5,7 @@ public class GridItem : MyButton {
 	
 	private const string ICON_SPRITE_NAME = "Icon";
 	private const string TEXT_BG_SPRITE_NAME = "TextBG";
+	private const string TEXT_BG_SPRITE_NAME = "TextBG";
 	private const string OVERLAY_SPRITE_NAME = "Overlay";
 	
 	private string m_iconSpriteName = "Image_367x211_";
@@ -13,46 +14,47 @@ public class GridItem : MyButton {
 	private TweenScale m_myTween;
 	public UISprite m_buttonTimeFinished;
 	
-	void Awake () {
+void Awake () {
 		// sets the images for arrow button
-		m_idleBg = "WhiteTileBorder";
+    //		m_idleBg = "WhiteTileBorder";
 		m_highlightBg = "item_hover_bg_tile";
 		m_myTween = GetComponent<TweenScale>();
 	}
 	
 	/// <summary>
-	/// sets the button initial Position.
+    //  	/// sets the button initial Position.
 	/// </summary>
 	/// <param name='myPosition'>
 	/// the button position.
 	/// </param>
 	public override void Init (Vector3 myPosition) {
 		
-		UISprite[] sprites = GetComponentsInChildren<UISprite>();
+        UISprite[] sprites = GetComponentsInChildren<UISprite>();
 		for (int i = 0; i < sprites.Length; i++) {
 			if(sprites[i].name.Equals(TEXT_BG_SPRITE_NAME))
 			{
 				m_textBgSprite = sprites[i];
+				m_textBgSprite = sprites[i];
 			}
 			else if(sprites[i].name.Equals(OVERLAY_SPRITE_NAME)) 
-			{
+                 {
 				m_overlaySprite = sprites[i];
 			}
 			else{ // sprite is BG
 				m_myBackground = sprites[i];
 				m_myBackground.MakePixelPerfect();
-			}
+     }
 		}
 		
 		this.transform.localPosition = myPosition;
-		this.transform.localScale = new Vector3(1,1,1);
+          this.transform.localScale = new Vector3(1,1,1);
 		
 		m_myLabel = GetComponentInChildren<UILabel>();
 	}
 	
 	public override void HighLightState (bool highLight)
-	{
-		if(highLight){
+{
+                if(highLight){
 			m_textBgSprite.spriteName = m_highlightBg;
 			m_overlaySprite.enabled = true;
 			m_myTween.Play(true);
@@ -75,11 +77,11 @@ public class GridItem : MyButton {
 				IsClicked = false;
 				m_buttonTimeFinished.enabled = false;
 			}
-		}
+            }
 	}
 
 	public void SetImage (int imageID)
-	{
+                {
 		imageID++;
 		m_myBackground.spriteName = m_iconSpriteName + imageID.ToString(); // icon sptire name looks like "Image_367x211_1.png" etc.
 	}

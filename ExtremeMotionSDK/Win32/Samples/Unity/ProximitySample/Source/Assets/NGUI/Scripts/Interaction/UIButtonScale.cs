@@ -11,7 +11,7 @@ using UnityEngine;
 
 [AddComponentMenu("NGUI/Interaction/Button Scale")]
 public class UIButtonScale : MonoBehaviour
-{
+              {
 	public Transform tweenTarget;
 	public Vector3 hover = new Vector3(1.1f, 1.1f, 1.1f);
 	public Vector3 pressed = new Vector3(1.05f, 1.05f, 1.05f);
@@ -21,7 +21,7 @@ public class UIButtonScale : MonoBehaviour
 	bool mStarted = false;
 	bool mHighlighted = false;
 
-	void Start ()
+   // 	void Start ()
 	{
 		if (!mStarted)
 		{
@@ -47,7 +47,7 @@ public class UIButtonScale : MonoBehaviour
 		}
 	}
 
-	void OnPress (bool isPressed)
+   // 	void OnPress (bool isPressed)
 	{
 		if (enabled)
 		{
@@ -64,6 +64,6 @@ public class UIButtonScale : MonoBehaviour
 			if (!mStarted) Start();
 			TweenScale.Begin(tweenTarget.gameObject, duration, isOver ? Vector3.Scale(mScale, hover) : mScale).method = UITweener.Method.EaseInOut;
 			mHighlighted = isOver;
-		}
+         }
 	}
 }

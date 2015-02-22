@@ -9,7 +9,7 @@ using Xtr3D.Net.ExtremeMotion.Data;
 public class Concept3Controller : MonoBehaviour {
 	
 	private const int INVALID_VALUE = -1;
-	private const int NUM_OF_BUTTONS = 3;
+    private const int NUM_OF_BUTTONS = 3;
 	const int NUM_OF_TEXTURES = 3;
 	
 	private string defaultTextureName = "City_1920x1080_0";
@@ -38,27 +38,26 @@ public class Concept3Controller : MonoBehaviour {
 	// holds engine last skeleton tracking state
 	private static TrackingState m_lastEngineState = TrackingState.NotTracked;
 	
-	private XPosButton[] m_myButtons;
+private XPosButton[] m_myButtons;
 	
 	private int m_currentSelectedButtonID = INVALID_VALUE;
 	
 	private Dictionary<int, string> m_buttonsNames = new Dictionary<int, string>
 	{
 		{0 	,"London"},
-		{1	,"Paris"},
+			{1	,"Paris"},
 		{2 ,"New York"},
 	};
 	
 	void Awake()
-	{
+              {
 		//Creating region manager
 		m_regionManager = new GenericRegionsManager();
 	}
 	// Use this for initialization
 	void Start () {
 		
-		regionXshift = ResolutionController.screenWidth /(NUM_OF_BUTTONS+1);
-		buttonStartXpos = -ResolutionController.screenWidth/2;
+      buttonStartXpos = -ResolutionController.screenWidth/2;
 		buttonWidth = (ResolutionController.screenWidth - (BUTTON_X_ROW_SPACE*(NUM_OF_BUTTONS-1))) / NUM_OF_BUTTONS;
 		
 		LoadTextures();	
@@ -66,7 +65,7 @@ public class Concept3Controller : MonoBehaviour {
 		m_myHeadline.SetText("User Position");
 		CreateButtons();
 		CreateRegions();
-	}
+              }
 	
 	private void LoadTextures()
 	{
@@ -88,8 +87,8 @@ public class Concept3Controller : MonoBehaviour {
 	private void CreateButtons()
 	{
 		m_myButtons = new XPosButton[NUM_OF_BUTTONS];
-		GameObject myButtonPrefab = (GameObject) Resources.Load("Prefabs/XposButton"); // loading button prefab from resources
-		//Building the buttons matrix
+  GameObject myButtonPrefab = (GameObject) Resources.Load("Prefabs/XposButton"); // loading button prefab from resources
+					//Building the buttons matrix
 		for(int i = 0; i < NUM_OF_BUTTONS;i++)
 		{
 			GameObject myButtonObject = (GameObject) Instantiate(myButtonPrefab,Vector3.zero,Quaternion.identity);
@@ -103,21 +102,21 @@ public class Concept3Controller : MonoBehaviour {
 	}
 	/// <summary>
 	/// Creates the regions.
-	/// </summary>
+            /// </summary>
 	private void CreateRegions ()
 	{
 		regionStartX = buttonStartXpos + regionXshift;
 		regionWidth = (ResolutionController.screenWidth - regionXshift) / NUM_OF_BUTTONS;
 		for (int i = 0; i < m_myButtons.Length; i++) {
-			int regionID = m_regionManager.AddRegion(regionStartX + (i*regionWidth),BUTTON_START_Y_POS,regionWidth,BUTTON_HEIGHT,0,0);
+				int regionID = m_regionManager.AddRegion(regionStartX + (i*regionWidth),BUTTON_START_Y_POS,regionWidth,BUTTON_HEIGHT,0,0);
 			m_regionIdToButtonId.Add(regionID,i);
 		}
 	}
 	// Update is called once per frame
 	void Update () {
 		UpdateCalibrationState();
-		UpdateActiveButton();
-	}
+          UpdateActiveButton();
+           }
 	/// <summary>
 	/// Updates the active buttons.
 	/// </summary>
@@ -143,7 +142,7 @@ public class Concept3Controller : MonoBehaviour {
 				m_switchTexture.Switch(m_currentSelectedButtonID);
 			}
 			else
-			{
+              {
 				InitState();
 				ApplyDarkOverlay(true);
 			}
@@ -152,29 +151,31 @@ public class Concept3Controller : MonoBehaviour {
 		{
 			InitState();
 			ApplyDarkOverlay(true);
-		}
+        }
 	}
 	/// <summary>
 	/// Initilizes the state.
 	/// </summary>
-	private void InitState()
+        private void InitState()
 	{
-		DeslectLastButton();
+                 DeslectLastButton();
 	}
 
 	void ApplyDarkOverlay (bool apply)
 	{
 		if(darkTile.enabled != apply)
+		if(darkTile.enabled != apply)
 			darkTile.enabled = apply;
 	}
-	
+// 	
 	/// <summary>
 	/// Deslects the last button.
 	/// </summary>
 	private void DeslectLastButton()
+	private void DeslectLastButton()
 	{
 		if(m_currentSelectedButtonID != INVALID_VALUE)
-		{
+{
 			m_myButtons[m_currentSelectedButtonID].HighLightState(false);
 		}
 	}
@@ -183,7 +184,7 @@ public class Concept3Controller : MonoBehaviour {
 	/// Updates the state of the calibration screen.
 	/// </summary>
 	private void UpdateCalibrationState ()
-	{
+           {
 		if(!m_lastEngineState.Equals(m_skeletonManager.GetTrackingState()))
 		{
 			m_lastEngineState = m_skeletonManager.GetTrackingState();
@@ -191,14 +192,13 @@ public class Concept3Controller : MonoBehaviour {
 			switch (m_lastEngineState) {
 			case TrackingState.Calibrating:
 				m_calibrationManager.ShowCalibration(true);
-			break;
-				
-			case TrackingState.Tracked:
+    // 			break;
+						case TrackingState.Tracked:
 				m_calibrationManager.ShowCalibration(false);
 			break;
 			default:
 			break;
 			}
-		}
+    }
 	}
 }

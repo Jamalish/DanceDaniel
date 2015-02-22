@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+    //  using System.Collections;
 
 public class HelpDialog : MonoBehaviour {
 	
@@ -10,7 +10,7 @@ public class HelpDialog : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		m_myTween = GetComponent<TweenPosition>();
-		m_myText = GetComponent<UILabel>();
+					m_myText = GetComponent<UILabel>();
 	}
 	
 	public void SetHelpText(string helpText)
@@ -21,7 +21,7 @@ public class HelpDialog : MonoBehaviour {
 	public void ShowDialog()
 	{
 		if(!m_isOn)
-		{
+     //   		{
 			m_myTween.Play(true);
 			m_isOn = true;
 		}

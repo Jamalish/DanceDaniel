@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
 	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
 	<ProjectGuid>{43D27BC1-4A0B-2AF1-2021-AFE27282F996}</ProjectGuid>
@@ -10,10 +10,10 @@
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
 	<AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
-	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+                <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
-  </PropertyGroup>
+             </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 	<DebugSymbols>true</DebugSymbols>
 	<DebugType>full</DebugType>
@@ -23,19 +23,19 @@
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
-  </PropertyGroup>
+        </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 	<DebugType>pdbonly</DebugType>
 	<Optimize>true</Optimize>
 	<OutputPath>Temp\bin\Release\</OutputPath>
 	<DefineConstants>TRACE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
-	<WarningLevel>4</WarningLevel>
+          <WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
 	<Reference Include="System" />
-    <Reference Include="System.XML" />
+				<Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
@@ -60,7 +60,7 @@
  <HintPath>C:/Users/Daniel/Documents/DanceDaniel/DanceTracker/Assets/Plugins/Xtr3D.Net.dll</HintPath>
  </Reference>
  <Reference Include="Xtr3D.Net.ExtremeMotion">
- <HintPath>C:/Users/Daniel/Documents/DanceDaniel/DanceTracker/Assets/Plugins/Xtr3D.Net.ExtremeMotion.dll</HintPath>
+               <HintPath>C:/Users/Daniel/Documents/DanceDaniel/DanceTracker/Assets/Plugins/Xtr3D.Net.ExtremeMotion.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

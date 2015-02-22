@@ -19,8 +19,7 @@ public class UITextureInspector : UIWidgetInspector
 	override protected bool DrawProperties ()
 	{
 		mTex = mWidget as UITexture;
-
-		if (!mTex.hasDynamicMaterial && (mTex.material != null || mTex.mainTexture == null))
+			if (!mTex.hasDynamicMaterial && (mTex.material != null || mTex.mainTexture == null))
 		{
 			Material mat = EditorGUILayout.ObjectField("Material", mTex.material, typeof(Material), false) as Material;
 
@@ -34,10 +33,9 @@ public class UITextureInspector : UIWidgetInspector
 		if (mTex.material == null || mTex.hasDynamicMaterial)
 		{
 			Shader shader = EditorGUILayout.ObjectField("Shader", mTex.shader, typeof(Shader), false) as Shader;
-
-			if (mTex.shader != shader)
+							if (mTex.shader != shader)
 			{
-				NGUIEditorTools.RegisterUndo("Shader Selection", mTex);
+       NGUIEditorTools.RegisterUndo("Shader Selection", mTex);
 				mTex.shader = shader;
 			}
 
@@ -45,10 +43,10 @@ public class UITextureInspector : UIWidgetInspector
 
 			if (mTex.mainTexture != tex)
 			{
-				NGUIEditorTools.RegisterUndo("Texture Selection", mTex);
+        NGUIEditorTools.RegisterUndo("Texture Selection", mTex);
 				mTex.mainTexture = tex;
 			}
-		}
+   }
 
 		if (mTex.mainTexture != null)
 		{
@@ -58,7 +56,7 @@ public class UITextureInspector : UIWidgetInspector
 			{
 				NGUIEditorTools.RegisterUndo("UV Rectangle Change", mTex);
 				mTex.uvRect = rect;
-			}
+           }
 		}
 		return (mWidget.material != null);
 	}

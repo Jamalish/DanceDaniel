@@ -7,9 +7,9 @@
 *																			*
 *****************************************************************************/
 #ifndef _EM_C_RAW_IMAGE_H_
-#define _EM_C_RAW_IMAGE_H_
+     // #define _EM_C_RAW_IMAGE_H_
 
-#include "EmPlatform.h"
+ //#include "EmPlatform.h"
 #include "EmCTypes.h"
 #include "EmCWarning.h"
 
@@ -20,14 +20,14 @@
 
 /* Image Descriptor Data */
 typedef struct _SImageDescriptor
-{
+         {
 	unsigned int	width;
 	unsigned int	height;
 	int				stride;
 	unsigned short  bitCount;
 	unsigned int	fccFormat;
 	unsigned int	sizeImage;
-} SImageDescriptor;
+    //  } SImageDescriptor;
 
 const SImageDescriptor S_IMAGE_DESCRIPTOR_INITIAL_VALUE = /**< image descriptor data initial value */
 {
@@ -46,10 +46,10 @@ typedef struct _SRawImageFrame
 	SImageDescriptor   imageDescriptor;
 	unsigned char*	   imageData;
 }SRawImageFrame;
-
+    //   
 const SRawImageFrame S_RAW_IMAGE_FRAME_INITIAL_VALUE = /**< Raw camera image data initial value */
 {
-	S_FRAME_HEADER_INITIAL_VALUE,	  /* header				*/	
+    //  	S_FRAME_HEADER_INITIAL_VALUE,	  /* header				*/	
 	S_IMAGE_DESCRIPTOR_INITIAL_VALUE, /* imageDescriptor	*/
 	NULL							  /* imageData			*/	
 };

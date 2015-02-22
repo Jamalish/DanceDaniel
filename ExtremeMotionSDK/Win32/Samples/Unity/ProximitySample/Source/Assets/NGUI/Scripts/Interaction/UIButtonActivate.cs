@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-/// <summary>
+            /// <summary>
 /// Very basic script that will activate or deactivate an object (and all of its children) when clicked.
 /// </summary>
 

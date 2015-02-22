@@ -1,12 +1,11 @@
 //----------------------------------------------
-//            NGUI: Next-Gen UI kit
+                 //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
 using System.Collections;
-
-/// <summary>
+		/// <summary>
 /// Base class for all tweening operations.
 /// </summary>
 
@@ -24,6 +23,7 @@ public abstract class UITweener : IgnoreTimeScale
 
 	public enum Style
 	{
+	{
 		Once,
 		Loop,
 		PingPong,
@@ -32,8 +32,8 @@ public abstract class UITweener : IgnoreTimeScale
 	public delegate void OnFinished (UITweener tween);
 
 	/// <summary>
-	/// Delegate for subscriptions. Faster than using the 'eventReceiver' and allows for multiple receivers.
-	/// </summary>
+				/// Delegate for subscriptions. Faster than using the 'eventReceiver' and allows for multiple receivers.
+  /// </summary>
 
 	public OnFinished onFinished;
 
@@ -42,14 +42,13 @@ public abstract class UITweener : IgnoreTimeScale
 	/// </summary>
 
 	public Method method = Method.Linear;
-
+  // 
 	/// <summary>
 	/// Does it play once? Does it loop?
 	/// </summary>
 
 	public Style style = Style.Once;
-
-	/// <summary>
+  	/// <summary>
 	/// Optional curve to apply to the tween's time factor value.
 	/// </summary>
 
@@ -65,7 +64,6 @@ public abstract class UITweener : IgnoreTimeScale
 	/// How long will the tweener wait before starting the tween?
 	/// </summary>
 
-	public float delay = 0f;
 
 	/// <summary>
 	/// How long is the duration of the tween?
@@ -91,22 +89,21 @@ public abstract class UITweener : IgnoreTimeScale
 
 	public GameObject eventReceiver;
 
-	/// <summary>
+  /// <summary>
 	/// Name of the function to call when the tween finishes.
 	/// </summary>
 
 	public string callWhenFinished;
-
-	bool mStarted = false;
+    	bool mStarted = false;
 	float mStartTime = 0f;
 	float mDuration = 0f;
 	float mAmountPerDelta = 1f;
 	float mFactor = 0f;
-
+ //  
 	/// <summary>
 	/// Amount advanced per delta time.
 	/// </summary>
-
+// 
 	public float amountPerDelta
 	{
 		get
@@ -115,7 +112,7 @@ public abstract class UITweener : IgnoreTimeScale
 			{
 				mDuration = duration;
 				mAmountPerDelta = Mathf.Abs((duration > 0f) ? 1f / duration : 1000f);
-			}
+		}
 			return mAmountPerDelta;
 		}
 	}
@@ -139,7 +136,7 @@ public abstract class UITweener : IgnoreTimeScale
 	void Start () { Update(); }
 
 	/// <summary>
-	/// Update the tweening factor and call the virtual update function.
+					/// Update the tweening factor and call the virtual update function.
 	/// </summary>
 
 	void Update ()
@@ -160,18 +157,18 @@ public abstract class UITweener : IgnoreTimeScale
 
 		// Loop style simply resets the play factor after it exceeds 1.
 		if (style == Style.Loop)
-		{
+//   		{
 			if (mFactor > 1f)
 			{
 				mFactor -= Mathf.Floor(mFactor);
-			}
-		}
+    }
+ //   		}
 		else if (style == Style.PingPong)
 		{
 			// Ping-pong style reverses the direction
-			if (mFactor > 1f)
+             if (mFactor > 1f)
 			{
-				mFactor = 1f - (mFactor - Mathf.Floor(mFactor));
+                 mFactor = 1f - (mFactor - Mathf.Floor(mFactor));
 				mAmountPerDelta = -mAmountPerDelta;
 			}
 			else if (mFactor < 0f)
@@ -183,17 +180,17 @@ public abstract class UITweener : IgnoreTimeScale
 		}
 
 		// If the factor goes out of range and this is a one-time tweening operation, disable the script
-		if ((style == Style.Once) && (mFactor > 1f || mFactor < 0f))
+     // 		if ((style == Style.Once) && (mFactor > 1f || mFactor < 0f))
 		{
 			mFactor = Mathf.Clamp01(mFactor);
 			Sample(mFactor, true);
 
-			// Notify the listener delegate
+	// Notify the listener delegate
 			if (onFinished != null) onFinished(this);
 
 			// Notify the event listener target
 			if (eventReceiver != null && !string.IsNullOrEmpty(callWhenFinished))
-			{
+	{
 				eventReceiver.SendMessage(callWhenFinished, this, SendMessageOptions.DontRequireReceiver);
 			}
 
@@ -207,10 +204,9 @@ public abstract class UITweener : IgnoreTimeScale
 	}
 
 	/// <summary>
-	/// Sample the tween at the specified factor.
+					/// Sample the tween at the specified factor.
 	/// </summary>
-
-	public void Sample (float factor, bool isFinished)
+  	public void Sample (float factor, bool isFinished)
 	{
 		// Calculate the sampling value
 		float val = Mathf.Clamp01(factor);
@@ -233,7 +229,7 @@ public abstract class UITweener : IgnoreTimeScale
 		else if (method == Method.EaseInOut)
 		{
 			const float pi2 = Mathf.PI * 2f;
-			val = val - Mathf.Sin(val * pi2) / pi2;
+      val = val - Mathf.Sin(val * pi2) / pi2;
 
 			if (steeperCurves)
 			{
@@ -248,18 +244,17 @@ public abstract class UITweener : IgnoreTimeScale
 		{
 			val = BounceLogic(val);
 		}
-		else if (method == Method.BounceOut)
+  //   		else if (method == Method.BounceOut)
 		{
-			val = 1f - BounceLogic(1f - val);
-		}
-
-		// Call the virtual update
+				val = 1f - BounceLogic(1f - val);
+   }
+      		// Call the virtual update
 		OnUpdate((animationCurve != null) ? animationCurve.Evaluate(val) : val, isFinished);
 	}
 
 	/// <summary>
 	/// Main Bounce logic to simplify the Sample function
-	/// </summary>
+        /// </summary>
 	
 	float BounceLogic (float val)
 	{
@@ -286,9 +281,9 @@ public abstract class UITweener : IgnoreTimeScale
 	/// Manually activate the tweening process, reversing it if necessary.
 	/// </summary>
 
-	public void Play (bool forward)
+      public void Play (bool forward)
 	{
-		mAmountPerDelta = Mathf.Abs(amountPerDelta);
+	mAmountPerDelta = Mathf.Abs(amountPerDelta);
 		if (!forward) mAmountPerDelta = -mAmountPerDelta;
 		enabled = true;
 	}
@@ -301,13 +296,13 @@ public abstract class UITweener : IgnoreTimeScale
 
 	/// <summary>
 	/// Manually start the tweening process, reversing its direction.
-	/// </summary>
+     //  	/// </summary>
 
 	public void Toggle ()
 	{
 		if (mFactor > 0f)
 		{
-			mAmountPerDelta = -amountPerDelta;
+               mAmountPerDelta = -amountPerDelta;
 		}
 		else
 		{
@@ -322,7 +317,7 @@ public abstract class UITweener : IgnoreTimeScale
 
 	abstract protected void OnUpdate (float factor, bool isFinished);
 
-	/// <summary>
+ /// <summary>
 	/// Starts the tweening operation.
 	/// </summary>
 
@@ -332,7 +327,7 @@ public abstract class UITweener : IgnoreTimeScale
 #if UNITY_FLASH
 		if ((object)comp == null) comp = (T)go.AddComponent<T>();
 #else
-		if (comp == null) comp = go.AddComponent<T>();
+                 if (comp == null) comp = go.AddComponent<T>();
 #endif
 		comp.mStarted = false;
 		comp.duration = duration;

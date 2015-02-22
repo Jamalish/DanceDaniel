@@ -2,7 +2,7 @@
 //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
-
+ //
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -21,26 +21,26 @@ public class UIDrawCall : MonoBehaviour
 		AlphaClip,	// Adjust the alpha, compatible with all devices
 		SoftClip,	// Alpha-based clipping with a softened edge
 	}
-
+ // 
 	Transform		mTrans;			// Cached transform
 	Material		mSharedMat;		// Material used by this screen
-	Mesh			mMesh0;			// First generated mesh
+				Mesh			mMesh0;			// First generated mesh
 	Mesh			mMesh1;			// Second generated mesh
 	MeshFilter		mFilter;		// Mesh filter for this draw call
 	MeshRenderer	mRen;			// Mesh renderer for this screen
 	Clipping		mClipping;		// Clipping mode
-	Vector4			mClipRange;		// Clipping, if used
+               Vector4			mClipRange;		// Clipping, if used
 	Vector2			mClipSoft;		// Clipping softness
 	Material		mClippedMat;	// Instantiated clipped material, if necessary
 	Material		mDepthMat;		// Depth-writing material, created if necessary
 	int[]			mIndices;		// Cached indices
 
 	bool mDepthPass = false;
-	bool mReset = true;
+                bool mReset = true;
 	bool mEven = true;
 
 	/// <summary>
-	/// Whether an additional pass will be created to render the geometry to the depth buffer first.
+		/// Whether an additional pass will be created to render the geometry to the depth buffer first.
 	/// </summary>
 
 	public bool depthPass { get { return mDepthPass; } set { if (mDepthPass != value) { mDepthPass = value; mReset = true; } } }
@@ -52,14 +52,14 @@ public class UIDrawCall : MonoBehaviour
 	public Transform cachedTransform { get { if (mTrans == null) mTrans = transform; return mTrans; } }
 
 	/// <summary>
-	/// Material used by this screen.
+			/// Material used by this screen.
 	/// </summary>
 
 	public Material material { get { return mSharedMat; } set { mSharedMat = value; } }
 
 	/// <summary>
 	/// The number of triangles in this draw call.
-	/// </summary>
+    //   	/// </summary>
 
 	public int triangles
 	{
@@ -70,14 +70,14 @@ public class UIDrawCall : MonoBehaviour
 		}
 	}
 
-	/// <summary>
+             /// <summary>
 	/// Whether the draw call is currently using a clipped shader.
-	/// </summary>
+ //  	/// </summary>
 
 	public bool isClipped { get { return mClippedMat != null; } }
 
 	/// <summary>
-	/// Clipping used by the draw call
+   //	/// Clipping used by the draw call
 	/// </summary>
 
 	public Clipping clipping { get { return mClipping; } set { if (mClipping != value) { mClipping = value; mReset = true; } } }
@@ -101,7 +101,7 @@ public class UIDrawCall : MonoBehaviour
 
 	Mesh GetMesh (ref bool rebuildIndices, int vertexCount)
 	{
-		mEven = !mEven;
+mEven = !mEven;
 
 		if (mEven)
 		{
@@ -109,18 +109,17 @@ public class UIDrawCall : MonoBehaviour
 			{
 				mMesh0 = new Mesh();
 				mMesh0.hideFlags = HideFlags.DontSave;
-				mMesh0.name = "Mesh0 for " + mSharedMat.name;
+					mMesh0.name = "Mesh0 for " + mSharedMat.name;
 #if !UNITY_3_5
-				mMesh0.MarkDynamic();
+//				mMesh0.MarkDynamic();
 #endif
 				rebuildIndices = true;
 			}
-			else if (rebuildIndices || mMesh0.vertexCount != vertexCount)
 			{
-				rebuildIndices = true;
+         rebuildIndices = true;
 				mMesh0.Clear();
 			}
-			return mMesh0;
+    return mMesh0;
 		}
 		else if (mMesh1 == null)
 		{
@@ -147,11 +146,11 @@ public class UIDrawCall : MonoBehaviour
 	void UpdateMaterials ()
 	{
 		bool useClipping = (mClipping != Clipping.None);
-
+		// If clipping should be used, create the clipped material
 		// If clipping should be used, create the clipped material
 		if (useClipping)
 		{
-			Shader shader = null;
+					Shader shader = null;
 
 			if (mClipping != Clipping.None)
 			{
@@ -225,7 +224,7 @@ public class UIDrawCall : MonoBehaviour
 		}
 		else if (mRen.sharedMaterial != mat)
 		{
-			mRen.sharedMaterials = new Material[] { mat };
+                mRen.sharedMaterials = new Material[] { mat };
 		}
 	}
 
@@ -250,8 +249,8 @@ public class UIDrawCall : MonoBehaviour
 				mRen = gameObject.AddComponent<MeshRenderer>();
 				UpdateMaterials();
 			}
-			else if (mClippedMat != null && mClippedMat.mainTexture != mSharedMat.mainTexture)
-			{
+    //			else if (mClippedMat != null && mClippedMat.mainTexture != mSharedMat.mainTexture)
+	{
 				UpdateMaterials();
 			}
 
@@ -271,31 +270,30 @@ public class UIDrawCall : MonoBehaviour
 					{
 						mIndices[index++] = i;
 						mIndices[index++] = i + 1;
-						mIndices[index++] = i + 2;
+   mIndices[index++] = i + 2;
 
 						mIndices[index++] = i + 2;
 						mIndices[index++] = i + 3;
 						mIndices[index++] = i;
 					}
-				}
 
 				// Set the mesh values
 				Mesh mesh = GetMesh(ref rebuildIndices, verts.size);
 				mesh.vertices = verts.ToArray();
-				if (norms != null) mesh.normals = norms.ToArray();
+     //  				if (norms != null) mesh.normals = norms.ToArray();
 				if (tans != null) mesh.tangents = tans.ToArray();
-				mesh.uv = uvs.ToArray();
+          mesh.uv = uvs.ToArray();
 				mesh.colors32 = cols.ToArray();
 				if (rebuildIndices) mesh.triangles = mIndices;
 				mesh.RecalculateBounds();
 				mFilter.mesh = mesh;
-			}
+					}
 			else
 			{
 				if (mFilter.mesh != null) mFilter.mesh.Clear();
 				Debug.LogError("Too many vertices on one panel: " + verts.size);
 			}
-		}
+       }
 		else
 		{
 			if (mFilter.mesh != null) mFilter.mesh.Clear();
@@ -315,9 +313,8 @@ public class UIDrawCall : MonoBehaviour
 		{
 			mReset = false;
 			UpdateMaterials();
-		}
-
-		if (mClippedMat != null)
+//   		}
+					if (mClippedMat != null)
 		{
 			mClippedMat.mainTextureOffset = new Vector2(-mClipRange.x / mClipRange.z, -mClipRange.y / mClipRange.w);
 			mClippedMat.mainTextureScale = new Vector2(1f / mClipRange.z, 1f / mClipRange.w);
@@ -337,7 +334,7 @@ public class UIDrawCall : MonoBehaviour
 	{
 		NGUITools.DestroyImmediate(mMesh0);
 		NGUITools.DestroyImmediate(mMesh1);
-		NGUITools.DestroyImmediate(mClippedMat);
+			NGUITools.DestroyImmediate(mClippedMat);
 		NGUITools.DestroyImmediate(mDepthMat);
 	}
-}
+             }

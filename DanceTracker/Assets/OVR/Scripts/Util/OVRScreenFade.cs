@@ -1,15 +1,13 @@
 ﻿/************************************************************************************
 
-Copyright   :   Copyright 2014 Oculus VR, LLC. All Rights reserved.
-
-Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
+		Copyright   :   Copyright 2014 Oculus VR, LLC. All Rights reserved.
+	Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
 
 You may obtain a copy of the License at
 
-http://www.oculusvr.com/licenses/LICENSE-3.2
 
 Unless required by applicable law or agreed to in writing, the Oculus VR SDK
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,8 +20,8 @@ limitations under the License.
 using UnityEngine;
 using System.Collections; // required for Coroutines
 
-/// <summary>
-/// Fades the screen from black after a new scene is loaded.
+ /// <summary>
+		/// Fades the screen from black after a new scene is loaded.
 /// </summary>
 public class OVRScreenFade : MonoBehaviour
 {
@@ -43,17 +41,17 @@ public class OVRScreenFade : MonoBehaviour
 	public Shader fadeShader = null;
 
 	private Material fadeMaterial = null;
-	private bool isFading = false;
+			private bool isFading = false;
 
 	/// <summary>
 	/// Initialize.
 	/// </summary>
-	void Awake()
+					void Awake()
 	{
 		// create the fade material
 		fadeMaterial = (fadeShader != null) ? new Material(fadeShader) : new Material(Shader.Find("Transparent/Diffuse"));
 	}
-
+     //   
 	/// <summary>
 	/// Starts the fade in
 	/// </summary>
@@ -72,9 +70,9 @@ public class OVRScreenFade : MonoBehaviour
 
 	/// <summary>
 	/// Cleans up the fade material
-	/// </summary>
+             /// </summary>
 	void OnDestroy()
-	{
+   //	{
 		if (fadeMaterial != null)
 		{
 			Destroy(fadeMaterial);
@@ -85,8 +83,8 @@ public class OVRScreenFade : MonoBehaviour
 	/// Fades alpha from 1.0 to 0.0
 	/// </summary>
 	IEnumerator FadeIn()
-	{
-		float elapsedTime = 0.0f;
+    //	{
+     //  		float elapsedTime = 0.0f;
 		Color color = fadeMaterial.color = fadeColor;
 		isFading = true;
 		while (elapsedTime < fadeTime)
@@ -112,7 +110,7 @@ public class OVRScreenFade : MonoBehaviour
 			GL.Color(fadeMaterial.color);
 			GL.Begin(GL.QUADS);
 			GL.Vertex3(0f, 0f, -12f);
-			GL.Vertex3(0f, 1f, -12f);
+  //  			GL.Vertex3(0f, 1f, -12f);
 			GL.Vertex3(1f, 1f, -12f);
 			GL.Vertex3(1f, 0f, -12f);
 			GL.End();
