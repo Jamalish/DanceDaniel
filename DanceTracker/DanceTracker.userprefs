@@ -2,7 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\JointsUpdate.cs">
     <Files>
-      <File FileName="Assets\Scripts\JointsUpdate.cs" Line="23" Column="2" />
+      <File FileName="Assets\Scripts\JointsUpdate.cs" Line="219" Column="3" />
+      <File FileName="..\..\..\Desktop\JointsUpdate.cs" Line="130" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
