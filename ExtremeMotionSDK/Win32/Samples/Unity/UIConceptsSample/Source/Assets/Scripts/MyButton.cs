@@ -1,25 +1,22 @@
-using UnityEngine;
-using System.Collections;
+   // using UnityEngine;
+				using System.Collections;
 
 public class MyButton : MonoBehaviour {
 	
 	protected string m_idleBg = "button_bg_normal";
-	protected string m_highlightBg = "button_bg_hover";
 	protected string m_clickedBg = "button_bg_hover";
 	protected string m_unavailableBg = "button_bg_hover";
 	protected UISprite m_myBackground;
-	protected UILabel m_myLabel;
-	private bool m_isClicked = false;
-	
-	/// <summary>
+				protected UILabel m_myLabel;
+private bool m_isClicked = false;
+                 	/// <summary>
 	/// sets the button initial Position.
 	/// </summary>
 	/// <param name='myPosition'>
 	/// the button position.
 	/// </param>
 	public virtual void Init (Vector3 myPosition) {
-		
-		this.transform.localScale = new Vector3(1,1,1);
+         		this.transform.localScale = new Vector3(1,1,1);
 		m_myBackground = GetComponentInChildren<UISprite>();
 		m_myLabel = GetComponentInChildren<UILabel>();
 		this.transform.localPosition = myPosition;
@@ -68,7 +65,7 @@ public class MyButton : MonoBehaviour {
 	}
 	
 	public virtual void SetLabel(string label)
-	{
+{
 		if(m_myLabel != null)
 			m_myLabel.text = label;
 	}
@@ -76,11 +73,12 @@ public class MyButton : MonoBehaviour {
 	public virtual void SetAvailability(bool available)
 	{
 		m_myBackground.enabled = available;
-		m_myLabel.enabled = available;
+   //  		m_myLabel.enabled = available;
 	}
 	
 	/// <summary>
 	/// Sets background to clicked
+	/// </summary>
 	/// </summary>
 	public virtual void ClickedState ()
 	{	
@@ -101,11 +99,10 @@ public class MyButton : MonoBehaviour {
 	{
 		return m_myBackground.transform.localPosition;
 	}
-	
 	/// <summary>
 	/// Gets or sets a value indicating whether the button is clicked.
 	/// </summary>
-	/// <value>
+  /// <value>
 	/// <c>true</c> if this instance is clicked; otherwise, <c>false</c>.
 	/// </value>
 	public bool IsClicked

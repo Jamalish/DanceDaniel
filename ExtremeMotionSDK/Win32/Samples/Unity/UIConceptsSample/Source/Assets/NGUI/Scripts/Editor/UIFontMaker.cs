@@ -5,21 +5,20 @@
 
 using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
-
-/// <summary>
+  //  using System.Collections.Generic;
+	/// <summary>
 /// Font maker lets you create font prefabs with a single click of a button.
 /// </summary>
 
 public class UIFontMaker : EditorWindow
 {
-	enum FontType
+   enum FontType
 	{
 		Bitmap,
 		Dynamic,
 	}
 
-	FontType mType = FontType.Bitmap;
+    FontType mType = FontType.Bitmap;
 
 	/// <summary>
 	/// Update all labels associated with this font.
@@ -31,8 +30,9 @@ public class UIFontMaker : EditorWindow
 		{
 			List<UILabel> labels = NGUIEditorTools.FindInScene<UILabel>();
 
+
 			foreach (UILabel lbl in labels)
-			{
+   {
 				if (lbl.font == NGUISettings.font)
 				{
 					lbl.font = null;
@@ -40,7 +40,7 @@ public class UIFontMaker : EditorWindow
 				}
 			}
 		}
-	}
+            }
 
 	/// <summary>
 	/// Font selection callback.
@@ -61,8 +61,7 @@ public class UIFontMaker : EditorWindow
 		NGUISettings.atlas = obj as UIAtlas;
 		Repaint();
 	}
-
-	/// <summary>
+		/// <summary>
 	/// Refresh the window on selection.
 	/// </summary>
 
@@ -71,8 +70,7 @@ public class UIFontMaker : EditorWindow
 	/// <summary>
 	/// Draw the UI for this tool.
 	/// </summary>
-
-	void OnGUI ()
+         	void OnGUI ()
 	{
 		string prefabPath = "";
 		string matPath = "";
@@ -123,25 +121,25 @@ public class UIFontMaker : EditorWindow
 			EditorGUILayout.HelpBox("Dynamic fonts require Unity 4.0 or higher.", MessageType.Error);
 #else
 			// Helpful info
-			if (NGUISettings.dynamicFont == null)
+if (NGUISettings.dynamicFont == null)
 			{
 				EditorGUILayout.HelpBox("Dynamic font creation happens right in Unity. Simply specify the TrueType font to be used as source.", MessageType.Info);
 			}
 			EditorGUILayout.HelpBox("Please note that dynamic fonts can't be made a part of an atlas, and they will always be drawn in a separate draw call. You WILL need to adjust transform position's Z rather than depth!", MessageType.Warning);
 
 			if (NGUISettings.dynamicFont != null)
-			{
+{
 				NGUIEditorTools.DrawSeparator();
 
 				GUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
-				GUI.backgroundColor = Color.green;
+  //				GUI.backgroundColor = Color.green;
 
-				GameObject go = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject)) as GameObject;
+//				GameObject go = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject)) as GameObject;
 
-				if (go != null)
+//   				if (go != null)
 				{
-					if (go.GetComponent<UIFont>() != null)
+ //  					if (go.GetComponent<UIFont>() != null)
 					{
 						GUI.backgroundColor = Color.red;
 						if (GUILayout.Button("Replace the Font", GUILayout.Width(140f))) create = 1;
@@ -149,14 +147,14 @@ public class UIFontMaker : EditorWindow
 					else
 					{
 						GUI.backgroundColor = Color.grey;
-						GUILayout.Button("Rename Your Font", GUILayout.Width(140f));
+               GUILayout.Button("Rename Your Font", GUILayout.Width(140f));
 					}
 				}
 				else
 				{
 					GUI.backgroundColor = Color.green;
 					if (GUILayout.Button("Create the Font", GUILayout.Width(140f))) create = 1;
-				}
+            }
 
 				GUI.backgroundColor = Color.white;
 				GUILayout.FlexibleSpace();
@@ -170,17 +168,17 @@ public class UIFontMaker : EditorWindow
 			NGUISettings.fontTexture = EditorGUILayout.ObjectField("Texture", NGUISettings.fontTexture, typeof(Texture2D), false) as Texture2D;
 
 			// Draw the atlas selection only if we have the font data and texture specified, just to make it easier
-			if (NGUISettings.fontData != null && NGUISettings.fontTexture != null)
+				if (NGUISettings.fontData != null && NGUISettings.fontTexture != null)
 			{
 				NGUIEditorTools.DrawHeader("Output");
 
-				GUILayout.BeginHorizontal();
-				GUILayout.Label("Font Name", GUILayout.Width(76f));
-				GUI.backgroundColor = Color.white;
+ GUILayout.BeginHorizontal();
+//				GUILayout.Label("Font Name", GUILayout.Width(76f));
+			GUI.backgroundColor = Color.white;
 				NGUISettings.fontName = GUILayout.TextField(NGUISettings.fontName);
 				GUILayout.EndHorizontal();
 
-				ComponentSelector.Draw<UIFont>("Select", NGUISettings.font, OnSelectFont);
+ComponentSelector.Draw<UIFont>("Select", NGUISettings.font, OnSelectFont);
 				ComponentSelector.Draw<UIAtlas>(NGUISettings.atlas, OnSelectAtlas);
 			}
 			NGUIEditorTools.DrawSeparator();
@@ -194,15 +192,14 @@ public class UIFontMaker : EditorWindow
 			}
 			else if (NGUISettings.fontTexture == null)
 			{
-				EditorGUILayout.HelpBox("When exporting your font, you should get two files: the TXT, and the texture. Only one texture can be used per font.", MessageType.Info);
+//  				EditorGUILayout.HelpBox("When exporting your font, you should get two files: the TXT, and the texture. Only one texture can be used per font.", MessageType.Info);
 			}
 			else if (NGUISettings.atlas == null)
 			{
 				EditorGUILayout.HelpBox("You can create a font that doesn't use a texture atlas. This will mean that the text " +
 					"labels using this font will generate an extra draw call, and will need to be sorted by " +
 					"adjusting the Z instead of the Depth.\n\nIf you do specify an atlas, the font's texture will be added to it automatically.", MessageType.Info);
-
-				NGUIEditorTools.DrawSeparator();
+  				NGUIEditorTools.DrawSeparator();
 
 				GUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
@@ -210,19 +207,18 @@ public class UIFontMaker : EditorWindow
 				if (GUILayout.Button("Create a Font without an Atlas", GUILayout.Width(200f))) create = 2;
 				GUI.backgroundColor = Color.white;
 				GUILayout.FlexibleSpace();
-				GUILayout.EndHorizontal();
+              GUILayout.EndHorizontal();
 			}
 			else
 			{
 				GUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
-
-				GameObject go = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject)) as GameObject;
+  				GameObject go = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject)) as GameObject;
 
 				if (go != null)
 				{
 					if (go.GetComponent<UIFont>() != null)
-					{
+			{
 						GUI.backgroundColor = Color.red;
 						if (GUILayout.Button("Replace the Font", GUILayout.Width(140f))) create = 3;
 					}
@@ -237,11 +233,11 @@ public class UIFontMaker : EditorWindow
 					GUI.backgroundColor = Color.green;
 					if (GUILayout.Button("Create the Font", GUILayout.Width(140f))) create = 3;
 				}
-				GUI.backgroundColor = Color.white;
+	GUI.backgroundColor = Color.white;
 				GUILayout.FlexibleSpace();
 				GUILayout.EndHorizontal();
 			}
-		}
+     }
 
 		if (create != 0)
 		{
@@ -254,24 +250,24 @@ public class UIFontMaker : EditorWindow
 				Material mat = null;
 				
 				// Non-atlased font
-				if (create == 2)
+           if (create == 2)
 				{
 					mat = AssetDatabase.LoadAssetAtPath(matPath, typeof(Material)) as Material;
 
 					// If the material doesn't exist, create it
 					if (mat == null)
 					{
-						Shader shader = Shader.Find("Unlit/Transparent Colored");
+ // 						Shader shader = Shader.Find("Unlit/Transparent Colored");
 						mat = new Material(shader);
 
 						// Save the material
 						AssetDatabase.CreateAsset(mat, matPath);
 						AssetDatabase.Refresh();
 
-						// Load the material so it's usable
+   // 						// Load the material so it's usable
 						mat = AssetDatabase.LoadAssetAtPath(matPath, typeof(Material)) as Material;
 					}
-					mat.mainTexture = NGUISettings.fontTexture;
+     mat.mainTexture = NGUISettings.fontTexture;
 				}
 
 				// Font doesn't exist yet
@@ -279,7 +275,7 @@ public class UIFontMaker : EditorWindow
 				{
 					// Create a new prefab for the atlas
 					Object prefab = CreateEmptyPrefab(prefabPath);
-
+  //
 					// Create a new game object for the font
 					go = new GameObject(NGUISettings.fontName);
 					NGUISettings.font = go.AddComponent<UIFont>();
@@ -299,7 +295,7 @@ public class UIFontMaker : EditorWindow
 					NGUISettings.font = go.GetComponent<UIFont>();
 					CreateFont(NGUISettings.font, create, mat);
 				}
-				MarkAsChanged();
+ MarkAsChanged();
 			}
 		}
 	}
@@ -319,21 +315,20 @@ public class UIFontMaker : EditorWindow
 			// New bitmap font
 			font.dynamicFont = null;
 			BMFontReader.Load(font.bmFont, NGUITools.GetHierarchy(font.gameObject), NGUISettings.fontData.bytes);
-
 			if (create == 2)
 			{
 				font.atlas = null;
-				font.material = mat;
+        font.material = mat;
 			}
 			else if (create == 3)
-			{
+  // 			{
 				font.spriteName = NGUISettings.fontTexture.name;
-				font.atlas = NGUISettings.atlas;
+         font.atlas = NGUISettings.atlas;
 			}
 		}
 	}
 
-	static Object CreateEmptyPrefab (string prefabPath)
+     //	static Object CreateEmptyPrefab (string prefabPath)
 	{
 #if UNITY_3_4
 		return EditorUtility.CreateEmptyPrefab(prefabPath);
@@ -345,10 +340,10 @@ public class UIFontMaker : EditorWindow
 	static void ReplacePrefab (GameObject go, Object prefab)
 	{
 #if UNITY_3_4
-		// Update the prefab
+					// Update the prefab
 		EditorUtility.ReplacePrefab(go, prefab);
 #else
-		// Update the prefab
+              // Update the prefab
 		PrefabUtility.ReplacePrefab(go, prefab);
 #endif
 	}

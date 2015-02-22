@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine;
 
 public class GenericRegionsManager{
 	
-	private List<Region> m_regions = new List<Region>();
+ //  	private List<Region> m_regions = new List<Region>();
 	private int m_currentActiveRegionID = -1;
 	private List<int>  m_currentActiveRegionsID = new List<int> { -1, -1 };
 	/// <summary>
@@ -20,12 +21,12 @@ public class GenericRegionsManager{
 	/// </param>
 	/// <param name='width'>
 	/// region width.
-	/// </param>
+			/// </param>
 	/// <param name='height'>
 	/// region height.
 	/// </param>
 	/// <param name='hysteX'>
-	/// Horizontal (top&bottom) Hysteressis threshold.
+    //   	/// Horizontal (top&bottom) Hysteressis threshold.
 	/// </param>
 	/// <param name='hysteY'>
 	/// Vertical (left&right) Hysteressis threshold.
@@ -46,7 +47,7 @@ public class GenericRegionsManager{
 	/// </summary>
 	/// <returns>
 	/// The active region.
-	/// </returns>
+ /// </returns>
 	/// <param name='palmPosition'>
 	/// Palm position.
 	/// </param>
@@ -55,7 +56,7 @@ public class GenericRegionsManager{
 		return m_regions[regionID].IsStillActive(palmPosition);
 	}
 	
-	/// <summary>
+ // 	/// <summary>
 	/// Gets the current active region according to palm position.
 	/// </summary>
 	/// <returns>
@@ -66,7 +67,7 @@ public class GenericRegionsManager{
 	/// </param>
 	public int GetActiveRegion(Vector2 palmPosition)
 	{
-		//checking if currentActiveRegionID is still active (still in region + hysteressis)
+     // 		//checking if currentActiveRegionID is still active (still in region + hysteressis)
 		//if not, searching for new active region
 		if(!(m_currentActiveRegionID != -1 && m_regions[m_currentActiveRegionID].IsStillActive(palmPosition)))
 		{
@@ -86,7 +87,7 @@ public class GenericRegionsManager{
 	/// Gets all active region according to palms position.
 	/// </summary>
 	/// <returns>
-	/// The active regions.
+              /// The active regions.
 	/// </returns>
 	/// <param name='palmPosition'>
 	/// Palm position.

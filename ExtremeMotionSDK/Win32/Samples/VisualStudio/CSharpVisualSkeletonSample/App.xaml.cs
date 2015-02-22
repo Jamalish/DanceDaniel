@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace CSharpVisualSkeletonSample
+					namespace CSharpVisualSkeletonSample
 {
     /// <summary>
     /// Interaction logic for App.xaml

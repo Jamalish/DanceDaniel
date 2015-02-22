@@ -29,10 +29,10 @@ public class ResolutionController : MonoBehaviour {
 			aspectRatio = AspectRatios.Aspect_16x9;
 			ReplacementAtlas =  Resources.Load("GUI/16x9/Atlas/" + Atlas16x9Name, typeof(UIAtlas)) as UIAtlas;
 		 }
-		else
+               else
 		{
 			aspectRatio = AspectRatios.Aspect_4x3;
-			ReplacementAtlas =  Resources.Load("GUI/4x3/Atlas/" + Atlas4x3Name,typeof(UIAtlas)) as UIAtlas;
+   ReplacementAtlas =  Resources.Load("GUI/4x3/Atlas/" + Atlas4x3Name,typeof(UIAtlas)) as UIAtlas;
        		
 		}
 		ReferenceAtlas.replacement = ReplacementAtlas;
@@ -42,7 +42,6 @@ public class ResolutionController : MonoBehaviour {
 	private void CalculateScreenSize(){
  
 		float ratio = (float)GetComponent<UIRoot>().activeHeight / Screen.height;
- 
-		screenWidth = Mathf.Ceil(Screen.width * ratio);
-	}
+                          screenWidth = Mathf.Ceil(Screen.width * ratio);
+             }
 }

@@ -1,5 +1,5 @@
 //----------------------------------------------
-//            NGUI: Next-Gen UI kit
+         //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 static public class NGUIMenu
 {
 	/// <summary>
-	/// Same as SelectedRoot(), but with a log message if nothing was found.
+             /// Same as SelectedRoot(), but with a log message if nothing was found.
 	/// </summary>
 
 	static public GameObject SelectedRoot ()
@@ -23,7 +23,7 @@ static public class NGUIMenu
 		GameObject go = NGUIEditorTools.SelectedRoot();
 
 		if (go == null)
-		{
+           {
 			Debug.Log("No UI found. You can create a new one easily by using the UI creation wizard.\nOpening it for your convenience.");
 			CreateUIWizard();
 		}
@@ -35,7 +35,7 @@ static public class NGUIMenu
 	{
 		GameObject go = NGUIEditorTools.SelectedRoot(true);
 
-		if (go != null)
+           if (go != null)
 		{
 			Undo.RegisterSceneUndo("Add a Sprite");
 			
@@ -56,11 +56,10 @@ static public class NGUIMenu
 			}
 			sprite.pivot = NGUISettings.pivot;
 			sprite.cachedTransform.localScale = new Vector3(100f, 100f, 1f);
-			sprite.MakePixelPerfect();
+        sprite.MakePixelPerfect();
 			Selection.activeGameObject = sprite.gameObject;
 		}
 		else
-		{
 			Debug.Log("You must select a game object first.");
 		}
 	}
@@ -68,6 +67,7 @@ static public class NGUIMenu
 	[MenuItem("NGUI/Create a Label #&l")]
 	static public void AddLabel ()
 	{
+		GameObject go = NGUIEditorTools.SelectedRoot(true);
 		GameObject go = NGUIEditorTools.SelectedRoot(true);
 
 		if (go != null)
@@ -105,10 +105,10 @@ static public class NGUIMenu
 			Selection.activeGameObject = tex.gameObject;
 		}
 		else
-		{
+					{
 			Debug.Log("You must select a game object first.");
 		}
-	}
+                }
 
 	[MenuItem("NGUI/Create a Panel")]
 	static public void AddPanel ()
@@ -116,7 +116,7 @@ static public class NGUIMenu
 		GameObject go = SelectedRoot();
 
 		if (NGUIEditorTools.WillLosePrefab(go))
-		{
+// 		{
 			NGUIEditorTools.RegisterUndo("Add a child UI Panel", go);
 
 			GameObject child = new GameObject(NGUITools.GetName<UIPanel>());
@@ -127,8 +127,7 @@ static public class NGUIMenu
 			ct.localPosition = Vector3.zero;
 			ct.localRotation = Quaternion.identity;
 			ct.localScale = Vector3.one;
-
-			child.AddComponent<UIPanel>();
+				child.AddComponent<UIPanel>();
 			Selection.activeGameObject = child;
 		}
 	}
@@ -152,15 +151,16 @@ static public class NGUIMenu
 		}
 	}
 
-	[MenuItem("NGUI/Attach an Anchor #&h")]
+		[MenuItem("NGUI/Attach an Anchor #&h")]
+	static public void AddAnchor ()
 	static public void AddAnchor ()
 	{
-		GameObject go = Selection.activeGameObject;
+               GameObject go = Selection.activeGameObject;
 
 		if (go != null)
 		{
 			NGUIEditorTools.RegisterUndo("Add an Anchor", go);
-			if (go.GetComponent<UIAnchor>() == null) go.AddComponent<UIAnchor>();
+       if (go.GetComponent<UIAnchor>() == null) go.AddComponent<UIAnchor>();
 		}
 		else
 		{
@@ -186,9 +186,9 @@ static public class NGUIMenu
 	}
 
 	[MenuItem("NGUI/Open the UI Wizard")]
-	static public void CreateUIWizard ()
+      static public void CreateUIWizard ()
 	{
-		EditorWindow.GetWindow<UICreateNewUIWizard>(false, "UI Tool", true);
+ //   		EditorWindow.GetWindow<UICreateNewUIWizard>(false, "UI Tool", true);
 	}
 
 	[MenuItem("NGUI/Open the Panel Tool")]
@@ -201,8 +201,8 @@ static public class NGUIMenu
 	static public void OpenCameraWizard ()
 	{
 		EditorWindow.GetWindow<UICameraTool>(false, "Camera Tool", true);
-	}
-
+ //   	}
+    // 
 	[MenuItem("NGUI/Open the Font Maker #&f")]
 	static public void OpenFontMaker ()
 	{
@@ -222,7 +222,7 @@ static public class NGUIMenu
 		EditorPrefs.SetBool("New GUI", isActive);
 
 		if (isActive)
-		{
+					{
 			Debug.Log("Now using the 2.5.0+ GUI handles. Selecting a widget will bring up draggable handles.");
 		}
 		else

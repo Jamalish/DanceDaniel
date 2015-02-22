@@ -2,17 +2,15 @@
 //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
-
+//  
 using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
+				using System.Collections.Generic;
 
 /// <summary>
 /// Inspector class used to edit UISprites.
 /// </summary>
-
-[CustomEditor(typeof(UIImageButton))]
-public class UIImageButtonInspector : Editor
+			[CustomEditor(typeof(UIImageButton))]
 {
 	UIImageButton mButton;
 	UISprite mSprite;
@@ -21,14 +19,14 @@ public class UIImageButtonInspector : Editor
 	/// Atlas selection callback.
 	/// </summary>
 
-	void OnSelectAtlas (MonoBehaviour obj)
+        void OnSelectAtlas (MonoBehaviour obj)
 	{
 		if (mButton.target != null)
 		{
 			NGUIEditorTools.RegisterUndo("Atlas Selection", mButton.target);
 			mButton.target.atlas = obj as UIAtlas;
 			mButton.target.MakePixelPerfect();
-		}
+ // 		}
 	}
 
 	public override void OnInspectorGUI ()
@@ -53,9 +51,9 @@ public class UIImageButtonInspector : Editor
 				NGUIEditorTools.SpriteField("Normal", mSprite.atlas, mButton.normalSprite, OnNormal);
 				NGUIEditorTools.SpriteField("Hover", mSprite.atlas, mButton.hoverSprite, OnHover);
 				NGUIEditorTools.SpriteField("Pressed", mSprite.atlas, mButton.pressedSprite, OnPressed);
-				NGUIEditorTools.SpriteField("Disabled", mSprite.atlas, mButton.disabledSprite, OnDisabled);
+             NGUIEditorTools.SpriteField("Disabled", mSprite.atlas, mButton.disabledSprite, OnDisabled);
 			}
-		}
+//   		}
 	}
 
 	void OnNormal (string spriteName)
@@ -75,13 +73,12 @@ public class UIImageButtonInspector : Editor
 		Repaint();
 	}
 
-	void OnPressed (string spriteName)
-	{
+			void OnPressed (string spriteName)
 		NGUIEditorTools.RegisterUndo("Image Button Change", mButton, mButton.gameObject, mSprite);
 		mButton.pressedSprite = spriteName;
 		Repaint();
-	}
-	
+    //	}
+// 	
 	void OnDisabled(string spriteName)
 	{
 		NGUIEditorTools.RegisterUndo("Image Button Change", mButton, mButton.gameObject, mSprite);

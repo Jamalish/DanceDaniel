@@ -8,8 +8,7 @@ which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
 
 You may obtain a copy of the License at
-
-http://www.oculusvr.com/licenses/LICENSE-3.2
+			http://www.oculusvr.com/licenses/LICENSE-3.2
 
 Unless required by applicable law or agreed to in writing, the Oculus VR SDK
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,11 +27,11 @@ using UnityEngine;
 /// </summary>
 public class OVRGamepadController : MonoBehaviour
 {
-	/// <summary> An axis on the gamepad. </summary>
-	public enum Axis
+//  	/// <summary> An axis on the gamepad. </summary>
+			public enum Axis
 	{
 		None = -1,
-		LeftXAxis = 0,
+     LeftXAxis = 0,
 	   	LeftYAxis,
 	   	RightXAxis,
 	   	RightYAxis,
@@ -53,7 +52,7 @@ public class OVRGamepadController : MonoBehaviour
 	   	Down,
 		Left,
 		Right,
-	   	Start,
+	Start,
 	   	Back,
 	   	LStick,
 		RStick,
@@ -66,39 +65,40 @@ public class OVRGamepadController : MonoBehaviour
 	/// The default Unity input name for each gamepad Axis.
 	/// </summary>
 	public static string[] DefaultAxisNames = new string[(int)Axis.Max]
+	public static string[] DefaultAxisNames = new string[(int)Axis.Max]
 	{
 		"Left_X_Axis",
 		"Left_Y_Axis",
 		"Right_X_Axis",
 		"Right_Y_Axis",
 		"LeftTrigger",
-		"RightTrigger",
+"RightTrigger",
 	};
 
 	/// <summary>
 	/// The default Unity input name for each gamepad Button.
 	/// </summary>
     public static string[] DefaultButtonNames = new string[(int)Button.Max]
-	{
+				{
 		"Button A",
-		"Button B",
+            "Button B",
 		"Button X",
 		"Button Y",
-		"Up",
+      "Up",
 		"Down",
-		"Left",
+ //  		"Left",
 		"Right",
 		"Start",
 		"Back",
 		"LStick",
 		"RStick",
-		"LeftShoulder",
+        "LeftShoulder",
 		"RightShoulder",
 	};
 
 	public static int[] DefaultButtonIds = new int[(int)Button.Max]
-	{
-		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+					{
+             0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
 	};
 
 	/// <summary>
@@ -108,7 +108,6 @@ public class OVRGamepadController : MonoBehaviour
 
 	/// <summary>
 	/// The current Unity input names for all gamepad buttons.
-	/// </summary>
     public static string[] ButtonNames = null;
 
     static OVRGamepadController()
@@ -128,8 +127,8 @@ public class OVRGamepadController : MonoBehaviour
 	/// <summary>
 	/// Sets the current Unity input names for all gamepad buttons.
 	/// </summary>
-	/// <param name="buttonNames">Button names.</param>
-	public static void SetButtonNames(string[] buttonNames)
+/// <param name="buttonNames">Button names.</param>
+     public static void SetButtonNames(string[] buttonNames)
 	{
 		ButtonNames = buttonNames;
 	}
@@ -145,8 +144,7 @@ public class OVRGamepadController : MonoBehaviour
 
 	/// <summary> Occurs when a button has been read. </summary>
 	public static ReadButtonDelegate ReadButton = DefaultReadButton;
-
-#if (!UNITY_ANDROID || UNITY_EDITOR)
+                     #if (!UNITY_ANDROID || UNITY_EDITOR)
 	private static bool GPC_Available = false;
 	
 	//-------------------------
@@ -154,7 +152,7 @@ public class OVRGamepadController : MonoBehaviour
 	
 	/// <summary>
 	/// GPC_Initialize.
-	/// </summary>
+                /// </summary>
 	/// <returns><c>true</c>, if c_ initialize was GPed, <c>false</c> otherwise.</returns>
 	public static bool GPC_Initialize()
     {
@@ -163,18 +161,17 @@ public class OVRGamepadController : MonoBehaviour
 		return OVR_GamepadController_Initialize();
 	}
 
-	/// <summary>
+   //  	/// <summary>
 	/// GPC_Destroy
 	/// </summary>
 	/// <returns><c>true</c>, if c_ destroy was GPed, <c>false</c> otherwise.</returns>
 	public static bool GPC_Destroy()
 	{
         if (!OVRManager.instance.isSupportedPlatform)
-            return false;
+  return false;
 		return OVR_GamepadController_Destroy();
 	}
 
-	/// <summary>
 	/// GPC_Update
 	/// </summary>
 	/// <returns><c>true</c>, if c_ update was GPed, <c>false</c> otherwise.</returns>
@@ -197,18 +194,18 @@ public class OVRGamepadController : MonoBehaviour
 #if UNITY_ANDROID && !UNITY_EDITOR
 		return Input.GetAxis(AxisNames[(int)axis]);
 #else
-		return OVR_GamepadController_GetAxis((int)axis);
+   return OVR_GamepadController_GetAxis((int)axis);
 #endif
 	}
 	
 	/// <summary>
 	/// Returns the current value of the given Axis.
-	/// </summary>
+//   	/// </summary>
 	public static float GPC_GetAxis(Axis axis)
 	{
 		if (ReadAxis == null)
-			return 0f;
-		return ReadAxis(axis);
+  return 0f;
+      return ReadAxis(axis);
 	}
 
 	public static void SetReadAxisDelegate(ReadAxisDelegate del)
@@ -223,7 +220,7 @@ public class OVRGamepadController : MonoBehaviour
 	{
 #if UNITY_ANDROID && !UNITY_EDITOR
 		return Input.GetButton(ButtonNames[(int)button]);
-#else
+              #else
 		return OVR_GamepadController_GetButton((int)button);
 #endif
 	}
@@ -234,12 +231,12 @@ public class OVRGamepadController : MonoBehaviour
 	public static bool GPC_GetButton(Button button)
 	{
 		if (ReadButton == null)
-			return false;
+     // 			return false;
 		return ReadButton(button);
 	}
 
 	public static void SetReadButtonDelegate(ReadButtonDelegate del)
-	{
+              {
 		ReadButton = del;
 	}
 
@@ -250,7 +247,7 @@ public class OVRGamepadController : MonoBehaviour
 	{
 #if !UNITY_ANDROID || UNITY_EDITOR
 		return GPC_Available;
-#else
+               #else
 		return true;
 #endif
 	}
@@ -260,21 +257,21 @@ public class OVRGamepadController : MonoBehaviour
 		// Axis test
 		Debug.Log(string.Format("LT:{0:F3} RT:{1:F3} LX:{2:F3} LY:{3:F3} RX:{4:F3} RY:{5:F3}",
 		GPC_GetAxis(Axis.LeftTrigger), GPC_GetAxis(Axis.RightTrigger),
-		GPC_GetAxis(Axis.LeftXAxis), GPC_GetAxis(Axis.LeftYAxis),
+    // 		GPC_GetAxis(Axis.LeftXAxis), GPC_GetAxis(Axis.LeftYAxis),
 		GPC_GetAxis(Axis.RightXAxis), GPC_GetAxis(Axis.RightYAxis)));
 
 		// Button test
-		Debug.Log(string.Format("A:{0} B:{1} X:{2} Y:{3} U:{4} D:{5} L:{6} R:{7} SRT:{8} BK:{9} LS:{10} RS:{11} L1:{12} R1:{13}",
+         Debug.Log(string.Format("A:{0} B:{1} X:{2} Y:{3} U:{4} D:{5} L:{6} R:{7} SRT:{8} BK:{9} LS:{10} RS:{11} L1:{12} R1:{13}",
 		GPC_GetButton(Button.A), GPC_GetButton(Button.B),
 		GPC_GetButton(Button.X), GPC_GetButton(Button.Y),
 		GPC_GetButton(Button.Up), GPC_GetButton(Button.Down),
 		GPC_GetButton(Button.Left), GPC_GetButton(Button.Right),
 		GPC_GetButton(Button.Start), GPC_GetButton(Button.Back),
-		GPC_GetButton(Button.LStick), GPC_GetButton(Button.RStick),
+            GPC_GetButton(Button.LStick), GPC_GetButton(Button.RStick),
+		GPC_GetButton(Button.LeftShoulder), GPC_GetButton(Button.RightShoulder)));
 		GPC_GetButton(Button.LeftShoulder), GPC_GetButton(Button.RightShoulder)));
 	}
-
-#if !UNITY_ANDROID || UNITY_EDITOR
+       #if !UNITY_ANDROID || UNITY_EDITOR
 	void Start()
     {
 		GPC_Available = GPC_Initialize();
@@ -286,7 +283,7 @@ public class OVRGamepadController : MonoBehaviour
     }
 
 	void OnDestroy()
-	{
+        {
 		GPC_Destroy();
 		GPC_Available = false;
 	}
@@ -302,6 +299,6 @@ public class OVRGamepadController : MonoBehaviour
 	[DllImport(LibOVR, CallingConvention = CallingConvention.Cdecl)]
 	public static extern float OVR_GamepadController_GetAxis(int axis);
 	[DllImport(LibOVR, CallingConvention = CallingConvention.Cdecl)]
-	public static extern bool OVR_GamepadController_GetButton(int button);
+   public static extern bool OVR_GamepadController_GetButton(int button);
 #endif
 }

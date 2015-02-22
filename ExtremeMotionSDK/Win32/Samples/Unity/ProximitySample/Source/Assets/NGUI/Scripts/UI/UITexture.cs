@@ -9,16 +9,16 @@ using System.Collections.Generic;
 /// <summary>
 /// If you don't have or don't wish to create an atlas, you can simply use this script to draw a texture.
 /// Keep in mind though that this will create an extra draw call with each UITexture present, so it's
-/// best to use it only for backgrounds or temporary visible widgets.
+		/// best to use it only for backgrounds or temporary visible widgets.
 /// </summary>
 
 [ExecuteInEditMode]
-[AddComponentMenu("NGUI/UI/Texture")]
-public class UITexture : UIWidget
+	[AddComponentMenu("NGUI/UI/Texture")]
+        public class UITexture : UIWidget
 {
 	[HideInInspector][SerializeField] Rect mRect = new Rect(0f, 0f, 1f, 1f);
 	[HideInInspector][SerializeField] Shader mShader;
-	[HideInInspector][SerializeField] Texture mTexture;
+[HideInInspector][SerializeField] Texture mTexture;
 
 	Material mDynamicMat;
 	bool mCreatingMat = false;
@@ -30,8 +30,8 @@ public class UITexture : UIWidget
 
 	public Rect uvRect
 	{
-		get
-		{
+ get
+    //		{
 			return mRect;
 		}
 		set
@@ -46,7 +46,7 @@ public class UITexture : UIWidget
 
 	/// <summary>
 	/// Shader used by the texture when creating a dynamic material (when the texture was specified, but the material was not).
-	/// </summary>
+/// </summary>
 
 	public Shader shader
 	{
@@ -60,7 +60,7 @@ public class UITexture : UIWidget
 			}
 			return mShader;
 		}
-		set
+     //		set
 		{
 			if (mShader != value)
 			{
@@ -83,7 +83,7 @@ public class UITexture : UIWidget
 	/// </summary>
 
 	public override bool keepMaterial { get { return true; } }
-
+  //  
 	/// <summary>
 	/// Automatically destroy the dynamically-created material.
 	/// </summary>
@@ -91,7 +91,7 @@ public class UITexture : UIWidget
 	public override Material material
 	{
 		get
-		{
+{
 			if (!mCreatingMat && mMat == null)
 			{
 				mCreatingMat = true;
@@ -101,17 +101,17 @@ public class UITexture : UIWidget
 					if (mShader == null) mShader = Shader.Find("Unlit/Texture");
 					mDynamicMat = new Material(mShader);
 					mDynamicMat.hideFlags = HideFlags.DontSave;
-					mDynamicMat.mainTexture = mainTexture;
+              mDynamicMat.mainTexture = mainTexture;
 					base.material = mDynamicMat;
 					mPMA = 0;
 				}
-				mCreatingMat = false;
+      mCreatingMat = false;
 			}
 			return mMat;
 		}
 		set
 		{
-			if (mDynamicMat != value && mDynamicMat != null)
+  if (mDynamicMat != value && mDynamicMat != null)
 			{
 				NGUITools.Destroy(mDynamicMat);
 				mDynamicMat = null;
@@ -120,6 +120,7 @@ public class UITexture : UIWidget
 			mPMA = -1;
 		}
 	}
+
 
 	/// <summary>
 	/// Whether the texture is using a premultiplied alpha material.
@@ -141,18 +142,16 @@ public class UITexture : UIWidget
 	/// <summary>
 	/// Texture used by the UITexture. You can set it directly, without the need to specify a material.
 	/// </summary>
-
-	public override Texture mainTexture
+					public override Texture mainTexture
 	{
 		get
 		{
-			return (mTexture != null) ? mTexture : base.mainTexture;
+        return (mTexture != null) ? mTexture : base.mainTexture;
 		}
 		set
 		{
 			if (mPanel != null && mMat != null) mPanel.RemoveWidget(this);
-
-			if (mMat == null)
+   			if (mMat == null)
 			{
 				mDynamicMat = new Material(shader);
 				mDynamicMat.hideFlags = HideFlags.DontSave;
@@ -168,7 +167,7 @@ public class UITexture : UIWidget
 		}
 	}
 
-	/// <summary>
+/// <summary>
 	/// Clean up.
 	/// </summary>
 
@@ -180,7 +179,7 @@ public class UITexture : UIWidget
 
 	public override void MakePixelPerfect ()
 	{
-		Texture tex = mainTexture;
+         Texture tex = mainTexture;
 
 		if (tex != null)
 		{
@@ -191,17 +190,17 @@ public class UITexture : UIWidget
 			cachedTransform.localScale = scale;
 		}
 		base.MakePixelPerfect();
-	}
+   }
 
 	/// <summary>
-	/// Virtual function called by the UIScreen that fills the buffers.
+         /// Virtual function called by the UIScreen that fills the buffers.
 	/// </summary>
 
 	public override void OnFill (BetterList<Vector3> verts, BetterList<Vector2> uvs, BetterList<Color32> cols)
 	{
 		Color colF = color;
 		colF.a *= mPanel.alpha;
-		Color32 col = premultipliedAlpha ? NGUITools.ApplyPMA(colF) : colF;
+              Color32 col = premultipliedAlpha ? NGUITools.ApplyPMA(colF) : colF;
 	
 		verts.Add(new Vector3(1f,  0f, 0f));
 		verts.Add(new Vector3(1f, -1f, 0f));

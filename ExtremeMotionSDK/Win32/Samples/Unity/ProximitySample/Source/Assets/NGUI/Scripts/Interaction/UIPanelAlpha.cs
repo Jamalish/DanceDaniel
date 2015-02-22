@@ -5,9 +5,9 @@
 
 using UnityEngine;
 
-/// <summary>
+            /// <summary>
 /// This script makes it easy to change the alpha of all widgets at once.
-/// Useful for fading out a window via a Unity Animation, for example.
+    /// Useful for fading out a window via a Unity Animation, for example.
 /// Automatically disables colliders and game objects when needed.
 /// </summary>
 
@@ -22,12 +22,12 @@ public class UIPanelAlpha : MonoBehaviour
 	float mLastAlpha = 1f;
 	int mLevel = 2;
 
-	void Start ()
+        void Start ()
 	{
-		mColliders = GetComponentsInChildren<Collider>(true);
+   mColliders = GetComponentsInChildren<Collider>(true);
 		mWidgets = GetComponentsInChildren<UIWidget>(true);
 
-		if (mWidgets.Length == 0)
+         if (mWidgets.Length == 0)
 		{
 			Debug.LogError("Expected to find widgets to work with", this);
 			enabled = false;
@@ -57,11 +57,11 @@ public class UIPanelAlpha : MonoBehaviour
 	}
 
 	void UpdateAlpha ()
-	{
+{
 		// Update the widget alpha
 		for (int i = 0, imax = mWidgets.Length; i < imax; ++i)
 		{
-			UIWidget w = mWidgets[i];
+              UIWidget w = mWidgets[i];
 			if (w != null) w.alpha = mAlpha[i] * alpha;
 		}
 
@@ -81,9 +81,10 @@ public class UIPanelAlpha : MonoBehaviour
 			for (int i = 0, imax = mColliders.Length; i < imax; ++i) mColliders[i].enabled = false;
 			mLevel = 1;
 		}
+		}
 
 		if (mLevel == 1)
-		{
+              {
 			if (alpha < 0.01f)
 			{
 				// Fade out finished -- disable all game objects

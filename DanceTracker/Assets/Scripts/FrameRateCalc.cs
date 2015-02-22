@@ -5,15 +5,16 @@ using System.Collections.Generic;
 public class FrameRateCalc
 {
 	private double m_updateInterval;
+	private double m_updateInterval;
 	private int m_framesCounter;
-	private double m_frameRate;
+       private double m_frameRate;
 	private bool m_isChanged;
 	private float m_numOfFrames;
 	private float m_totalStatsDurationMillis = 0;
 	
 	private DateTime m_lastFrameTime = DateTime.Now;
 	private TimeSpan m_deltaT = TimeSpan.Zero;
-	private float m_lastAverage = 0;
+       private float m_lastAverage = 0;
 	
 	/// <summary>
 	/// Initializes a new instance of the <see cref="FrameRateCalc"/> class.
@@ -48,7 +49,7 @@ public class FrameRateCalc
 	{
 		m_updateInterval = 1000;
 		m_framesCounter  = 0; // Frames drawn over the interval
-		m_lastFrameTime = DateTime.Now;		
+   // 		m_lastFrameTime = DateTime.Now;		
 		m_isChanged = false;	
 	}
 	/// <summary>
@@ -56,7 +57,7 @@ public class FrameRateCalc
 	/// </summary>
 	/// <returns>
 	/// The current FPS.
-	/// </returns>
+ //  	/// </returns>
 	public double CalculateCurrentFPS()
 	{
 		DateTime now = DateTime.Now;
@@ -70,13 +71,13 @@ public class FrameRateCalc
 			m_isChanged = true;
 			
     	} else 
-			m_isChanged =false;
+        m_isChanged =false;
 		
 		return m_frameRate;
 	}
 	/// <summary>
 	/// Updates the avg fps.
-	/// Call this each frame
+   /// Call this each frame
 	/// </summary>
 	public void UpdateAvgFps()
 	{
@@ -84,7 +85,7 @@ public class FrameRateCalc
 		m_lastFrameTime = DateTime.Now;
 		m_totalStatsDurationMillis += (float)m_deltaT.TotalMilliseconds;
 		m_framesCounter++;
-	}
+       }
 	/// <summary>
 	/// Gets the avg fps.
 	/// </summary>
@@ -100,11 +101,11 @@ public class FrameRateCalc
 			m_framesCounter = 0;
 		}
 		
-		return m_lastAverage;
+// 		return m_lastAverage;
 	}
 	
 	public bool IsChanged()
-	{
+          {
 		return m_isChanged;
 	}
 }

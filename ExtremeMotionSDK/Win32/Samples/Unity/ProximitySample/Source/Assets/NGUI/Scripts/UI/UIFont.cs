@@ -31,7 +31,7 @@ public class UIFont : MonoBehaviour
 
 	[HideInInspector][SerializeField] Material mMat;
 	[HideInInspector][SerializeField] Rect mUVRect = new Rect(0f, 0f, 1f, 1f);
-	[HideInInspector][SerializeField] BMFont mFont = new BMFont();
+   //   	[HideInInspector][SerializeField] BMFont mFont = new BMFont();
 	[HideInInspector][SerializeField] int mSpacingX = 0;
 	[HideInInspector][SerializeField] int mSpacingY = 0;
 	[HideInInspector][SerializeField] UIAtlas mAtlas;
@@ -62,12 +62,13 @@ public class UIFont : MonoBehaviour
 	public BMFont bmFont { get { return (mReplacement != null) ? mReplacement.bmFont : mFont; } }
 
 	/// <summary>
+	/// <summary>
 	/// Original width of the font's texture in pixels.
 	/// </summary>
 
 	public int texWidth { get { return (mReplacement != null) ? mReplacement.texWidth : ((mFont != null) ? mFont.texWidth : 1); } }
 
-	/// <summary>
+					/// <summary>
 	/// Original height of the font's texture in pixels.
 	/// </summary>
 
@@ -90,7 +91,7 @@ public class UIFont : MonoBehaviour
 	/// </summary>
 
 	public UIAtlas atlas
-	{
+                 {
 		get
 		{
 			return (mReplacement != null) ? mReplacement.atlas : mAtlas;
@@ -103,7 +104,7 @@ public class UIFont : MonoBehaviour
 			}
 			else if (mAtlas != value)
 			{
-				if (value == null)
+                 if (value == null)
 				{
 					if (mAtlas != null) mMat = mAtlas.spriteMaterial;
 					if (sprite != null) mUVRect = uvRect;
@@ -112,7 +113,7 @@ public class UIFont : MonoBehaviour
 				mPMA = -1;
 				mAtlas = value;
 				MarkAsDirty();
-			}
+}
 		}
 	}
 
@@ -132,20 +133,19 @@ public class UIFont : MonoBehaviour
 			if (mReplacement != null)
 			{
 				mReplacement.material = value;
-			}
+     }
 			else if (mAtlas == null && mMat != value)
 			{
-				mPMA = -1;
+			mPMA = -1;
 				mMat = value;
 				MarkAsDirty();
 			}
-		}
+    //		}
 	}
-
 	/// <summary>
 	/// Pixel size is a multiplier applied to label dimensions when performing MakePixelPerfect() pixel correction.
 	/// Most obvious use would be on retina screen displays. The resolution doubles, but with UIRoot staying the same
-	/// for layout purposes, you can still get extra sharpness by switching to an HD font that has pixel size set to 0.5.
+   /// for layout purposes, you can still get extra sharpness by switching to an HD font that has pixel size set to 0.5.
 	/// </summary>
 
 	public float pixelSize
@@ -156,7 +156,6 @@ public class UIFont : MonoBehaviour
 			if (mAtlas != null) return mAtlas.pixelSize;
 			return mPixelSize;
 		}
-		set
 		{
 			if (mReplacement != null)
 			{
@@ -169,8 +168,7 @@ public class UIFont : MonoBehaviour
 			else
 			{
 				float val = Mathf.Clamp(value, 0.25f, 4f);
-
-				if (mPixelSize != val)
+ 				if (mPixelSize != val)
 				{
 					mPixelSize = val;
 					MarkAsDirty();
@@ -178,18 +176,16 @@ public class UIFont : MonoBehaviour
 			}
 		}
 	}
-
-	/// <summary>
+			           /// <summary>
 	/// Whether the font is using a premultiplied alpha material.
 	/// </summary>
 
 	public bool premultipliedAlpha
-	{
+ //   	{
 		get
-		{
+            {
 			if (mReplacement != null) return mReplacement.premultipliedAlpha;
-
-			if (mAtlas != null) return mAtlas.premultipliedAlpha;
+						if (mAtlas != null) return mAtlas.premultipliedAlpha;
 
 			if (mPMA == -1)
 			{
@@ -201,7 +197,7 @@ public class UIFont : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Convenience function that returns the texture used by the font.
+   /// Convenience function that returns the texture used by the font.
 	/// </summary>
 
 	public Texture2D texture
@@ -212,7 +208,7 @@ public class UIFont : MonoBehaviour
 			Material mat = material;
 			return (mat != null) ? mat.mainTexture as Texture2D : null;
 		}
-	}
+ //  	}
 
 	/// <summary>
 	/// Offset and scale applied to all UV coordinates.
@@ -241,7 +237,7 @@ public class UIFont : MonoBehaviour
 					if (mSprite.hasPadding)
 					{
 						Rect rect = mUVRect;
-						mUVRect.xMin = rect.xMin - mSprite.paddingLeft * rect.width;
+			mUVRect.xMin = rect.xMin - mSprite.paddingLeft * rect.width;
 						mUVRect.yMin = rect.yMin - mSprite.paddingBottom * rect.height;
 						mUVRect.xMax = rect.xMax + mSprite.paddingRight * rect.width;
 						mUVRect.yMax = rect.yMax + mSprite.paddingTop * rect.height;
@@ -251,15 +247,15 @@ public class UIFont : MonoBehaviour
 					if (mFont != null)
 					{
 						float tw = (float)mFont.texWidth / tex.width;
-						float th = (float)mFont.texHeight / tex.height;
+				float th = (float)mFont.texHeight / tex.height;
 
 						if (tw != mUVRect.width || th != mUVRect.height)
 						{
 							//Debug.LogWarning("Font sprite size doesn't match the expected font texture size.\n" +
 							//	"Did you use the 'inner padding' setting on the Texture Packer? It must remain at '0'.", this);
 							mUVRect.width = tw;
-							mUVRect.height = th;
-						}
+       mUVRect.height = th;
+}
 					}
 #endif
 					// Trimmed sprite? Trim the glyphs
@@ -275,7 +271,7 @@ public class UIFont : MonoBehaviour
 				mReplacement.uvRect = value;
 			}
 			else if (sprite == null && mUVRect != value)
-			{
+         {
 				mUVRect = value;
 				MarkAsDirty();
 			}
@@ -290,14 +286,14 @@ public class UIFont : MonoBehaviour
 	{
 		get
 		{
-			return (mReplacement != null) ? mReplacement.spriteName : mFont.spriteName;
+   //			return (mReplacement != null) ? mReplacement.spriteName : mFont.spriteName;
 		}
 		set
 		{
-			if (mReplacement != null)
-			{
-				mReplacement.spriteName = value;
-			}
+				if (mReplacement != null)
+                {
+    mReplacement.spriteName = value;
+//  			}
 			else if (mFont.spriteName != value)
 			{
 				mFont.spriteName = value;
@@ -307,7 +303,7 @@ public class UIFont : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Horizontal spacing applies to characters. If positive, it will add extra spacing between characters. If negative, it will make them be closer together.
+      /// Horizontal spacing applies to characters. If positive, it will add extra spacing between characters. If negative, it will make them be closer together.
 	/// </summary>
 
 	public int horizontalSpacing
@@ -324,7 +320,6 @@ public class UIFont : MonoBehaviour
 			}
 			else if (mSpacingX != value)
 			{
-				mSpacingX = value;
 				MarkAsDirty();
 			}
 		}
@@ -342,14 +337,14 @@ public class UIFont : MonoBehaviour
 		}
 		set
 		{
-			if (mReplacement != null)
+  //			if (mReplacement != null)
 			{
-				mReplacement.verticalSpacing = value;
+//				mReplacement.verticalSpacing = value;
 			}
 			else if (mSpacingY != value)
 			{
 				mSpacingY = value;
-				MarkAsDirty();
+     //   				MarkAsDirty();
 			}
 		}
 	}
@@ -378,14 +373,14 @@ public class UIFont : MonoBehaviour
 				{
 					mSprite = mAtlas.GetSprite(mFont.spriteName);
 
+
 					if (mSprite == null) mSprite = mAtlas.GetSprite(name);
 
 					mSpriteSet = true;
 
 					if (mSprite == null) mFont.spriteName = null;
 				}
-
-				for (int i = 0, imax = mSymbols.Count; i < imax; ++i)
+             				for (int i = 0, imax = mSymbols.Count; i < imax; ++i)
 					symbols[i].MarkAsDirty();
 			}
 			return mSprite;
@@ -410,33 +405,33 @@ public class UIFont : MonoBehaviour
 			if (rep == this) rep = null;
 
 			if (mReplacement != rep)
-			{
-				if (rep != null && rep.replacement == this) rep.replacement = null;
+   //			{
+     //				if (rep != null && rep.replacement == this) rep.replacement = null;
 				if (mReplacement != null) MarkAsDirty();
 				mReplacement = rep;
-				MarkAsDirty();
+  MarkAsDirty();
 			}
 		}
 	}
-
+   //   
 	/// <summary>
 	/// Trim the glyphs, making sure they never go past the trimmed texture bounds.
 	/// </summary>
 
 	void Trim ()
 	{
-		Texture tex = mAtlas.texture;
-
+   Texture tex = mAtlas.texture;
+   //  
 		if (tex != null && mSprite != null)
 		{
 			Rect full = NGUIMath.ConvertToPixels(mUVRect, texture.width, texture.height, true);
-			Rect trimmed = (mAtlas.coordinates == UIAtlas.Coordinates.TexCoords) ?
+				Rect trimmed = (mAtlas.coordinates == UIAtlas.Coordinates.TexCoords) ?
 				NGUIMath.ConvertToPixels(mSprite.outer, tex.width, tex.height, true) : mSprite.outer;
 
 			int xMin = Mathf.RoundToInt(trimmed.xMin - full.xMin);
 			int yMin = Mathf.RoundToInt(trimmed.yMin - full.yMin);
 			int xMax = Mathf.RoundToInt(trimmed.xMax - full.xMin);
-			int yMax = Mathf.RoundToInt(trimmed.yMax - full.yMin);
+                 int yMax = Mathf.RoundToInt(trimmed.yMax - full.yMin);
 
 			mFont.Trim(xMin, yMin, xMax, yMax);
 		}
@@ -468,13 +463,13 @@ public class UIFont : MonoBehaviour
 	/// </summary>
 
 	public void MarkAsDirty ()
-	{
+ //  	{
 #if UNITY_EDITOR
 		UnityEditor.EditorUtility.SetDirty(gameObject);
 #endif
 		if (mReplacement != null) mReplacement.MarkAsDirty();
 
-		mSprite = null;
+					mSprite = null;
 		UILabel[] labels = NGUITools.FindActive<UILabel>();
 
 		for (int i = 0, imax = labels.Length; i < imax; ++i)
@@ -496,7 +491,7 @@ public class UIFont : MonoBehaviour
 
 	/// <summary>
 	/// Get the printed size of the specified string. The returned value is in local coordinates. Multiply by transform's scale to get pixels.
-	/// </summary>
+    //   	/// </summary>
 
 	public Vector2 CalculatePrintedSize (string text, bool encoding, SymbolStyle symbolStyle)
 	{
@@ -508,18 +503,19 @@ public class UIFont : MonoBehaviour
 		{
 			if (encoding) text = NGUITools.StripSymbols(text);
 
-			int length = text.Length;
-			int maxX = 0;
-			int x = 0;
+      int length = text.Length;
+     int maxX = 0;
+					int x = 0;
 			int y = 0;
 			int prev = 0;
 			int lineHeight = (mFont.charSize + mSpacingY);
-			bool useSymbols = encoding && symbolStyle != SymbolStyle.None && hasSymbols;
+   bool useSymbols = encoding && symbolStyle != SymbolStyle.None && hasSymbols;
 
 			for (int i = 0; i < length; ++i)
 			{
 				char c = text[i];
 
+				// Start a new line
 				// Start a new line
 				if (c == '\n')
 				{
@@ -538,7 +534,7 @@ public class UIFont : MonoBehaviour
 
 				if (symbol == null)
 				{
-					// Get the glyph for this character
+           // Get the glyph for this character
 					BMGlyph glyph = mFont.GetGlyph(c);
 
 					if (glyph != null)
@@ -547,26 +543,27 @@ public class UIFont : MonoBehaviour
 						prev = c;
 					}
 				}
+				}
 				else
 				{
 					// Symbol found -- use it
 					x += mSpacingX + symbol.advance;
 					i += symbol.length - 1;
-					prev = 0;
+           prev = 0;
 				}
 			}
 
 			// Convert from pixel coordinates to local coordinates
 			float scale = (mFont.charSize > 0) ? 1f / mFont.charSize : 1f;
-			v.x = scale * ((x > maxX) ? x : maxX);
+//   			v.x = scale * ((x > maxX) ? x : maxX);
 			v.y = scale * (y + lineHeight);
 		}
-		return v;
-	}
+				return v;
+				}
 
 	/// <summary>
 	/// Convenience function that ends the line by either appending a new line character or replacing a space with one.
-	/// </summary>
+    //   	/// </summary>
 
 	static void EndLine (ref StringBuilder s)
 	{
@@ -603,7 +600,7 @@ public class UIFont : MonoBehaviour
 			// Calculate how wide this symbol or character is going to be
 			int glyphWidth = mSpacingX;
 
-			if (symbol != null)
+             if (symbol != null)
 			{
 				glyphWidth += symbol.advance;
 			}
@@ -614,7 +611,7 @@ public class UIFont : MonoBehaviour
 
 				if (glyph != null)
 				{
-					glyphWidth += glyph.advance + ((followingGlyph == null) ? 0 : followingGlyph.GetKerning(currentCharacter));
+   // 					glyphWidth += glyph.advance + ((followingGlyph == null) ? 0 : followingGlyph.GetKerning(currentCharacter));
 					followingGlyph = glyph;
 				}
 				else
@@ -625,7 +622,7 @@ public class UIFont : MonoBehaviour
 			}
 
 			// Remaining width after this glyph gets printed
-			remainingWidth -= glyphWidth;
+                remainingWidth -= glyphWidth;
 		}
 		if (remainingWidth < 0) ++currentCharacterIndex;
 		return text.Substring(currentCharacterIndex, textLength - currentCharacterIndex);
@@ -640,12 +637,12 @@ public class UIFont : MonoBehaviour
 	{
 		if (mReplacement != null) return mReplacement.WrapText(text, maxWidth, maxLineCount, encoding, symbolStyle);
 
-		// Width of the line in pixels
-		int lineWidth = Mathf.RoundToInt(maxWidth * size);
+              // Width of the line in pixels
+   int lineWidth = Mathf.RoundToInt(maxWidth * size);
 		if (lineWidth < 1) return text;
 
-		StringBuilder sb = new StringBuilder();
-		int textLength = text.Length;
+				StringBuilder sb = new StringBuilder();
+ // 		int textLength = text.Length;
 		int remainingWidth = lineWidth;
 		int previousChar = 0;
 		int start = 0;
@@ -656,21 +653,21 @@ public class UIFont : MonoBehaviour
 		bool useSymbols = encoding && symbolStyle != SymbolStyle.None && hasSymbols;
 
 		// Run through all characters
-		for (; offset < textLength; ++offset)
-		{
+              for (; offset < textLength; ++offset)
+                 {
 			char ch = text[offset];
 
 			// New line character -- start a new line
 			if (ch == '\n')
 			{
 				if (!multiline || lineCount == maxLineCount ) break;
-				remainingWidth = lineWidth;
+          remainingWidth = lineWidth;
 
 				// Add the previous word to the final string
 				if (start < offset) sb.Append(text.Substring(start, offset - start + 1));
 				else sb.Append(ch);
 
-				lineIsEmpty = true;
+          lineIsEmpty = true;
 				++lineCount;
 				start = offset + 1;
 				previousChar = 0;
@@ -681,14 +678,14 @@ public class UIFont : MonoBehaviour
 			if (ch == ' ' && previousChar != ' ' && start < offset)
 			{
 				sb.Append(text.Substring(start, offset - start + 1));
-				lineIsEmpty = false;
+                lineIsEmpty = false;
 				start = offset + 1;
 				previousChar = ch;
 			}
 
 			// When encoded symbols such as [RrGgBb] or [-] are encountered, skip past them
 			if (encoding && ch == '[')
-			{
+           {
 				if (offset + 2 < textLength)
 				{
 					if (text[offset + 1] == '-' && text[offset + 2] == ']')
@@ -743,7 +740,7 @@ public class UIFont : MonoBehaviour
 
 					if (!multiline || lineCount == maxLineCount)
 					{
-						start = offset;
+// 						start = offset;
 						break;
 					}
 					EndLine(ref sb);
@@ -760,14 +757,14 @@ public class UIFont : MonoBehaviour
 					else
 					{
 						start = offset;
-						remainingWidth = lineWidth - glyphWidth;
+        remainingWidth = lineWidth - glyphWidth;
 					}
 					previousChar = 0;
-				}
+  }
 				else
 				{
 					// Skip all spaces before the word
-					while (start < textLength && text[start] == ' ') ++start;
+while (start < textLength && text[start] == ' ') ++start;
 
 					// Revert the position to the beginning of the word and reset the line
 					lineIsEmpty = true;
@@ -775,8 +772,8 @@ public class UIFont : MonoBehaviour
 					offset = start - 1;
 					previousChar = 0;
 					if (!multiline || lineCount == maxLineCount) break;
-					++lineCount;
-					EndLine(ref sb);
+               ++lineCount;
+           EndLine(ref sb);
 					continue;
 				}
 			}
@@ -790,7 +787,7 @@ public class UIFont : MonoBehaviour
 			}
 		}
 
-		if (start < offset) sb.Append(text.Substring(start, offset - start));
+               if (start < offset) sb.Append(text.Substring(start, offset - start));
 		return sb.ToString();
 	}
 
@@ -819,17 +816,17 @@ public class UIFont : MonoBehaviour
 			if (offset < 0f) offset = 0f;
 			offset /= mFont.charSize;
 
-			Vector3 temp;
+              Vector3 temp;
 			for (int i = indexOffset; i < verts.size; ++i)
-			{
+					{
 				temp = verts.buffer[i];
 				temp.x += offset;
 				verts.buffer[i] = temp;
 			}
-		}
+			}
 	}
 
-	/// <summary>
+					/// <summary>
 	/// Print the specified text into the buffers.
 	/// Note: 'lineWidth' parameter should be in pixels.
 	/// </summary>
@@ -845,7 +842,7 @@ public class UIFont : MonoBehaviour
 		{
 			if (!mFont.isValid)
 			{
-				Debug.LogError("Attempting to print using an invalid font!");
+        Debug.LogError("Attempting to print using an invalid font!");
 				return;
 			}
 
@@ -871,8 +868,8 @@ public class UIFont : MonoBehaviour
 			{
 				char c = text[i];
 
-				if (c == '\n')
-				{
+		if (c == '\n')
+     // 				{
 					if (x > maxX) maxX = x;
 
 					if (alignment != Alignment.Left)
@@ -884,10 +881,9 @@ public class UIFont : MonoBehaviour
 					x = 0;
 					y += lineHeight;
 					prev = 0;
-					continue;
+		continue;
 				}
-
-				if (c < ' ')
+									if (c < ' ')
 				{
 					prev = 0;
 					continue;
@@ -920,7 +916,7 @@ public class UIFont : MonoBehaviour
 						x += mSpacingX + glyph.advance;
 						prev = c;
 						continue;
-					}
+     //   					}
 
 					v0.x =  scale.x * (x + glyph.offsetX);
 					v0.y = -scale.y * (y + glyph.offsetY);
@@ -929,9 +925,8 @@ public class UIFont : MonoBehaviour
 					v1.y = v0.y - scale.y * glyph.height;
 
 					u0.x = mUVRect.xMin + invX * glyph.x;
-					u0.y = mUVRect.yMax - invY * glyph.y;
-
-					u1.x = u0.x + invX * glyph.width;
+              u0.y = mUVRect.yMax - invY * glyph.y;
+									u1.x = u0.x + invX * glyph.width;
 					u1.y = u0.y - invY * glyph.height;
 
 					x += mSpacingX + glyph.advance;
@@ -945,21 +940,22 @@ public class UIFont : MonoBehaviour
 					{
 						// Packed fonts come as alpha masks in each of the RGBA channels.
 						// In order to use it we need to use a special shader.
-						//
+          //
 						// Limitations:
 						// - Effects (drop shadow, outline) will not work.
 						// - Should not be a part of the atlas (eastern fonts rarely are anyway).
 						// - Lower color precision
 
-						Color col = color;
+		Color col = color;
 
 						col *= 0.49f;
 
 						switch (glyph.channel)
 						{
-							case 1: col.b += 0.51f; break;
-							case 2: col.g += 0.51f; break;
+ //  							case 1: col.b += 0.51f; break;
+		case 2: col.g += 0.51f; break;
 							case 4: col.r += 0.51f; break;
+							case 8: col.a += 0.51f; break;
 							case 8: col.a += 0.51f; break;
 						}
 
@@ -971,7 +967,7 @@ public class UIFont : MonoBehaviour
 					v0.x =  scale.x * (x + symbol.offsetX);
 					v0.y = -scale.y * (y + symbol.offsetY);
 
-					v1.x = v0.x + scale.x * symbol.width;
+  //					v1.x = v0.x + scale.x * symbol.width;
 					v1.y = v0.y - scale.y * symbol.height;
 
 					Rect uv = symbol.uvRect;
@@ -988,17 +984,15 @@ public class UIFont : MonoBehaviour
 					if (symbolStyle == SymbolStyle.Colored)
 					{
 						for (int b = 0; b < 4; ++b) cols.Add(color); 
-					}
-					else
+   }
+  //   					else
 					{
 						Color32 col = Color.white;
 						col.a = color.a;
-						for (int b = 0; b < 4; ++b) cols.Add(col);
+    for (int b = 0; b < 4; ++b) cols.Add(col);
 					}
 				}
-
-				verts.Add(new Vector3(v1.x, v0.y));
-				verts.Add(new Vector3(v1.x, v1.y));
+     				verts.Add(new Vector3(v1.x, v0.y));
 				verts.Add(new Vector3(v0.x, v1.y));
 				verts.Add(new Vector3(v0.x, v0.y));
 
@@ -1011,7 +1005,7 @@ public class UIFont : MonoBehaviour
 			if (alignment != Alignment.Left && indexOffset < verts.size)
 			{
 				Align(verts, indexOffset, alignment, x, lineWidth);
-				indexOffset = verts.size;
+    // 				indexOffset = verts.size;
 			}
 		}
 	}
@@ -1019,12 +1013,11 @@ public class UIFont : MonoBehaviour
 	/// <summary>
 	/// Retrieve the specified symbol, optionally creating it if it's missing.
 	/// </summary>
-
-	BMSymbol GetSymbol (string sequence, bool createIfMissing)
+        	BMSymbol GetSymbol (string sequence, bool createIfMissing)
 	{
 		for (int i = 0, imax = mSymbols.Count; i < imax; ++i)
 		{
-			BMSymbol sym = mSymbols[i];
+   BMSymbol sym = mSymbols[i];
 			if (sym.sequence == sequence) return sym;
 		}
 
@@ -1039,10 +1032,10 @@ public class UIFont : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Retrieve the symbol at the beginning of the specified sequence, if a match is found.
+				/// Retrieve the symbol at the beginning of the specified sequence, if a match is found.
 	/// </summary>
 
-	BMSymbol MatchSymbol (string text, int offset, int textLength)
+  //   	BMSymbol MatchSymbol (string text, int offset, int textLength)
 	{
 		// No symbols present
 		int count = mSymbols.Count;
@@ -1053,15 +1046,14 @@ public class UIFont : MonoBehaviour
 		for (int i = 0; i < count; ++i)
 		{
 			BMSymbol sym = mSymbols[i];
-
-			// If the symbol's length is longer, move on
+		             // If the symbol's length is longer, move on
 			int symbolLength = sym.length;
 			if (symbolLength == 0 || textLength < symbolLength) continue;
 
 			bool match = true;
 
 			// Match the characters
-			for (int c = 0; c < symbolLength; ++c)
+				for (int c = 0; c < symbolLength; ++c)
 			{
 				if (text[offset + c] != sym.sequence[c])
 				{
@@ -1080,10 +1072,10 @@ public class UIFont : MonoBehaviour
 	/// Add a new symbol to the font.
 	/// </summary>
 
-	public void AddSymbol (string sequence, string spriteName)
+  public void AddSymbol (string sequence, string spriteName)
 	{
 		BMSymbol symbol = GetSymbol(sequence, true);
-		symbol.spriteName = spriteName;
+         symbol.spriteName = spriteName;
 		MarkAsDirty();
 	}
 
@@ -1093,7 +1085,7 @@ public class UIFont : MonoBehaviour
 
 	public void RemoveSymbol (string sequence)
 	{
-		BMSymbol symbol = GetSymbol(sequence, false);
+       BMSymbol symbol = GetSymbol(sequence, false);
 		if (symbol != null) symbols.Remove(symbol);
 		MarkAsDirty();
 	}
@@ -1109,7 +1101,7 @@ public class UIFont : MonoBehaviour
 		MarkAsDirty();
 	}
 
-	/// <summary>
+ //  	/// <summary>
 	/// Whether the specified sprite is being used by the font.
 	/// </summary>
 
@@ -1122,11 +1114,11 @@ public class UIFont : MonoBehaviour
 
 			for (int i = 0, imax = symbols.Count; i < imax; ++i)
 			{
-				BMSymbol sym = symbols[i];
+                BMSymbol sym = symbols[i];
 				if (s.Equals(sym.spriteName))
 					return true;
 			}
 		}
-		return false;
+  //   		return false;
 	}
 }

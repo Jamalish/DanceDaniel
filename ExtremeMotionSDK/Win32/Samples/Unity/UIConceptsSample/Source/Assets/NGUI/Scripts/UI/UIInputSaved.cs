@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-/// <summary>
+     /// <summary>
 /// Editable text input field that automatically saves its data to PlayerPrefs.
 /// </summary>
 
@@ -13,8 +13,7 @@ using UnityEngine;
 public class UIInputSaved : UIInput
 {
 	public string playerPrefsField;
-
-	public override string text
+     // 	public override string text
 	{
 		get
 		{
@@ -27,7 +26,7 @@ public class UIInputSaved : UIInput
 		}
 	}
 
-	void Awake ()
+    void Awake ()
 	{
 		onSubmit = SaveToPlayerPrefs;
 
@@ -43,7 +42,7 @@ public class UIInputSaved : UIInput
 		{
 			PlayerPrefs.SetString(playerPrefsField, val);
 		}
-	}
+  //   	}
 
 	void OnApplicationQuit ()
 	{

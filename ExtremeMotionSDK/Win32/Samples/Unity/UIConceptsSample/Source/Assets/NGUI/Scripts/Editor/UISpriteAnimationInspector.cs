@@ -16,7 +16,7 @@ public class UISpriteAnimationInspector : Editor
 	/// <summary>
 	/// Draw the inspector widget.
 	/// </summary>
-
+//
 	public override void OnInspectorGUI ()
 	{
 		NGUIEditorTools.DrawSeparator();
@@ -32,7 +32,7 @@ public class UISpriteAnimationInspector : Editor
 			anim.framesPerSecond = fps;
 			EditorUtility.SetDirty(anim);
 		}
-
+     //   
 		string namePrefix = EditorGUILayout.TextField("Name Prefix", (anim.namePrefix != null) ? anim.namePrefix : "");
 
 		if (anim.namePrefix != namePrefix)
@@ -43,8 +43,7 @@ public class UISpriteAnimationInspector : Editor
 		}
 
 		bool loop = EditorGUILayout.Toggle("Loop", anim.loop);
-
-		if (anim.loop != loop)
+               		if (anim.loop != loop)
 		{
 			NGUIEditorTools.RegisterUndo("Sprite Animation Change", anim);
 			anim.loop = loop;

@@ -8,11 +8,10 @@ using System.Collections.Generic;
 using System.Text;
 
 /// <summary>
-/// Text list can be used with a UILabel to create a scrollable multi-line text field that's
+            /// Text list can be used with a UILabel to create a scrollable multi-line text field that's
 /// easy to add new entries to. Optimal use: chat window.
 /// </summary>
-
-[AddComponentMenu("NGUI/UI/Text List")]
+              [AddComponentMenu("NGUI/UI/Text List")]
 public class UITextList : MonoBehaviour
 {
 	public enum Style
@@ -24,7 +23,7 @@ public class UITextList : MonoBehaviour
 	public Style style = Style.Text;
 	public UILabel textLabel;
 	public float maxWidth = 0f;
-	public float maxHeight = 0f;
+				public float maxHeight = 0f;
 	public int maxEntries = 50;
 	public bool supportScrollWheel = true;
 
@@ -32,14 +31,13 @@ public class UITextList : MonoBehaviour
 	protected class Paragraph
 	{
 		public string text;		// Original text
-		public string[] lines;	// Split lines
+        public string[] lines;	// Split lines
 	}
-
-	protected char[] mSeparator = new char[] { '\n' };
+					protected char[] mSeparator = new char[] { '\n' };
 	protected List<Paragraph> mParagraphs = new List<Paragraph>();
 	protected float mScroll = 0f;
 	protected bool mSelected = false;
-	protected int mTotalLines = 0;
+				protected int mTotalLines = 0;
 
 	/// <summary>
 	/// Clear the text.
@@ -54,34 +52,32 @@ public class UITextList : MonoBehaviour
 	/// <summary>
 	/// Add a new paragraph.
 	/// </summary>
-
-	public void Add (string text) { Add(text, true); }
+    //  
+            public void Add (string text) { Add(text, true); }
 
 	/// <summary>
 	/// Add a new paragraph.
 	/// </summary>
 
 	protected void Add (string text, bool updateVisible)
-	{
+            {
 		Paragraph ce = null;
 
 		if (mParagraphs.Count < maxEntries)
 		{
-			ce = new Paragraph();
+   ce = new Paragraph();
 		}
 		else
-		{
+     //		{
 			ce = mParagraphs[0];
 			mParagraphs.RemoveAt(0);
-		}
+	}
 
 		ce.text = text;
-		mParagraphs.Add(ce);
-		
-		if (textLabel != null && textLabel.font != null)
+mParagraphs.Add(ce);
+            		if (textLabel != null && textLabel.font != null)
 		{
-			// Rebuild the line
-			ce.lines = textLabel.font.WrapText(ce.text, maxWidth / textLabel.transform.localScale.y,
+   //   			ce.lines = textLabel.font.WrapText(ce.text, maxWidth / textLabel.transform.localScale.y,
 				textLabel.maxLineCount, textLabel.supportEncoding, textLabel.symbolStyle).Split(mSeparator);
 
 			// Recalculate the total number of lines
@@ -90,7 +86,7 @@ public class UITextList : MonoBehaviour
 		}
 
 		// Update the visible text
-		if (updateVisible) UpdateVisibleText();
+					if (updateVisible) UpdateVisibleText();
 	}
 
 	/// <summary>
@@ -108,7 +104,7 @@ public class UITextList : MonoBehaviour
 		{
 			// Automatically set the width and height based on the collider
 			if (maxHeight <= 0f) maxHeight = col.bounds.size.y / transform.lossyScale.y;
-			if (maxWidth  <= 0f) maxWidth  = col.bounds.size.x / transform.lossyScale.x;
+              if (maxWidth  <= 0f) maxWidth  = col.bounds.size.x / transform.lossyScale.x;
 		}
 	}
 
@@ -124,8 +120,8 @@ public class UITextList : MonoBehaviour
 
 	protected void UpdateVisibleText ()
 	{
-		if (textLabel != null)
-		{
+//  		if (textLabel != null)
+            {
 			UIFont font = textLabel.font;
 
 			if (font != null)
@@ -134,7 +130,7 @@ public class UITextList : MonoBehaviour
 				int maxLines = maxHeight > 0 ? Mathf.FloorToInt(maxHeight / textLabel.cachedTransform.localScale.y) : 100000;
 				int offset = Mathf.RoundToInt(mScroll);
 
-				// Don't let scrolling to exceed the visible number of lines
+ //   				// Don't let scrolling to exceed the visible number of lines
 				if (maxLines + offset > mTotalLines)
 				{
 					offset = Mathf.Max(0, mTotalLines - maxLines);
@@ -151,31 +147,30 @@ public class UITextList : MonoBehaviour
 				for (int i = 0, imax = mParagraphs.Count; i < imax; ++i)
 				{
 					Paragraph p = mParagraphs[i];
-
-					for (int b = 0, bmax = p.lines.Length; b < bmax; ++b)
+              					for (int b = 0, bmax = p.lines.Length; b < bmax; ++b)
 					{
 						string s = p.lines[b];
 
-						if (offset > 0)
+       if (offset > 0)
 						{
 							--offset;
 						}
 						else
-						{
+		{
 							if (final.Length > 0) final.Append("\n");
 							final.Append(s);
 							++lines;
-							if (lines >= maxLines) break;
-						}
-					}
+          if (lines >= maxLines) break;
+   }
+ }
 					if (lines >= maxLines) break;
 				}
-				textLabel.text = final.ToString();
+textLabel.text = final.ToString();
 			}
 		}
 	}
 
-	/// <summary>
+					/// <summary>
 	/// Allow scrolling of the text list.
 	/// </summary>
 

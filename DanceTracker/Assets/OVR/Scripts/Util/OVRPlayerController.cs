@@ -6,12 +6,10 @@ Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
 you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
-
-You may obtain a copy of the License at
+                You may obtain a copy of the License at
 
 http://www.oculusvr.com/licenses/LICENSE-3.2
-
-Unless required by applicable law or agreed to in writing, the Oculus VR SDK
+			Unless required by applicable law or agreed to in writing, the Oculus VR SDK
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
@@ -24,7 +22,7 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Controls the player's movement in virtual reality.
-/// </summary>
+			/// </summary>
 [RequireComponent(typeof(CharacterController))]
 public class OVRPlayerController : MonoBehaviour
 {
@@ -43,7 +41,7 @@ public class OVRPlayerController : MonoBehaviour
 	/// </summary>
 	public float BackAndSideDampen = 0.5f;
 
-	/// <summary>
+					/// <summary>
 	/// The force applied to the character when jumping.
 	/// </summary>
 	public float JumpForce = 0.3f;
@@ -82,11 +80,10 @@ public class OVRPlayerController : MonoBehaviour
 	/// If true, each OVRPlayerController will use the player's physical height.
 	/// </summary>
 	public bool useProfileHeight = true;
-
 	protected CharacterController Controller = null;
 	protected OVRCameraRig CameraController = null;
 
-	private float MoveScaleMultiplier = 1.0f;
+               private float MoveScaleMultiplier = 1.0f;
 	private float RotationScaleMultiplier = 1.0f;
 	private bool  SkipMouseRotation = false;
 	private bool  HaltUpdateMovement = false;
@@ -94,6 +91,7 @@ public class OVRPlayerController : MonoBehaviour
 	private bool prevHatRight = false;
 	private float SimulationRate = 60f;
 
+	void Awake()
 	void Awake()
 	{
 		Controller = gameObject.GetComponent<CharacterController>();
@@ -103,7 +101,7 @@ public class OVRPlayerController : MonoBehaviour
 
 		// We use OVRCameraRig to set rotations to cameras,
 		// and to be influenced by rotation
-		OVRCameraRig[] CameraControllers;
+// 		OVRCameraRig[] CameraControllers;
 		CameraControllers = gameObject.GetComponentsInChildren<OVRCameraRig>();
 
 		if(CameraControllers.Length == 0)
@@ -113,10 +111,9 @@ public class OVRPlayerController : MonoBehaviour
 		else
 			CameraController = CameraControllers[0];
 
-		YRotation = transform.rotation.eulerAngles.y;
-
-#if UNITY_ANDROID && !UNITY_EDITOR
-		OVRManager.display.RecenteredPose += ResetOrientation;
+        YRotation = transform.rotation.eulerAngles.y;
+         #if UNITY_ANDROID && !UNITY_EDITOR
+               OVRManager.display.RecenteredPose += ResetOrientation;
 #endif
 	}
 
@@ -129,7 +126,7 @@ public class OVRPlayerController : MonoBehaviour
 				InitialPose = new OVRPose() {
 					position = CameraController.transform.localPosition,
 					orientation = CameraController.transform.localRotation
-				};
+	};
 			}
 
 			var p = CameraController.transform.localPosition;
@@ -169,11 +166,10 @@ public class OVRPlayerController : MonoBehaviour
 
 		if (Controller.isGrounded && MoveThrottle.y <= 0.001f)
 		{
-			bumpUpOffset = Mathf.Max(Controller.stepOffset, new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
+   //			bumpUpOffset = Mathf.Max(Controller.stepOffset, new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
 			moveDirection -= bumpUpOffset * Vector3.up;
 		}
-
-		Vector3 predictedXZ = Vector3.Scale((Controller.transform.localPosition + moveDirection), new Vector3(1, 0, 1));
+              		Vector3 predictedXZ = Vector3.Scale((Controller.transform.localPosition + moveDirection), new Vector3(1, 0, 1));
 
 		// Move contoller
 		Controller.Move(moveDirection);
@@ -185,7 +181,7 @@ public class OVRPlayerController : MonoBehaviour
 	}
 
 	public virtual void UpdateMovement()
-	{
+      {
 		if (HaltUpdateMovement)
 			return;
 
@@ -196,7 +192,7 @@ public class OVRPlayerController : MonoBehaviour
 
 		bool dpad_move = false;
 
-		if (OVRGamepadController.GPC_GetButton(OVRGamepadController.Button.Up))
+					if (OVRGamepadController.GPC_GetButton(OVRGamepadController.Button.Up))
 		{
 			moveForward = true;
 			dpad_move   = true;
@@ -206,7 +202,7 @@ public class OVRPlayerController : MonoBehaviour
 		{
 			moveBack  = true;
 			dpad_move = true;
-		}
+}
 
 		MoveScale = 1.0f;
 
@@ -227,7 +223,7 @@ public class OVRPlayerController : MonoBehaviour
 		if (dpad_move || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 			moveInfluence *= 2.0f;
 
-		Quaternion ort = (HmdRotatesY) ? CameraController.centerEyeAnchor.rotation : transform.rotation;
+       Quaternion ort = (HmdRotatesY) ? CameraController.centerEyeAnchor.rotation : transform.rotation;
 		Vector3 ortEuler = ort.eulerAngles;
 		ortEuler.z = ortEuler.x = 0f;
 		ort = Quaternion.Euler(ortEuler);
@@ -248,7 +244,7 @@ public class OVRPlayerController : MonoBehaviour
 		if (curHatLeft && !prevHatLeft)
 			euler.y -= RotationRatchet;
 
-		prevHatLeft = curHatLeft;
+    prevHatLeft = curHatLeft;
 
 		bool curHatRight = OVRGamepadController.GPC_GetButton(OVRGamepadController.Button.RightShoulder);
 
@@ -256,7 +252,7 @@ public class OVRPlayerController : MonoBehaviour
 			euler.y += RotationRatchet;
 
 		prevHatRight = curHatRight;
-
+//   
 		//Use keys to ratchet rotation
 		if (Input.GetKeyDown(KeyCode.Q))
 			euler.y -= RotationRatchet;
@@ -294,11 +290,11 @@ public class OVRPlayerController : MonoBehaviour
 
 		euler.y += rightAxisX * rotateInfluence;
 
-		transform.rotation = Quaternion.Euler(euler);
+           transform.rotation = Quaternion.Euler(euler);
 	}
 
 	/// <summary>
-	/// Jump! Must be enabled manually.
+ //	/// Jump! Must be enabled manually.
 	/// </summary>
 	public bool Jump()
 	{
@@ -307,7 +303,7 @@ public class OVRPlayerController : MonoBehaviour
 
 		MoveThrottle += new Vector3(0, JumpForce, 0);
 
-		return true;
+			return true;
 	}
 
 	/// <summary>
@@ -323,8 +319,8 @@ public class OVRPlayerController : MonoBehaviour
 	/// <summary>
 	/// Gets the move scale multiplier.
 	/// </summary>
-	/// <param name="moveScaleMultiplier">Move scale multiplier.</param>
-	public void GetMoveScaleMultiplier(ref float moveScaleMultiplier)
+        /// <param name="moveScaleMultiplier">Move scale multiplier.</param>
+ //  	public void GetMoveScaleMultiplier(ref float moveScaleMultiplier)
 	{
 		moveScaleMultiplier = MoveScaleMultiplier;
 	}
@@ -347,14 +343,14 @@ public class OVRPlayerController : MonoBehaviour
 		rotationScaleMultiplier = RotationScaleMultiplier;
 	}
 
-	/// <summary>
+        /// <summary>
 	/// Sets the rotation scale multiplier.
-	/// </summary>
+    // 	/// </summary>
 	/// <param name="rotationScaleMultiplier">Rotation scale multiplier.</param>
 	public void SetRotationScaleMultiplier(float rotationScaleMultiplier)
 	{
 		RotationScaleMultiplier = rotationScaleMultiplier;
-	}
+        }
 
 	/// <summary>
 	/// Gets the allow mouse rotation.
@@ -376,8 +372,8 @@ public class OVRPlayerController : MonoBehaviour
 
 	/// <summary>
 	/// Gets the halt update movement.
-	/// </summary>
-	/// <param name="haltUpdateMovement">Halt update movement.</param>
+              /// </summary>
+       /// <param name="haltUpdateMovement">Halt update movement.</param>
 	public void GetHaltUpdateMovement(ref bool haltUpdateMovement)
 	{
 		haltUpdateMovement = HaltUpdateMovement;
@@ -387,7 +383,7 @@ public class OVRPlayerController : MonoBehaviour
 	/// Sets the halt update movement.
 	/// </summary>
 	/// <param name="haltUpdateMovement">If set to <c>true</c> halt update movement.</param>
-	public void SetHaltUpdateMovement(bool haltUpdateMovement)
+        public void SetHaltUpdateMovement(bool haltUpdateMovement)
 	{
 		HaltUpdateMovement = haltUpdateMovement;
 	}
@@ -402,4 +398,4 @@ public class OVRPlayerController : MonoBehaviour
 		transform.rotation = Quaternion.Euler(euler);
 	}
 }
-
+	

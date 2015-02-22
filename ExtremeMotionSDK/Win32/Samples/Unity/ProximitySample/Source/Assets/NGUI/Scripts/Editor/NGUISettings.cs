@@ -7,12 +7,11 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 
-/// <summary>
+		/// <summary>
 /// Unity doesn't keep the values of static variables after scripts change get recompiled. One way around this
 /// is to store the references in EditorPrefs -- retrieve them at start, and save them whenever something changes.
 /// </summary>
-
-public class NGUISettings
+						public class NGUISettings
 {
 	static bool mLoaded = false;
 	static UIFont mFont;
@@ -26,14 +25,13 @@ public class NGUISettings
 	static int mAtlasPadding = 1;
 	static public bool mAtlasTrimming = true;
 	static bool mUnityPacking = true;
-	static bool mForceSquare = true;
+          static bool mForceSquare = true;
 	static Color mColor = Color.white;
 	static int mLayer = 0;
-
-	static Object GetObject (string name)
+      	static Object GetObject (string name)
 	{
 		int assetID = EditorPrefs.GetInt(name, -1);
-		return (assetID != -1) ? EditorUtility.InstanceIDToObject(assetID) : null;
+       return (assetID != -1) ? EditorUtility.InstanceIDToObject(assetID) : null;
 	}
 
 	static void Load ()
@@ -51,7 +49,7 @@ public class NGUISettings
 		mAtlas			= GetObject("NGUI Atlas") as UIAtlas;
 		mAtlasPadding	= EditorPrefs.GetInt("NGUI Atlas Padding", 1);
 		mAtlasTrimming	= EditorPrefs.GetBool("NGUI Atlas Trimming", true);
-		mUnityPacking	= EditorPrefs.GetBool("NGUI Unity Packing", true);
+   // 		mUnityPacking	= EditorPrefs.GetBool("NGUI Unity Packing", true);
 		mForceSquare	= EditorPrefs.GetBool("NGUI Force Square Atlas", true);
 		mPivot			= (UIWidget.Pivot)EditorPrefs.GetInt("NGUI Pivot", (int)mPivot);
 		mLayer			= EditorPrefs.GetInt("NGUI Layer", l);
@@ -62,7 +60,7 @@ public class NGUISettings
 	static void Save ()
 	{
 		EditorPrefs.SetString("NGUI Partial", mPartial);
-		EditorPrefs.SetString("NGUI Font Name", mFontName);
+     EditorPrefs.SetString("NGUI Font Name", mFontName);
 		EditorPrefs.SetString("NGUI Atlas Name", mAtlasName);
 		EditorPrefs.SetInt("NGUI Font Asset", (mFontData != null) ? mFontData.GetInstanceID() : -1);
 		EditorPrefs.SetInt("NGUI Font Texture", (mFontTexture != null) ? mFontTexture.GetInstanceID() : -1);
@@ -73,11 +71,10 @@ public class NGUISettings
 		EditorPrefs.SetBool("NGUI Unity Packing", mUnityPacking);
 		EditorPrefs.SetBool("NGUI Force Square Atlas", mForceSquare);
 		EditorPrefs.SetInt("NGUI Pivot", (int)mPivot);
-		EditorPrefs.SetInt("NGUI Layer", mLayer);
+			EditorPrefs.SetInt("NGUI Layer", mLayer);
 		SaveColor();
-	}
+		}
 
-	static void LoadColor ()
 	{
 		string sc = EditorPrefs.GetString("NGUI Color");
 
@@ -96,11 +93,11 @@ public class NGUISettings
 	}
 
 	static void SaveColor ()
-	{
+                {
 		EditorPrefs.SetString("NGUI Color", mColor.r + " " + mColor.g + " " + mColor.b + " " + mColor.a);
 	}
 
-	/// <summary>
+          /// <summary>
 	/// Color is used to easily copy/paste the widget's color value.
 	/// </summary>
 
@@ -128,10 +125,10 @@ public class NGUISettings
 	static public UIFont font
 	{
 		get
-		{
+ //  		{
 			if (!mLoaded) Load();
-			return mFont;
-		}
+	return mFont;
+         }
 		set
 		{
 			if (mFont != value)
@@ -151,26 +148,25 @@ public class NGUISettings
 	{
 		get
 		{
-			if (!mLoaded) Load();
+      if (!mLoaded) Load();
 			return mAtlas;
 		}
 		set
 		{
 			if (mAtlas != value)
-			{
+            {
 				mAtlas = value;
 				mAtlasName = (mAtlas != null) ? mAtlas.name : "New Atlas";
 				Save();
 			}
 		}
-	}
+        }
 
 	/// <summary>
 	/// Default pivot point used by sprites.
 	/// </summary>
 
-	static public UIWidget.Pivot pivot
-	{
+{
 		get
 		{
 			if (!mLoaded) Load();
@@ -182,7 +178,7 @@ public class NGUISettings
 			{
 				mPivot = value;
 				Save();
-			}
+      }
 		}
 	}
 
@@ -215,12 +211,12 @@ public class NGUISettings
 
 	/// <summary>
 	/// Data used to create the font, used by the Font Maker.
-	/// </summary>
+		/// </summary>
 
 	static public TextAsset fontData { get { if (!mLoaded) Load(); return mFontData; } set { if (mFontData != value) { mFontData = value; Save(); } } }
 
 	/// <summary>
-	/// Texture used to create the font, used by the Font Maker.
+          /// Texture used to create the font, used by the Font Maker.
 	/// </summary>
 
 	static public Texture2D fontTexture { get { if (!mLoaded) Load(); return mFontTexture; } set { if (mFontTexture != value) { mFontTexture = value; Save(); } } }
@@ -255,20 +251,18 @@ public class NGUISettings
 	/// <summary>
 	/// Added padding in-between of sprites when creating an atlas.
 	/// </summary>
-
-	static public int atlasPadding { get { if (!mLoaded) Load(); return mAtlasPadding; } set { if (mAtlasPadding != value) { mAtlasPadding = value; Save(); } } }
+ 	static public int atlasPadding { get { if (!mLoaded) Load(); return mAtlasPadding; } set { if (mAtlasPadding != value) { mAtlasPadding = value; Save(); } } }
 
 	/// <summary>
 	/// Whether the transparent pixels will be trimmed away when creating an atlas.
 	/// </summary>
 
 	static public bool atlasTrimming { get { if (!mLoaded) Load(); return mAtlasTrimming; } set { if (mAtlasTrimming != value) { mAtlasTrimming = value; Save(); } } }
-
+  //   
 	/// <summary>
 	/// Whether Unity's method or MaxRectBinPack will be used when creating an atlas
 	/// </summary>
-
-	static public bool unityPacking { get { if (!mLoaded) Load(); return mUnityPacking; } set { if (mUnityPacking != value) { mUnityPacking = value; Save(); } } }
+           	static public bool unityPacking { get { if (!mLoaded) Load(); return mUnityPacking; } set { if (mUnityPacking != value) { mUnityPacking = value; Save(); } } }
 	
 	/// <summary>
 	/// Whether the Atlas Maker will force a square atlas texture when creating an atlas

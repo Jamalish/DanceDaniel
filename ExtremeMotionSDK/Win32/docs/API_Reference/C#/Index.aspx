@@ -8,12 +8,10 @@
 <link rel="stylesheet" href="TOC.css" />
 <link rel="shortcut icon" href="favicon.ico"/>
 <script type="text/javascript" src="TOC.js"></script>
-</head>
-
-<body onload="javascript: Initialize('.aspx');" onresize="javascript: ResizeTree();">
+                 </head>
+     <body onload="javascript: Initialize('.aspx');" onresize="javascript: ResizeTree();">
 <form id="IndexForm" runat="server">
-
-<div id="TOCDiv" class="TOCDiv">
+ <div id="TOCDiv" class="TOCDiv">
 
 <div id="divSearchOpts" class="SearchOpts" style="height: 100px; display: none;">
 <img class="TOCLink" onclick="javascript: ShowHideSearch(false);"
@@ -25,7 +23,7 @@ Keyword(s) for which to search:
 <input type="button" value="Search" onclick="javascript: return PerformSearch();" />
 </div>
 
-<div id="divIndexOpts" class="IndexOpts" style="height: 25px; display: none;">
+       <div id="divIndexOpts" class="IndexOpts" style="height: 25px; display: none;">
 <img class="TOCLink" onclick="javascript: ShowHideIndex(false);"
     src="CloseSearch.png" height="17" width="17" alt="Hide index" style="float: right;"/>
 Keyword Index
@@ -66,8 +64,7 @@ This page uses an IFRAME but your browser does not support it.
 </iframe>
 
 </form>
-
-</body>
+            </body>
 
 </html>
 
@@ -79,7 +76,7 @@ This page uses an IFRAME but your browser does not support it.
 // Updated : 04/09/2014
 // Note    : Copyright 2007-2014, Eric Woodruff, All rights reserved
 // Compiler: Microsoft C#
-//
+				//
 // This file contains the code used to display the index page for a website produced by the help file builder.
 // The root nodes are loaded for the table of content.  Child nodes are loaded dynamically when first expanded
 // using an Ajax call.
@@ -98,6 +95,7 @@ This page uses an IFRAME but your browser does not support it.
 protected void Page_Load(object sender, EventArgs e)
 {
     StringBuilder sb = new StringBuilder(10240);
+    string id, url, target, title;
     string id, url, target, title;
 
     XPathDocument toc = new XPathDocument(Server.MapPath("WebTOC.xml"));
@@ -130,7 +128,7 @@ protected void Page_Load(object sender, EventArgs e)
                 "<div id=\"{3}\" class=\"Hidden\"></div>\r\n</div>\r\n",
 								HttpUtility.HtmlEncode(url), target, HttpUtility.HtmlEncode(title), id);
         }
-        else
+               else
         {
             title = node.GetAttribute("Title", String.Empty);
             url = node.GetAttribute("Url", String.Empty);

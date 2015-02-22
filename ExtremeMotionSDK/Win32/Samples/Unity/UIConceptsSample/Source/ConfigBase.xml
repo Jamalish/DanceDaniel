@@ -10,5 +10,5 @@
 	  Choose true when calling emHandleImage and deciding to wait until injected image is being processed (when reading from a file for example).-->
       <param name="SyncExternalSource" value="false" />
     </ImageAcquisition>
-  </Manager>
+					</Manager>
 </configuration>

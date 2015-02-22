@@ -5,19 +5,19 @@ using Xtr3D.Net.ExtremeMotion.Data;
 
 public class BinUpdater : MonoBehaviour {
 	
-	private readonly HysteresisManager m_HysteresisManager = new HysteresisManager();
+	
+private readonly HysteresisManager m_HysteresisManager = new HysteresisManager();
 	private TrackingState m_PreviousState = TrackingState.Initializing;
 	private UISprite m_Texture;
 	private const string k_TextureBaseName = "distance_";
-	private string m_CurrentTextureName = k_TextureBaseName;
+     private string m_CurrentTextureName = k_TextureBaseName;
 	
 	void Start () {
 		GeneratorSingleton.Instance.DataFrameReady += OnDataFrame;
 		
 		m_Texture = GetComponent<UISprite>();
 	}
-	
-	/// <summary>
+        	/// <summary>
 	/// Proximity is given through the Data Frames. We thus register to that event
 	/// </summary>	
 	void OnDataFrame (object sender, Xtr3D.Net.ExtremeMotion.Data.DataFrameReadyEventArgs e)
@@ -25,7 +25,7 @@ public class BinUpdater : MonoBehaviour {
 		using (DataFrame dataFrame = e.OpenFrame() as DataFrame)
 		{
 			if (dataFrame == null)
-			{
+              {
 				return;
 			}
 			
@@ -43,12 +43,11 @@ public class BinUpdater : MonoBehaviour {
 				}
 				// If this is after we began tracking, we update the bin number
 				else
-				{
+  //				{
 					m_HysteresisManager.UpdateValue(skeletonProximity);
-					Debug.Log(string.Format("Received Bin #{0}", m_HysteresisManager.BinIndex));
+             Debug.Log(string.Format("Received Bin #{0}", m_HysteresisManager.BinIndex));
 				}
-				
-				// Updating the presentation information - the images go by bin number, 0 to 4
+     				// Updating the presentation information - the images go by bin number, 0 to 4
 				m_CurrentTextureName = k_TextureBaseName + m_HysteresisManager.BinIndex.ToString();
 			}
 			// We are not tracked, but we were tracked in the previous frame - resetting the hysteresis
@@ -63,9 +62,9 @@ public class BinUpdater : MonoBehaviour {
 					Debug.Log("Resetting Bin Hysteresis");
 				}
 				// We continue being not tracked
-				else if(TrackingState.NotTracked.Equals(skl.TrackingState)) 
+             else if(TrackingState.NotTracked.Equals(skl.TrackingState)) 
 				{					
-					Debug.Log("Not tracked");
+                Debug.Log("Not tracked");
 				}
 			}
 		

@@ -3,14 +3,14 @@
 // Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
-using UnityEngine;
+   //  using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
 /// Localization manager is able to parse localization information from text assets.
 /// Although a singleton, you will generally not access this class as such. Instead
 /// you should implement "void Localize (Localization loc)" functions in your classes.
-/// Take a look at UILocalize to see how it's used.
+          /// Take a look at UILocalize to see how it's used.
 /// </summary>
 
 [AddComponentMenu("NGUI/Internal/Localization")]
@@ -21,8 +21,7 @@ public class Localization : MonoBehaviour
 	/// <summary>
 	/// The instance of the localization class. Will create it if one isn't already around.
 	/// </summary>
-
-	static public Localization instance
+                 static public Localization instance
 	{
 		get
 		{
@@ -36,9 +35,10 @@ public class Localization : MonoBehaviour
 					DontDestroyOnLoad(go);
 					mInstance = go.AddComponent<Localization>();
 				}
+				}
 			}
 			return mInstance;
-		}
+				}
 	}
 
 	/// <summary>
@@ -49,7 +49,6 @@ public class Localization : MonoBehaviour
 
 	/// <summary>
 	/// Available list of languages.
-	/// </summary>
 
 	public TextAsset[] languages;
 
@@ -59,14 +58,13 @@ public class Localization : MonoBehaviour
 	/// <summary>
 	/// Name of the currently active language.
 	/// </summary>
-
-	public string currentLanguage
+					public string currentLanguage
 	{
 		get
 		{
 			return mLanguage;
-		}
-		set
+   }
+				set
 		{
 			if (mLanguage != value)
 			{
@@ -76,7 +74,7 @@ public class Localization : MonoBehaviour
 				{
 					// Check the referenced assets first
 					if (languages != null)
-					{
+{
 						for (int i = 0, imax = languages.Length; i < imax; ++i)
 						{
 							TextAsset asset = languages[i];
@@ -96,7 +94,7 @@ public class Localization : MonoBehaviour
 					{
 						Load(txt);
 						return;
-					}
+}
 				}
 
 				// Either the language is null, or it wasn't found
@@ -104,18 +102,18 @@ public class Localization : MonoBehaviour
 				PlayerPrefs.DeleteKey("Language");
 			}
 		}
-	}
+              }
 
 	/// <summary>
 	/// Determine the starting language.
 	/// </summary>
-
+//  
 	void Awake ()
 	{
 		if (mInstance == null)
 		{
 			mInstance = this;
-			DontDestroyOnLoad(gameObject);
+		DontDestroyOnLoad(gameObject);
 
 			currentLanguage = PlayerPrefs.GetString("Language", startingLanguage);
 
@@ -153,23 +151,21 @@ public class Localization : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Localize the specified value.
+    // 	/// Localize the specified value.
 	/// </summary>
-
-	public string Get (string key)
+      	public string Get (string key)
 	{
 #if UNITY_EDITOR
-		if (!Application.isPlaying) return key;
+if (!Application.isPlaying) return key;
 #endif
 		string val;
 #if UNITY_IPHONE || UNITY_ANDROID
 		if (mDictionary.TryGetValue(key + " Mobile", out val)) return val;
 #endif
-
-#if UNITY_EDITOR
+          #if UNITY_EDITOR
 		if (mDictionary.TryGetValue(key, out val)) return val;
 		Debug.LogWarning("Localization key not found: '" + key + "'");
-		return key;
+            return key;
 #else
 		return (mDictionary.TryGetValue(key, out val)) ? val : key;
 #endif

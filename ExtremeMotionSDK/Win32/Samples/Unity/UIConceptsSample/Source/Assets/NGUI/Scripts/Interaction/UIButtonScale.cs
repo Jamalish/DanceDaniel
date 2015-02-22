@@ -1,7 +1,7 @@
 //----------------------------------------------
-//            NGUI: Next-Gen UI kit
+                 //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2013 Tasharen Entertainment
-//----------------------------------------------
+					//----------------------------------------------
 
 using UnityEngine;
 
@@ -22,11 +22,11 @@ public class UIButtonScale : MonoBehaviour
 	bool mHighlighted = false;
 
 	void Start ()
-	{
+				{
 		if (!mStarted)
 		{
-			mStarted = true;
-			if (tweenTarget == null) tweenTarget = transform;
+ //			mStarted = true;
+if (tweenTarget == null) tweenTarget = transform;
 			mScale = tweenTarget.localScale;
 		}
 	}
@@ -44,7 +44,7 @@ public class UIButtonScale : MonoBehaviour
 				tc.scale = mScale;
 				tc.enabled = false;
 			}
-		}
+         }
 	}
 
 	void OnPress (bool isPressed)
@@ -52,8 +52,8 @@ public class UIButtonScale : MonoBehaviour
 		if (enabled)
 		{
 			if (!mStarted) Start();
-			TweenScale.Begin(tweenTarget.gameObject, duration, isPressed ? Vector3.Scale(mScale, pressed) :
-				(UICamera.IsHighlighted(gameObject) ? Vector3.Scale(mScale, hover) : mScale)).method = UITweener.Method.EaseInOut;
+      TweenScale.Begin(tweenTarget.gameObject, duration, isPressed ? Vector3.Scale(mScale, pressed) :
+			(UICamera.IsHighlighted(gameObject) ? Vector3.Scale(mScale, hover) : mScale)).method = UITweener.Method.EaseInOut;
 		}
 	}
 
@@ -64,6 +64,6 @@ public class UIButtonScale : MonoBehaviour
 			if (!mStarted) Start();
 			TweenScale.Begin(tweenTarget.gameObject, duration, isOver ? Vector3.Scale(mScale, hover) : mScale).method = UITweener.Method.EaseInOut;
 			mHighlighted = isOver;
-		}
-	}
+          }
+  }
 }

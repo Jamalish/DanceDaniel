@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
-using Xtr3D.Net;
+   //  using Xtr3D.Net;
 using Xtr3D.Net.BaseTypes;
 using Xtr3D.Net.ExtremeMotion;
 
@@ -20,7 +20,7 @@ public class SDKDataManager : MonoBehaviour {
 			{
 				if(platformType == PlatformType.IOS)
 					GeneratorSingleton.Instance.Initialize(platformType,new ImageInfo(ImageResolution.Resolution640x480,ImageInfo.ImageFormat.RGB888));
-				else
+   else
 					GeneratorSingleton.Instance.Initialize(platformType);
 			}
 		}
@@ -30,7 +30,7 @@ public class SDKDataManager : MonoBehaviour {
 		}		
 	}
 	
-	void Update()
+				void Update()
 	{
 		if(!isEngineStarted)
 		{
@@ -50,16 +50,16 @@ public class SDKDataManager : MonoBehaviour {
 	/// <summary>
 	/// Closing the engine on applicaton quit
 	/// </summary>
-	void OnApplicationQuit()
+             void OnApplicationQuit()
 	{
-		Debug.Log("Application Quit");
+       Debug.Log("Application Quit");
 		GeneratorSingleton.Instance.Stop();
 		GeneratorSingleton.Instance.Shutdown();
 		// Due to Mono issue, a standalone application which uses the engine can get non-responsive, instead of quiting.
 		// to solve this, we kill the prcoess instead.
 		#if UNITY_STANDALONE_WIN 
 		if(! Application.isEditor && Application.platform == RuntimePlatform.WindowsPlayer) // only relevant for windows 8
-			System.Diagnostics.Process.GetCurrentProcess().Kill();
+	System.Diagnostics.Process.GetCurrentProcess().Kill();
 		#endif
 	}
 	/// <summary>

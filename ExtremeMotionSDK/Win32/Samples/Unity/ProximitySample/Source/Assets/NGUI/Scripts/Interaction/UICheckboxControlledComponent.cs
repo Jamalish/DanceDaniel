@@ -9,14 +9,13 @@ using UnityEngine;
 /// Example script showing how to activate or deactivate a MonoBehaviour when OnActivate event is received.
 /// OnActivate event is sent out by the UICheckbox script.
 /// </summary>
-
-[AddComponentMenu("NGUI/Interaction/Checkbox Controlled Component")]
+	[AddComponentMenu("NGUI/Interaction/Checkbox Controlled Component")]
 public class UICheckboxControlledComponent : MonoBehaviour
 {
 	public MonoBehaviour target;
 	public bool inverse = false;
 
-	bool mUsingDelegates = false;
+ bool mUsingDelegates = false;
 
 	void Start ()
 	{
@@ -24,7 +23,7 @@ public class UICheckboxControlledComponent : MonoBehaviour
 
 		if (chk != null)
 		{
-			mUsingDelegates = true;
+       mUsingDelegates = true;
 			chk.onStateChange += OnActivateDelegate;
 		}
 	}
@@ -37,6 +36,5 @@ public class UICheckboxControlledComponent : MonoBehaviour
 	/// <summary>
 	/// Legacy functionality -- keeping it for backwards compatibility.
 	/// </summary>
-
-	void OnActivate (bool isActive) { if (!mUsingDelegates) OnActivateDelegate(isActive); }
+      	void OnActivate (bool isActive) { if (!mUsingDelegates) OnActivateDelegate(isActive); }
 }

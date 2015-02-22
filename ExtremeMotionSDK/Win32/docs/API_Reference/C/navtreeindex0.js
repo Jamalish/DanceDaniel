@@ -1,6 +1,6 @@
 var NAVTREEINDEX0 =
 {
-"annotated.html":[0,0],
+  "annotated.html":[0,0],
 "classes.html":[0,1],
 "d0/db6/struct___s_skeleton_point.html":[0,0,6],
 "d0/db6/struct___s_skeleton_point.html#a3ab0d1e9eb0c10611db553b5faf77e30":[0,0,6,1],
@@ -34,7 +34,7 @@ var NAVTREEINDEX0 =
 "dc/ddd/struct___s_skeleton_frame.html#adcbe8a5e84ae5b3d70ebcd54f6c185f3":[0,0,5,2],
 "de/da3/struct___s_joint.html":[0,0,2],
 "de/da3/struct___s_joint.html#a51672da13d3a709fa2638367b3ebb53f":[0,0,2,1],
-"de/da3/struct___s_joint.html#a87ef835591eeb351c07c14c94f81324a":[0,0,2,0],
+          "de/da3/struct___s_joint.html#a87ef835591eeb351c07c14c94f81324a":[0,0,2,0],
 "de/da3/struct___s_joint.html#abb7f55e25a480697d36b6f2eab37f14d":[0,0,2,2],
 "df/d52/struct___s_raw_image_frame.html":[0,0,3],
 "df/d52/struct___s_raw_image_frame.html#a15fcc6d702bdfa9bc149d47c5b814a4a":[0,0,3,2],

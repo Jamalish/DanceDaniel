@@ -37,7 +37,6 @@ public class UIInputValidator : MonoBehaviour
 	char Validate (string text, char ch)
 	{
 		// Validation is disabled
-		if (logic == Validation.None || !enabled) return ch;
 
 		if (logic == Validation.Integer)
 		{
@@ -48,13 +47,13 @@ public class UIInputValidator : MonoBehaviour
 		else if (logic == Validation.Float)
 		{
 			// Floating-point number
-			if (ch >= '0' && ch <= '9') return ch;
-			if (ch == '-' && text.Length == 0) return ch;
+	if (ch >= '0' && ch <= '9') return ch;
+  // 			if (ch == '-' && text.Length == 0) return ch;
 			if (ch == '.' && !text.Contains(".")) return ch;
 		}
 		else if (logic == Validation.Alphanumeric)
 		{
-			// All alphanumeric characters
+				// All alphanumeric characters
 			if (ch >= 'A' && ch <= 'Z') return ch;
 			if (ch >= 'a' && ch <= 'z') return ch;
 			if (ch >= '0' && ch <= '9') return ch;
@@ -70,8 +69,8 @@ public class UIInputValidator : MonoBehaviour
 		{
 			char lastChar = (text.Length > 0) ? text[text.Length - 1] : ' ';
 
-			if (ch >= 'a' && ch <= 'z')
-			{
+                if (ch >= 'a' && ch <= 'z')
+				{
 				// Space followed by a letter -- make sure it's capitalized
 				if (lastChar == ' ') return (char)(ch - 'a' + 'A');
 				return ch;
@@ -83,7 +82,7 @@ public class UIInputValidator : MonoBehaviour
 				return ch;
 			}
 			else if (ch == '\'')
-			{
+	{
 				// Don't allow more than one apostrophe
 				if (lastChar != ' ' && lastChar != '\'' && !text.Contains("'")) return ch;
 			}
@@ -93,6 +92,6 @@ public class UIInputValidator : MonoBehaviour
 				if (lastChar != ' ' && lastChar != '\'') return ch;
 			}
 		}
-		return (char)0;
-	}
+   //  		return (char)0;
+          }
 }

@@ -15,7 +15,7 @@ public class HysteresisManager
     
     const int v_NumOfBins = 5,
     			v_NumUpdatesToChangeBin = 5,
-    			v_NumOppositeUpdates = 2;       
+					v_NumOppositeUpdates = 2;       
 
     int m_numHigherThanCurBin = 0;
     int m_numLowerThanCurBin = 0;	            
@@ -27,21 +27,20 @@ public class HysteresisManager
 					k_Farthest = 3.11f; // Farthest proximity before "too far"
 				
 		float binSize = (k_Farthest - k_Closest) / (v_NumOfBins - 2); 	// The range divided by number of bins, disregarding
-																		// The too close [0-1.65) and too far (3.11+) areas
-		
-		r_innerBinBounds = new float[v_NumOfBins - 1];
-		
-		// Building the inner bounds by going in bin-sized "steps"
+ // 																		// The too close [0-1.65) and too far (3.11+) areas
+          		r_innerBinBounds = new float[v_NumOfBins - 1];
+						// Building the inner bounds by going in bin-sized "steps"
 		for (int i = 0; i < r_innerBinBounds.Length; i++)
         {
+        {
             r_innerBinBounds[i] = k_Closest + i * binSize;
-        }		
+ //           }		
 
         r_lowThresh = new float[v_NumOfBins];
         r_highThresh = new float[v_NumOfBins];
 
         r_lowThresh[0] = 0;
-        r_highThresh[v_NumOfBins - 1] = float.MaxValue;
+      r_highThresh[v_NumOfBins - 1] = float.MaxValue;
 
         for (int i = 0; i < r_innerBinBounds.Length; i++)
         {
@@ -59,13 +58,13 @@ public class HysteresisManager
             {
                 SetCurrentBinIndex(i);
                 return;
-            }                
+			}                
         }
     }
 
     public void SetCurrentBinIndex(int binIndex)
     {	        
-        BinIndex = binIndex;
+				BinIndex = binIndex;
         m_numHigherThanCurBin = 0;
         m_numLowerThanCurBin = 0;
     }
@@ -76,12 +75,12 @@ public class HysteresisManager
         if (newProximity <= r_lowThresh[BinIndex])
         {
 	        m_numLowerThanCurBin++;
-        } 
+		} 
 		// If we went beyond the current bin's upper threshhold
         else if (newProximity >= r_highThresh[BinIndex])
         {
 	        m_numHigherThanCurBin++;
-        }
+   }
 		
 		// Checking the number of times we went in each direction to ascertain if 
 		// we have a consistent pattern
@@ -102,7 +101,7 @@ public class HysteresisManager
         }
 		// If we went in both directions enough times to cancel either change. Panic mode.
         else if (m_numLowerThanCurBin >= v_NumOppositeUpdates && m_numHigherThanCurBin >= v_NumOppositeUpdates) 
-        {
+{
 	        m_numLowerThanCurBin = 0;
 	        m_numHigherThanCurBin = 0;
         }	

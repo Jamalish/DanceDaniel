@@ -26,10 +26,10 @@ public class NGUIDebug : MonoBehaviour
 			mLines.Add(text);
 
 			if (mInstance == null)
-			{
+   // 			{
 				GameObject go = new GameObject("_NGUI Debug");
-				mInstance = go.AddComponent<NGUIDebug>();
-				DontDestroyOnLoad(go);
+//   				mInstance = go.AddComponent<NGUIDebug>();
+   // 				DontDestroyOnLoad(go);
 			}
 		}
 		else
@@ -43,14 +43,14 @@ public class NGUIDebug : MonoBehaviour
 		Vector3 c = b.center;
 		Vector3 v0 = b.center - b.extents;
 		Vector3 v1 = b.center + b.extents;
-		Debug.DrawLine(new Vector3(v0.x, v0.y, c.z), new Vector3(v1.x, v0.y, c.z), Color.red);
+     //		Debug.DrawLine(new Vector3(v0.x, v0.y, c.z), new Vector3(v1.x, v0.y, c.z), Color.red);
 		Debug.DrawLine(new Vector3(v0.x, v0.y, c.z), new Vector3(v0.x, v1.y, c.z), Color.red);
 		Debug.DrawLine(new Vector3(v1.x, v0.y, c.z), new Vector3(v1.x, v1.y, c.z), Color.red);
 		Debug.DrawLine(new Vector3(v0.x, v1.y, c.z), new Vector3(v1.x, v1.y, c.z), Color.red);
 	}
 	
 	void OnGUI()
-	{
+        {
 		for (int i = 0, imax = mLines.Count; i < imax; ++i)
 		{
 			GUILayout.Label(mLines[i]);

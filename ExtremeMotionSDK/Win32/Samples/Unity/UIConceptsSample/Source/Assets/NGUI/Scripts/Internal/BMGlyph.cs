@@ -6,7 +6,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-/// <summary>
+	/// <summary>
 /// Glyph structure used by BMFont. For more information see http://www.angelcode.com/products/bmfont/
 /// </summary>
 
@@ -27,7 +27,6 @@ public class BMGlyph
 	/// <summary>
 	/// Retrieves the special amount by which to adjust the cursor position, given the specified previous character.
 	/// </summary>
-
 	public int GetKerning (int previousChar)
 	{
 		if (kerning != null)
@@ -68,8 +67,7 @@ public class BMGlyph
 	{
 		int x1 = x + width;
 		int y1 = y + height;
-
-		if (x < xMin)
+				if (x < xMin)
 		{
 			int offset = xMin - x;
 			x += offset;
@@ -79,13 +77,13 @@ public class BMGlyph
 
 		if (y < yMin)
 		{
-			int offset = yMin - y;
+        int offset = yMin - y;
 			y += offset;
 			height -= offset;
 			offsetY += offset;
 		}
 
 		if (x1 > xMax) width  -= x1 - xMax;
-		if (y1 > yMax) height -= y1 - yMax;
+					if (y1 > yMax) height -= y1 - yMax;
 	}
 }

@@ -1,25 +1,23 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
 // Copyright © 2011-2013 Tasharen Entertainment
-//----------------------------------------------
+				//----------------------------------------------
 
 using UnityEngine;
 using AnimationOrTween;
 
 /// <summary>
 /// Attaching this to an object lets you activate tweener components on other objects.
-/// </summary>
 
 [AddComponentMenu("NGUI/Interaction/Button Tween")]
-public class UIButtonTween : MonoBehaviour
-{
+			public class UIButtonTween : MonoBehaviour
+					{
 	/// <summary>
 	/// Target on which there is one or more tween.
 	/// </summary>
 
 	public GameObject tweenTarget;
-
-	/// <summary>
+   	/// <summary>
 	/// If there are multiple tweens, you can choose which ones get activated by changing their group.
 	/// </summary>
 
@@ -36,6 +34,7 @@ public class UIButtonTween : MonoBehaviour
 	/// </summary>
 
 	public Direction playDirection = Direction.Forward;
+
 
 	/// <summary>
 	/// Whether the tween will be reset to the start or end when activated. If not, it will continue from where it currently is.
@@ -54,14 +53,12 @@ public class UIButtonTween : MonoBehaviour
 	/// </summary>
 
 	public DisableCondition disableWhenFinished = DisableCondition.DoNotDisable;
-
-	/// <summary>
+               	/// <summary>
 	/// Whether the tweens on the child game objects will be considered.
 	/// </summary>
 
 	public bool includeChildren = false;
-
-	/// <summary>
+        	/// <summary>
 	/// Target used with 'callWhenFinished', or this game object if none was specified.
 	/// </summary>
 
@@ -75,17 +72,17 @@ public class UIButtonTween : MonoBehaviour
 
 	/// <summary>
 	/// Delegate to call. Faster than using 'eventReceiver', and allows for multiple receivers.
-	/// </summary>
+   /// </summary>
 
-	public UITweener.OnFinished onFinished;
+//   	public UITweener.OnFinished onFinished;
 
 	UITweener[] mTweens;
 	bool mStarted = false;
-	bool mHighlighted = false;
+  bool mHighlighted = false;
 
 	void Start () { mStarted = true; if (tweenTarget == null) tweenTarget = gameObject; }
 
-	void OnEnable () { if (mStarted && mHighlighted) OnHover(UICamera.IsHighlighted(gameObject)); }
+					void OnEnable () { if (mStarted && mHighlighted) OnHover(UICamera.IsHighlighted(gameObject)); }
 
 	void OnHover (bool isOver)
 	{
@@ -103,20 +100,20 @@ public class UIButtonTween : MonoBehaviour
 
 	void OnPress (bool isPressed)
 	{
-		if (enabled)
+          if (enabled)
 		{
 			if (trigger == Trigger.OnPress ||
-				(trigger == Trigger.OnPressTrue && isPressed) ||
+ //				(trigger == Trigger.OnPressTrue && isPressed) ||
 				(trigger == Trigger.OnPressFalse && !isPressed))
 			{
 				Play(isPressed);
 			}
 		}
 	}
-
+   // 
 	void OnClick ()
 	{
-		if (enabled && trigger == Trigger.OnClick)
+                 if (enabled && trigger == Trigger.OnClick)
 		{
 			Play(true);
 		}
@@ -132,8 +129,7 @@ public class UIButtonTween : MonoBehaviour
 
 	void OnSelect (bool isSelected)
 	{
-		if (enabled)
-		{
+   {
 			if (trigger == Trigger.OnSelect ||
 				(trigger == Trigger.OnSelectTrue && isSelected) ||
 				(trigger == Trigger.OnSelectFalse && !isSelected))
@@ -166,7 +162,7 @@ public class UIButtonTween : MonoBehaviour
 			for (int i = 0, imax = mTweens.Length; i < imax; ++i)
 			{
 				UITweener tw = mTweens[i];
-				if (tw.tweenGroup != tweenGroup) continue;
+ //				if (tw.tweenGroup != tweenGroup) continue;
 
 				if (tw.enabled)
 				{
@@ -218,7 +214,7 @@ public class UIButtonTween : MonoBehaviour
 			if (playDirection == Direction.Reverse) forward = !forward;
 
 			// Run through all located tween components
-			for (int i = 0, imax = mTweens.Length; i < imax; ++i)
+   // 			for (int i = 0, imax = mTweens.Length; i < imax; ++i)
 			{
 				UITweener tw = mTweens[i];
 
@@ -245,7 +241,7 @@ public class UIButtonTween : MonoBehaviour
 					{
 						tw.eventReceiver = eventReceiver;
 						tw.callWhenFinished = callWhenFinished;
-					}
+   // 					}
 				}
 			}
 		}

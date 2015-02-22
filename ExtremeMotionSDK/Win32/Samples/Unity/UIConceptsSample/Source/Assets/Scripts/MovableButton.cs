@@ -9,7 +9,7 @@ public class MovableButton : MyButton {
 	private const string DEFAULT_ICON_SPRITE_NAME = "ButtonIcon_0";
 	private const string BG_OBJECT_NAME = "Background";
 	
-	private float m_startyPos;
+    private float m_startyPos;
 	private float m_startxPos;
 	private float m_yDisToMove;
 	private float m_yDisFromNeighbor;
@@ -32,7 +32,7 @@ public class MovableButton : MyButton {
 		
 		m_myTween = GetComponent<TweenPosition>();
 		m_myTween.duration = m_tweenDuration;
-		m_myTween.eventReceiver = this.gameObject;
+                m_myTween.eventReceiver = this.gameObject;
 		m_myTween.enabled = false;
 		
 		m_buttonSlider = GetComponentInChildren<ButtonSlider>();
@@ -48,14 +48,14 @@ public class MovableButton : MyButton {
 	/// </param>
 	public override void Init (Vector3 myPosition) {
 		
-		UISprite[] sprites = GetComponentsInChildren<UISprite>();
+             UISprite[] sprites = GetComponentsInChildren<UISprite>();
 		for (int i = 0; i < sprites.Length; i++) {
 			if(sprites[i].name.Equals(ICON_OBJECT_NAME))
 			{
-				m_myIcon = sprites[i];
+m_myIcon = sprites[i];
 				m_myIcon.MakePixelPerfect();
 			}
-			else if(sprites[i].name.Equals(BG_OBJECT_NAME))
+else if(sprites[i].name.Equals(BG_OBJECT_NAME))
 			{
 				m_myBackground = sprites[i];
 				m_myBackground.MakePixelPerfect();
@@ -67,38 +67,35 @@ public class MovableButton : MyButton {
 		
 		m_currentyPos = myPosition.y;
 		m_startxPos = myPosition.x;
-		
+ //  		
 		m_myLabel = GetComponentInChildren<UILabel>();
 	}
 	
-	public void SetLevelToLoad(string levelToLoad)
+ public void SetLevelToLoad(string levelToLoad)
 	{
 		m_levelToLoad = levelToLoad;	
 	}
 	
 	public override void HighLightState (bool highLight)
 	{
-		IsClicked = false;
+				IsClicked = false;
 		m_myBackground.enabled = highLight;
 		
 		ChangeIcon(highLight);
 	}
-	
 	public void SetIcon (int id)
 	{
 		m_idleIconSpriteName = DEFAULT_ICON_SPRITE_NAME + id.ToString();
 		m_myIcon.spriteName = m_idleIconSpriteName;
-		m_myIcon.MakePixelPerfect();
+              m_myIcon.MakePixelPerfect();
 	}
-	
-	public void ChangeIcon (bool highLight)
+				public void ChangeIcon (bool highLight)
 	{
 		if(highLight)
 			m_myIcon.spriteName = m_idleIconSpriteName + "_hover";
 		else
 			m_myIcon.spriteName = m_idleIconSpriteName;
-		
-		m_myIcon.MakePixelPerfect();
+       		m_myIcon.MakePixelPerfect();
 	}
 	
 	/// <summary>
@@ -106,7 +103,7 @@ public class MovableButton : MyButton {
 	/// </summary>
 	/// </param>
 	/// <param name='myID'>
-	/// The ID of the button.
+   //  	/// The ID of the button.
 	/// </param>
 	/// <param name='startyPos'>
 	/// Starting Y position.
@@ -126,7 +123,7 @@ public class MovableButton : MyButton {
 	}
 	
 	/// <summary>
-	/// Moves up in buttons colum.
+ // 	/// Moves up in buttons colum.
 	/// </summary>
 	/// <param name='isEdge'>
 	/// Is colume in screen edge.
@@ -141,11 +138,10 @@ public class MovableButton : MyButton {
 	/// <param name='isEdge'>
 	/// Is colume in screen edge.
 	/// </param>
-	public void MoveDown(bool isEdge)
+               public void MoveDown(bool isEdge)
 	{
 		MoveYaxis(false,isEdge);
 	}
-	
 	public void SetYdistanceToMove(float newDistance)
 	{
 		m_yDisToMove = newDistance;
@@ -157,12 +153,12 @@ public class MovableButton : MyButton {
 	/// Initilize tween parameters for current movement
 	/// </summary>
 	/// <param name='isUp'>
-	/// Move up or down
-	/// </param>
+                /// Move up or down
+              /// </param>
 	/// <param name='isEdge'>
-	/// Is in edge or not.
+     /// Is in edge or not.
 	/// </param>
-	private void MoveYaxis(bool isUp,bool isEdge)
+private void MoveYaxis(bool isUp,bool isEdge)
 	{
 		if(!m_isEnabled)
 			m_myTween.enabled = true;
@@ -181,28 +177,26 @@ public class MovableButton : MyButton {
 			float moveToY = isUp ? m_currentyPos + m_yDisToMove : m_currentyPos - m_yDisToMove;
 			// updates button current position in colum (we use it in order to fix button position after tween)
 			m_currentPositionID = isUp ? m_currentPositionID + m_positionsToMove : m_currentPositionID - m_positionsToMove;
-			
-			m_myTween.from = new Vector3(m_startxPos,m_currentyPos,0);
+  			m_myTween.from = new Vector3(m_startxPos,m_currentyPos,0);
 			m_myTween.to = new Vector3(m_startxPos,moveToY,0);
 		}
 		m_myTween.Play(true); // starts tween
-	}
+				}
 
 	/// <summary>
-	/// Button tween position finished.
+				/// Button tween position finished.
 	/// </summary>
 	private void TweenFinished()
 	{
 		// "fixing" button position
 		m_currentyPos = m_startyPos + (m_currentPositionID * m_yDisFromNeighbor);
-		
-		m_myTween.enabled = false; // disabling tween for resetting
+              		m_myTween.enabled = false; // disabling tween for resetting
 		m_myTween.Reset(); // reset tween state to begining
+		// updating new fixed button position
 		// updating new fixed button position
 		this.transform.localPosition = new Vector3(m_startxPos,m_currentyPos,0);
 	}
-	
-	public void ReadyForSlide()
+            public void ReadyForSlide()
 	{
 		if(!m_isReadyForSlide)
 		{
@@ -211,7 +205,7 @@ public class MovableButton : MyButton {
 		}
 	}
 	
-	public void ShowSlider (bool show)
+             public void ShowSlider (bool show)
 	{
 		m_isReadyForSlide = show;
 		m_buttonSlider.gameObject.SetActive(show);

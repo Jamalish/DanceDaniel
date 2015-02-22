@@ -4,9 +4,8 @@
 //----------------------------------------------
 
 using UnityEngine;
-
-/// <summary>
-/// This script can be used to restrict camera rendering to a specific part of the screen by specifying the two corners.
+          			/// <summary>
+     // /// This script can be used to restrict camera rendering to a specific part of the screen by specifying the two corners.
 /// </summary>
 
 [ExecuteInEditMode]
@@ -20,8 +19,7 @@ public class UIViewport : MonoBehaviour
 	public float fullSize = 1f;
 
 	Camera mCam;
-
-	void Start ()
+           	void Start ()
 	{
 		mCam = camera;
 		if (sourceCamera == null) sourceCamera = Camera.main;
@@ -39,8 +37,8 @@ public class UIViewport : MonoBehaviour
 
 			float size = fullSize * rect.height;
 
-			if (rect != mCam.rect) mCam.rect = rect;
+                if (rect != mCam.rect) mCam.rect = rect;
 			if (mCam.orthographicSize != size) mCam.orthographicSize = size;
 		}
-	}
+        }
 }
